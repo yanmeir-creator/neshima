@@ -1,0 +1,691 @@
+/* חדוה / HADVA (working name) — visual system, fifth pass.
+   A leaf from an old Kabbalistic manuscript: stained paper, brown-black ink,
+   red-ochre rubrication, diagrams of circles joined by lines, and verses written
+   in rings. Nothing glows. Nothing is rounded. Everything looks drawn by hand. */
+
+:root {
+  --paper: #dccba3;
+  --paper-2: #cdb98b;
+  --bg: #dccba3;
+  --panel: rgba(255, 248, 226, .34);
+  --ink: #23150b;
+  --muted: #523f29;
+  --line: rgba(35, 21, 11, .5);
+  --faint: rgba(35, 21, 11, .22);
+  --red: #7c2313;
+  --sun: #7c2313;      /* older rules call the accent "sun" */
+  --coral: #7c2313;
+  --danger: #7c2313;
+  --display: "Frank Ruhl Libre", "David Libre", "New Peninim MT", "Narkisim", "David", "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", Georgia, "Times New Roman", serif;
+  --sans: var(--display);
+  --step: 1.06rem;
+  color-scheme: light;
+}
+html[data-large="1"] { --step: 1.24rem; }
+
+* { box-sizing: border-box; }
+html { font-size: 100%; -webkit-text-size-adjust: 100%; background: #2a1a0d; }
+body {
+  margin: 0; min-height: 100dvh; color: var(--ink);
+  font: 500 var(--step)/1.6 var(--display);
+  /* stains, foxing and a darker gutter, all drawn with gradients */
+  background:
+    radial-gradient(38% 22% at 82% 12%, rgba(120, 78, 30, .28), transparent 70%),
+    radial-gradient(30% 18% at 12% 78%, rgba(110, 70, 28, .26), transparent 70%),
+    radial-gradient(16% 9% at 30% 30%, rgba(96, 60, 22, .18), transparent 70%),
+    radial-gradient(12% 7% at 70% 62%, rgba(96, 60, 22, .16), transparent 70%),
+    linear-gradient(90deg, rgba(60, 36, 12, .30), transparent 9%, transparent 91%, rgba(60, 36, 12, .30)),
+    linear-gradient(180deg, var(--paper), var(--paper-2));
+  background-attachment: fixed;
+}
+html[lang="he"] body { line-height: 1.7; }
+/* burnt, darkened edges */
+body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 3; box-shadow: inset 0 0 7rem 1.6rem rgba(34, 18, 6, .62), inset 0 0 1.2rem .2rem rgba(34, 18, 6, .5); }
+.grain { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; mix-blend-mode: multiply; opacity: .55; }
+.defs { position: absolute; }
+.tunnel { display: none; }
+
+.shell { position: relative; z-index: 1; max-width: 31rem; margin: 0 auto; min-height: 100dvh; padding: max(1.1rem, env(safe-area-inset-top)) 1.5rem max(1.6rem, env(safe-area-inset-bottom)); display: flex; flex-direction: column; }
+main { flex: 1; display: flex; flex-direction: column; outline: none; }
+main > section { flex: 1; display: flex; flex-direction: column; gap: 1rem; padding-block: .8rem; }
+
+.skip { position: absolute; inset-inline-start: 1rem; top: -4rem; background: var(--ink); color: var(--paper); padding: .6rem 1rem; z-index: 5; }
+.skip:focus { top: 1rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+h1:focus { outline: none; }
+
+/* ---------- Top bar ---------- */
+.top[hidden] { display: none; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3rem; border-bottom: 3px double var(--line); padding-bottom: .4rem; }
+.brand { display: inline-flex; align-items: baseline; gap: .55rem; color: var(--ink); text-decoration: none; }
+.brand-he { font: 900 1.75rem/1 var(--display); color: var(--red); }
+.brand-en { font: 700 .72rem/1 var(--display); letter-spacing: .34em; color: var(--muted); }
+.lang { background: none; border: 1px solid var(--line); color: var(--ink); padding: .4rem .9rem; font: inherit; font-size: .9rem; min-height: 2.75rem; cursor: pointer; }
+
+/* ---------- Type ---------- */
+h1, h2 { font-family: var(--display); font-weight: 700; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(1.7rem, 6.6vw, 2.2rem); line-height: 1.25; }
+h2 { font-size: 1.15rem; }
+p { margin: 0; }
+.kicker { font: 700 .95rem/1.3 var(--display); letter-spacing: .1em; color: var(--red); }
+html[lang="en"] .kicker { text-transform: uppercase; font-size: .78rem; letter-spacing: .2em; }
+.lead { color: var(--ink); font-size: 1.1em; }
+.fine { color: var(--muted); font-size: .9em; }
+.fine.warn { color: var(--red); }
+.fine.lock::before { content: "✦ "; color: var(--red); }
+.inline-link, .foot a, .linkish { color: var(--ink); text-decoration: underline; text-decoration-color: var(--red); text-underline-offset: .25em; }
+.inline-link { display: inline-block; padding-block: .6rem; font-size: .95em; }
+.linkish { background: none; border: 0; padding: .65rem 0; font: inherit; cursor: pointer; }
+
+/* ---------- The word ---------- */
+.word { display: flex; justify-content: center; gap: .1em; font-family: var(--display); font-weight: 900; line-height: 1; }
+.lt { display: grid; justify-items: center; gap: .14em; }
+.lt b { font-weight: 900; color: var(--ink); }
+.lt i { font: 700 .17em/1 var(--display); color: var(--red); font-style: normal; }
+.hero-word { font-size: clamp(5rem, 27vw, 8rem); }
+.spell-word { font-size: clamp(4.4rem, 24vw, 7rem); }
+.done-word { font-size: 4rem; }
+/* each letter is inked in red for its share of the 23 counts */
+.word.live .lt b { animation: 11.5s linear infinite; }
+.word.live .lt-in b { animation-name: ink-in; }
+.word.live .lt-linger b { animation-name: ink-linger; }
+.word.live .lt-out b { animation-name: ink-out; }
+.word.live .lt-rest b { animation-name: ink-rest; }
+@keyframes ink-in { 0%, 34% { color: var(--red); } 38%, 100% { color: var(--ink); } }
+@keyframes ink-linger { 0%, 32% { color: var(--ink); } 35%, 51% { color: var(--red); } 55%, 100% { color: var(--ink); } }
+@keyframes ink-out { 0%, 49% { color: var(--ink); } 53%, 77% { color: var(--red); } 81%, 100% { color: var(--ink); } }
+@keyframes ink-rest { 0%, 75% { color: var(--ink); } 79%, 97% { color: var(--red); } 100% { color: var(--ink); } }
+
+/* ---------- Buttons: ruled boxes, like a cartouche ---------- */
+.actions { display: flex; flex-direction: column; gap: .7rem; margin-top: .3rem; }
+.btn { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 3.4rem; padding: .7rem 1.2rem; border: 1.5px solid var(--ink); outline: 1px solid var(--ink); outline-offset: -5px; background: transparent; color: var(--ink); font: 700 1.1em/1.3 var(--display); text-decoration: none; cursor: pointer; }
+.btn:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+.btn.primary { background: var(--ink); color: var(--paper); outline-color: var(--paper); font-size: 1.2em; }
+.btn.primary:hover { background: var(--red); border-color: var(--red); }
+.btn.quiet { border-style: dashed; outline: 0; font-weight: 500; }
+.btn.danger { color: var(--red); border-color: var(--red); outline-color: var(--red); }
+.chip { min-height: 2.75rem; padding: .4rem .95rem; border: 1px solid var(--ink); background: transparent; color: var(--ink); font: inherit; font-size: .95em; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+/* ---------- Diagrams ---------- */
+.tree { width: 8.4rem; height: auto; align-self: center; overflow: visible; }
+.tree line { stroke: var(--ink); stroke-width: 1.1; }
+.tree circle { fill: var(--paper); stroke: var(--ink); stroke-width: 1.3; }
+.tree text { font: 700 9.5px var(--display); fill: var(--ink); text-anchor: middle; }
+.tree .hid circle { stroke-dasharray: 2 2; }
+.tree .hid text { fill: var(--muted); }
+.tree .past circle { fill: var(--ink); }
+.tree .past text { fill: var(--paper); }
+.tree .here circle { fill: var(--red); stroke: var(--red); }
+.tree .here text { fill: var(--paper); }
+.rings { width: min(100%, 19rem); height: auto; align-self: center; overflow: visible; }
+.rings circle, .rings path.lid { fill: none; stroke: var(--ink); stroke-width: 1.2; }
+.rings .thin { stroke-width: .6; }
+.rings .ring-t { font: 600 10.5px var(--display); fill: var(--ink); }
+.rings .pupil { fill: var(--ink); stroke: none; }
+.rings .iris { fill: none; stroke: var(--ink); stroke-width: 1; stroke-dasharray: 1.5 2.5; }
+.rings .eye-word { font: 900 21px var(--display); fill: var(--paper); text-anchor: middle; }
+.rings .ray { stroke: var(--ink); stroke-width: .7; }
+html[data-motion="full"] .rings .turn { transform-origin: 150px 150px; animation: turn 240s linear infinite; }
+html[data-motion="full"] .rings .turn.back { animation-direction: reverse; animation-duration: 300s; }
+@keyframes turn { to { transform: rotate(360deg); } }
+
+/* ---------- The hidden path ---------- */
+.rise { animation: rise 1.3s ease both; animation-delay: calc(var(--i, 0) * .6s + .2s); }
+@keyframes rise { from { opacity: 0; filter: blur(3px); } to { opacity: 1; filter: none; } }
+.threshold, .gate { text-align: center; justify-content: center; }
+.threshold h1 { font-size: clamp(2rem, 9vw, 2.7rem); font-weight: 900; }
+.gate-label { font: 700 1.05rem/1.3 var(--display); letter-spacing: .08em; color: var(--red); }
+html[lang="en"] .gate-label { text-transform: uppercase; font-size: .82rem; letter-spacing: .2em; }
+.gate-label::before, .gate-label::after { content: " ❧ "; color: var(--ink); opacity: .6; }
+.scroll { display: grid; gap: .95rem; padding: 1.3rem .4rem; border-block: 3px double var(--line); }
+.line { font: 500 1.3rem/1.5 var(--display); }
+html[lang="he"] .line { font-size: 1.42rem; line-height: 1.55; }
+.names { font: 900 clamp(1.8rem, 8.4vw, 2.4rem)/1.4 var(--display); color: var(--red); }
+.gloss { font: italic 500 1rem var(--display); color: var(--muted); margin-top: -.7rem; }
+.huge { font: 900 clamp(4.2rem, 23vw, 6.6rem)/1.05 var(--display); color: var(--red); animation-duration: 2.6s; }
+.verse { margin: 0; display: grid; gap: .35rem; padding: .7rem .5rem; border: 1px solid var(--ink); outline: 1px solid var(--ink); outline-offset: 3px; }
+.verse span { font: 900 1.7rem/1.5 var(--display); }
+.verse cite { font-style: normal; font-size: .9em; color: var(--muted); }
+.invited { align-self: center; border: 1px solid var(--red); color: var(--red); font: 700 1rem/1.3 var(--display); padding: .45rem 1rem; }
+
+/* ---------- Landing (returning visitor) ---------- */
+.landing, .home, .after, .share { text-align: center; }
+.landing .hero { font-size: clamp(2.2rem, 10vw, 3rem); font-weight: 900; }
+.pitch { display: grid; grid-template-columns: repeat(3, 1fr); border: 1.5px solid var(--ink); }
+.pitch span { display: grid; gap: .1rem; padding: .7rem .3rem; font-size: .9em; color: var(--muted); border-inline-start: 1px solid var(--ink); }
+.pitch span:first-child { border-inline-start: 0; }
+.pitch b { font: 900 2.3rem/1 var(--display); color: var(--ink); }
+.dare { font: 900 1.4rem/1.3 var(--display); }
+.how { list-style: none; margin: .6rem 0 0; padding: 0; display: grid; counter-reset: how; text-align: start; border-top: 1px solid var(--ink); }
+.how li { display: grid; grid-template-columns: 2.4rem 1fr; column-gap: .7rem; align-items: center; counter-increment: how; padding: .8rem .2rem; border-bottom: 1px solid var(--ink); }
+.how li::before { content: counter(how, hebrew); grid-row: span 2; font: 900 2rem/1 var(--display); color: var(--red); text-align: center; }
+html[lang="en"] .how li::before { content: counter(how, upper-roman); font-size: 1.5rem; }
+.how p { color: var(--muted); font-size: .95em; }
+.promise { text-align: start; border-inline-start: 3px double var(--red); padding-inline-start: .9rem; font-weight: 700; }
+.foot { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .2rem 1.3rem; margin-top: auto; padding-top: .9rem; border-top: 3px double var(--line); font-size: .95em; }
+.foot + .foot { margin-top: 0; border-top: 0; padding-top: 0; }
+.foot a { padding-block: .65rem; }
+
+/* ---------- Home: the seal ---------- */
+.welcome { font: 700 1.15em var(--display); color: var(--red); }
+.seal { width: min(100%, 19.5rem); align-self: center; overflow: visible; }
+.seal-ring { fill: none; stroke: var(--ink); stroke-width: 1.2; }
+.sd { fill: var(--paper); stroke: var(--ink); stroke-width: 1.1; }
+.sd.now { stroke: var(--red); stroke-width: 2; }
+.sd.on { stroke: var(--ink); }
+.seal-n { font: 900 3.6rem/1 var(--display); fill: var(--ink); }
+.seal-of { font: 700 1rem/1 var(--display); fill: var(--muted); }
+.today-line { font: 700 1.2em var(--display); }
+.card-cta { display: grid; gap: .15rem; padding: .9rem 1rem; border: 1.5px solid var(--red); outline: 1px solid var(--red); outline-offset: -5px; color: var(--ink); text-decoration: none; }
+.card-cta strong { font: 900 1.25rem var(--display); }
+.card-cta span { color: var(--red); }
+
+/* ---------- Forms ---------- */
+.safety { margin: 0; padding: 0; list-style: none; display: grid; gap: .6rem; font-weight: 700; }
+.safety li { padding-inline-start: 1.3rem; position: relative; }
+.safety li::before { content: "✦"; position: absolute; inset-inline-start: 0; color: var(--red); }
+.more { border: 1px solid var(--line); padding: .2rem 1rem; }
+.more summary { cursor: pointer; padding-block: .75rem; }
+.more p { color: var(--muted); font-size: .95em; padding-bottom: .9rem; }
+.more .field, .more .check, .more .actions { margin-bottom: .8rem; }
+fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+legend, .row-label, .field-label { font-size: .9em; color: var(--muted); letter-spacing: .03em; padding: 0; margin-bottom: .4rem; display: block; }
+.choices { display: grid; gap: .5rem; }
+.choice { display: flex; gap: .8rem; align-items: flex-start; padding: .8rem 1rem; border: 1px solid var(--line); cursor: pointer; text-align: start; }
+.choice:has(input:checked) { border: 1.5px solid var(--red); background: var(--panel); }
+.choice input, .check input { accent-color: var(--red); width: 1.25rem; height: 1.25rem; margin-top: .25rem; flex: none; }
+.choice span { display: grid; gap: .1rem; }
+.choice small { color: var(--muted); font-size: .9em; }
+.row { display: grid; gap: .1rem; }
+.seg { display: flex; border: 1px solid var(--ink); }
+.seg button { flex: 1; min-height: 2.75rem; border: 0; border-inline-start: 1px solid var(--ink); background: transparent; color: var(--ink); font: inherit; cursor: pointer; padding: .3rem .5rem; }
+.seg button:first-child { border-inline-start: 0; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); font-weight: 700; }
+.stepper { display: flex; align-items: center; gap: .5rem; border: 1px solid var(--ink); }
+.stepper button { min-height: 2.75rem; border: 0; background: var(--panel); color: var(--ink); font: inherit; padding: .3rem .9rem; cursor: pointer; }
+.stepper output { flex: 1; text-align: center; font-size: .95em; }
+.check { display: flex; gap: .7rem; align-items: flex-start; cursor: pointer; padding-block: .35rem; text-align: start; }
+.times { display: grid; gap: .5rem; }
+.time-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .5rem 1rem; border: 1px solid var(--ink); }
+input[type="time"], input[type="text"], textarea { font: inherit; color: var(--ink); background: var(--panel); border: 1px solid var(--ink); border-radius: 0; padding: .6rem .8rem; min-height: 2.75rem; }
+input[type="time"] { direction: ltr; }
+textarea, input[type="text"] { width: 100%; resize: vertical; }
+.field { display: grid; gap: .1rem; text-align: start; }
+.field-hint { font-weight: 700; margin-bottom: .6rem; }
+.panel { background: var(--panel); border: 1px solid var(--ink); padding: 1rem 1.1rem; display: grid; gap: .6rem; }
+.panel p { color: var(--muted); }
+
+/* ---------- Practice: the letter is inked in as you breathe ---------- */
+main[data-view="/practice"] > section, main[data-view="/moment"] > section { align-items: center; text-align: center; justify-content: center; gap: .3rem; }
+.stage { --f: 0; position: relative; width: min(100%, 21rem); aspect-ratio: 1; max-height: 48dvh; display: grid; place-items: center; }
+.stage-rings { grid-area: 1 / 1; width: 100%; height: 100%; display: grid; }
+.stage-rings .rings { width: 100%; height: 100%; }
+.big { grid-area: 1 / 1; font: 900 min(46vw, 12.5rem, 28dvh)/1.2 var(--display); padding-inline: .1em; position: relative; }
+.big.ghost { color: transparent; -webkit-text-stroke: 1.5px var(--ink); }
+.big.fill { color: var(--red); clip-path: inset(calc((1 - var(--f)) * 100%) 0 0 0); }
+.stage.whole .big { font-size: min(21vw, 5.6rem); }
+.practice[data-paused] .stage { opacity: .4; }
+.phase { font: 900 clamp(1.8rem, 8vw, 2.4rem)/1.2 var(--display); min-height: 1.2em; }
+.practice[data-paused] .phase { font-size: 1.15rem; font-weight: 500; color: var(--muted); }
+.count { font: 900 1.6rem/1 var(--display); color: var(--red); min-height: 1em; font-variant-numeric: tabular-nums; }
+.word.mini { font-size: 1.8rem; gap: .5em; margin-top: .4rem; }
+.word.mini .lt b { color: var(--faint); }
+.word.mini .lt.on b { color: var(--red); }
+.timeleft { color: var(--muted); font-size: .95em; min-height: 1.5em; font-variant-numeric: tabular-nums; }
+.pace-row { display: flex; gap: .6rem; justify-content: center; }
+.controls { display: flex; flex-wrap: wrap; gap: .7rem; justify-content: center; align-items: center; margin-top: .6rem; width: 100%; }
+.controls .btn { flex: 1 1 8rem; }
+.moment-lead { font-weight: 700; font-size: 1.15em; }
+.support { width: 100%; text-align: start; margin-top: 1rem; }
+
+/* ---------- After ---------- */
+.after { justify-content: center; }
+.bigpips { display: flex; justify-content: center; gap: .7rem; }
+.bigpip { width: 1.4rem; height: 1.4rem; border-radius: 50%; border: 1.5px solid var(--ink); }
+.bigpip.on { background: var(--red); border-color: var(--red); }
+.feel { display: grid; gap: .7rem; margin-top: .8rem; padding-top: 1rem; border-top: 3px double var(--line); }
+.feel-q { font-weight: 700; }
+.feel-opts { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; }
+.note { border-inline-start: 3px double var(--red); padding-inline-start: .9rem; color: var(--muted); text-align: start; }
+.invite { display: grid; gap: .5rem; margin-top: .3rem; }
+.invite h2 { font-size: 1.6rem; font-weight: 900; color: var(--red); }
+
+/* ---------- Sources ---------- */
+.source { border-top: 1px solid var(--ink); padding-top: .9rem; display: grid; gap: .45rem; }
+.tag { justify-self: start; font-size: .8rem; letter-spacing: .05em; padding: .15rem .7rem; border: 1px solid var(--ink); color: var(--ink); }
+.k-text .tag { background: var(--ink); color: var(--paper); }
+.k-method .tag, .k-science .tag { border-style: dashed; }
+.source blockquote { margin: 0; font: 900 1.4rem/1.6 var(--display); border-inline-start: 3px double var(--red); padding-inline-start: .9rem; }
+.source p { color: var(--muted); }
+
+/* ---------- Share ---------- */
+.card { width: min(100%, 15.5rem); height: auto; align-self: center; border: 1px solid var(--ink); box-shadow: .35rem .45rem 0 rgba(35, 21, 11, .35); }
+.msg { margin: 0; padding: .9rem 1rem; background: var(--panel); border: 1px dashed var(--ink); font: inherit; font-size: .95em; white-space: pre-wrap; overflow-wrap: anywhere; text-align: start; }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; z-index: 4; inset-inline: 1rem; bottom: max(1rem, env(safe-area-inset-bottom)); margin-inline: auto; max-width: 26rem; background: var(--ink); color: var(--paper); padding: .8rem 1rem; text-align: center; font-weight: 700; opacity: 0; transform: translateY(1rem); pointer-events: none; transition: opacity .25s, transform .25s; }
+.toast.show { opacity: 1; transform: none; }
+.noscript { padding: 2rem; text-align: center; }
+
+html[data-motion="reduced"] *, html[data-motion="reduced"] *::before { animation: none !important; transition: none !important; }
+html[data-motion="reduced"] .rise { opacity: 1; }
+
+/* ================= Sixth pass: a worn leaf on a dark desk, by one candle ================= */
+html { background: #0a0603; }
+body {
+  /* the desk: near-black wood, a little grain, one warm light from the upper corner */
+  background:
+    radial-gradient(70% 45% at 8% -5%, rgba(255, 160, 60, .22), transparent 70%),
+    repeating-linear-gradient(91deg, rgba(255, 220, 170, .014) 0 2px, transparent 2px 9px),
+    linear-gradient(180deg, #170d06, #090503);
+  background-attachment: fixed;
+}
+body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(60% 40% at 10% 0%, rgba(255, 170, 70, .16), transparent 70%); animation: candle 5.5s ease-in-out infinite; }
+@keyframes candle { 0%, 100% { opacity: 1; } 38% { opacity: .55; } 46% { opacity: .9; } 61% { opacity: .4; } 72% { opacity: .85; } }
+body::after { z-index: 5; box-shadow: inset 0 0 8rem 1.5rem rgba(0, 0, 0, .78); }
+
+/* the leaf itself: torn edges, a missing corner, stains, a darkened gutter */
+.shell {
+  --torn: polygon(1% .6%, 9% 0, 22% .7%, 37% .1%, 55% .8%, 71% 0, 88% .6%, 99.2% .2%, 100% 9%, 99.3% 22%, 100% 37%, 99.2% 52%, 100% 68%, 99.4% 83%, 100% 94%, 98.8% 99.6%, 86% 100%, 70% 99.3%, 52% 100%, 36% 99.4%, 20% 100%, 9% 99.5%, 6% 98.6%, 4.4% 96.9%, 1.6% 96.1%, 0 93%, .8% 76%, 0 60%, .7% 44%, 0 28%, .8% 12%);
+  margin: .7rem auto; width: calc(100% - 1.1rem); min-height: calc(100dvh - 1.4rem);
+  padding: 1.5rem 1.6rem 2rem; isolation: isolate;
+  filter: drop-shadow(0 .9rem 1.3rem rgba(0, 0, 0, .9));
+}
+.shell::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; clip-path: var(--torn);
+  background:
+    radial-gradient(120% 85% at 50% 42%, transparent 52%, rgba(52, 28, 8, .62) 100%),
+    radial-gradient(40% 20% at 84% 9%, rgba(96, 58, 18, .42), transparent 70%),
+    radial-gradient(34% 18% at 10% 82%, rgba(88, 52, 16, .40), transparent 70%),
+    radial-gradient(18% 9% at 28% 31%, rgba(80, 46, 14, .26), transparent 70%),
+    radial-gradient(14% 7% at 72% 64%, rgba(80, 46, 14, .24), transparent 70%),
+    radial-gradient(7% 3% at 60% 22%, rgba(60, 30, 8, .30), transparent 70%),
+    linear-gradient(90deg, rgba(50, 28, 8, .42), transparent 10%, transparent 90%, rgba(50, 28, 8, .42)),
+    linear-gradient(180deg, #d3c096, #c2ac7b);
+}
+/* darkness lying on the page; the hand on the seal pushes it back */
+.shell::after {
+  content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none; clip-path: var(--torn);
+  background: radial-gradient(circle at 50% 30%, rgba(8, 4, 1, .15) 0, rgba(8, 4, 1, .78) 34%, rgba(8, 4, 1, .97) 72%);
+  opacity: calc(1 - var(--light, 1)); transition: opacity .7s ease;
+}
+html[data-motion="full"] .shell::after { animation: candle 5.5s ease-in-out infinite reverse; animation-name: gloom; }
+@keyframes gloom { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.18); } }
+
+/* the gate of a book: pediment, fluted columns, plinth */
+.portal { position: relative; padding-inline: 1.55rem; gap: .65rem; }
+.portal::before, .portal::after { content: ""; position: absolute; top: 5.1rem; bottom: 2.1rem; width: 1rem; border-inline: 1.4px solid var(--ink); border-block: 4px double var(--ink); background: repeating-linear-gradient(90deg, transparent 0 3px, rgba(35, 21, 11, .42) 3px 4px); }
+.portal::before { inset-inline-start: .1rem; }
+.portal::after { inset-inline-end: .1rem; }
+.pediment, .plinth { width: calc(100% + 3.1rem); margin-inline: -1.55rem; height: auto; overflow: visible; flex: none; }
+.plinth { margin-top: auto; }
+.pediment path, .plinth path, .pediment circle { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+.pediment .thin, .plinth .thin { stroke-width: .8; }
+.pediment .dot { fill: var(--ink); stroke: none; }
+.pediment text { font: 700 10px var(--display); fill: var(--ink); letter-spacing: .6px; }
+.portal .foot { border-top: 0; margin-top: 0; padding-top: 0; }
+
+.threshold .rings { width: min(78%, 15rem); }
+.th-num { font: 900 1.9rem/1 var(--display); letter-spacing: .18em; color: var(--red); }
+.threshold h1 { font-size: clamp(1.5rem, 6.4vw, 1.95rem); font-weight: 900; }
+
+/* the seal that is pressed */
+.sealbtn { background: none; border: 0; padding: 0; align-self: center; width: min(68%, 12.5rem); cursor: pointer; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; }
+.sealbtn .rings { width: 100%; display: block; }
+.rings .prog { fill: none; stroke: var(--red); stroke-width: 6; }
+.gate.holding .rings .pupil { fill: var(--red); }
+.gate.holding .rings .iris { stroke: var(--red); }
+.gate-count { font: 900 1.5rem/1 var(--display); color: var(--red); min-height: 1.5rem; }
+.gate-hint { font-size: .95em; color: var(--muted); min-height: 3.2em; }
+.veiled { display: grid; gap: .65rem; min-height: 8.5rem; align-content: start; }
+.v { opacity: 0; filter: blur(8px); transition: opacity 1.3s ease, filter 1.3s ease; }
+.v.shown { opacity: 1; filter: none; }
+.v.huge { animation: none; }
+.gate.opening { animation: gate-open .9s ease forwards; }
+@keyframes gate-open { to { opacity: 0; transform: scale(1.14); filter: blur(7px); } }
+.bypass { font-size: .82em; opacity: .55; align-self: center; }
+html[data-motion="reduced"] .v { filter: none; }
+
+/* ---- refinements: one gate per screen, the writing above, the seal under the thumb ---- */
+.shell::after { background: radial-gradient(circle at 50% var(--ly, 30%), rgba(8, 4, 1, .12) 0, rgba(8, 4, 1, .8) 30%, rgba(8, 4, 1, .97) 66%); }
+main[data-view="/gate"] > section { padding-block: .2rem .4rem; gap: .5rem; }
+.gate:not(.is-spell) .veiled { min-height: min(13.5rem, 30dvh); align-content: end; gap: .55rem; }
+.gate:not(.is-spell) .line { font-size: 1.2rem; line-height: 1.45; }
+html[lang="he"] .gate:not(.is-spell) .line { font-size: 1.3rem; }
+.gate:not(.is-spell) .huge { font-size: clamp(3.4rem, 19vw, 5rem); }
+.gate:not(.is-spell) .verse span { font-size: 1.45rem; }
+.sealbtn { width: min(48%, 9.5rem, 21dvh); }
+.gate-count { min-height: 1.4rem; font-size: 1.35rem; }
+.gate-hint { min-height: 2.9em; font-size: .9em; line-height: 1.4; }
+.gate-tools { display: flex; justify-content: center; gap: 1.3rem; }
+.gate-tools .bypass, .threshold .foot .bypass { padding-block: .5rem; }
+.threshold .rings { width: min(60%, 11.5rem, 26dvh); }
+.threshold { gap: .6rem; }
+/* the eye beckons until it is first pressed */
+html[data-motion="full"] .sealbtn.teach .pupil { animation: beckon 2.6s ease-in-out infinite; }
+@keyframes beckon { 50% { fill: var(--red); } }
+
+/* one touch, one breath: the cue word under the eye is large while the ring moves */
+.sealbtn { touch-action: manipulation; }
+.gate[data-phase] .gate-hint { font: 900 1.45rem/1.2 var(--display); color: var(--ink); }
+
+/* four gates, four letters: the eye shows the letter of each part of the breath,
+   and every gate that is passed leaves its letter inked at the top of the page */
+.sealbtn .eye-word { font-size: 38px; transform: translateY(6px); }
+.gate-count { display: none; }
+.slots { display: flex; justify-content: center; gap: .55rem; }
+.slots span { width: 2.3rem; height: 2.3rem; display: grid; place-items: center; border: 1.2px dashed var(--line); border-radius: 50%; font: 900 1.45rem/1 var(--display); color: var(--red); }
+.slots span.in { border: 1.4px solid var(--ink); }
+.slots span.fresh { animation: inked 1.4s ease both; }
+@keyframes inked { from { opacity: 0; filter: blur(6px); transform: scale(1.5); } to { opacity: 1; filter: none; transform: none; } }
+.gate:not(.is-spell) .veiled { min-height: min(12.5rem, 28dvh); }
+.threshold h1 { font-size: clamp(2.2rem, 10vw, 3rem); }
+.threshold .lead { font-size: 1.12em; }
+
+/* rows of ringed signs, as on old amulets — decoration only */
+.signs { width: 100%; height: auto; flex: none; overflow: visible; opacity: .82; }
+.signs polyline, .signs rect { fill: none; stroke: var(--ink); stroke-width: 1.25; stroke-linejoin: round; stroke-linecap: round; }
+.signs circle { fill: #cdb98b; stroke: var(--ink); stroke-width: 1.1; }
+.practice .signs { width: min(100%, 21rem); opacity: .6; }
+
+/* Hesed: the chain of vavs */
+.hesed { border-top: 1px solid var(--ink); margin-top: 1.4rem; padding-top: 1.2rem; display: flex; flex-direction: column; gap: .6rem; text-align: center; }
+.hesed h2 { margin: 0; }
+.vavs { margin: 0; text-align: center; font: 700 1.7rem/1 var(--display); letter-spacing: .14em; overflow-wrap: anywhere; }
+.vavs i { font-style: normal; opacity: .5; }
+.vavs .me { color: var(--red); opacity: 1; }
+
+/* ============ Seventh pass: the ilan ============
+   Stations, channels, three sizes of script, one red thing on a leaf, and a night side. */
+:root { --rashi: "Noto Rashi Hebrew", "Frank Ruhl Libre", "David Libre", David, serif; --fill: #cdb98b; }
+.leaf { position: relative; align-items: stretch; text-align: center; gap: .55rem; justify-content: flex-start; }
+.leafhead { display: flex; justify-content: space-between; align-items: baseline; }
+.folio { margin: 0; font: 400 .95rem/1.2 var(--rashi); color: var(--ink); }
+.folio.nums { color: var(--red); letter-spacing: .2em; }
+.catch { margin: auto 0 0; align-self: flex-end; font: 400 1rem/1.2 var(--rashi); min-height: 1.2em; }
+.chan { align-self: center; flex: 1 1 1rem; width: 6px; min-height: .9rem; max-height: 3.4rem; border-inline: 1.2px solid var(--ink); }
+.chan.short { flex: 0 0 .9rem; }
+.chan.dash { border-inline-style: dashed; }
+.node { align-self: center; flex: none; display: grid; place-items: center; width: 6.6rem; height: 6.6rem; border-radius: 50%; border: 2px solid var(--red); outline: 1px solid var(--red); outline-offset: 5px; background: transparent; color: var(--ink); font: 900 1.5rem/1.1 var(--display); text-decoration: none; text-align: center; cursor: pointer; margin-block: 6px; padding: .3rem; }
+html[lang="en"] .node { font-size: 1.05rem; }
+.node:hover { background: var(--red); color: var(--paper); }
+.node:focus-visible { outline: 3px solid var(--red); }
+.margin { margin: 0; font: 400 .92rem/1.4 var(--rashi); color: var(--ink); }
+.margin.links { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .1rem 1.2rem; }
+.margin.links a, .margin.links button { font: inherit; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; padding: .7rem 0; min-height: 2.75rem; }
+.glossline { margin: 0; font: 400 1rem/1.5 var(--rashi); color: var(--ink); }
+.glossline a { color: var(--red); }
+
+.ilan { align-self: center; width: 100%; overflow: visible; display: block; }
+.ilan .il * { fill: none; stroke: var(--ink); stroke-width: 1.3; }
+.ilan .il .thick { stroke-width: 1.8; }
+.ilan .il .thin { stroke-width: .8; }
+.ilan .il .paperfill { fill: var(--fill); }
+.ilan .il .hatch { fill: url(#hatch); }
+.ilan .il .solid { fill: var(--ink); }
+.ilan .il .now { stroke: var(--red); stroke-width: 2.6; }
+.ilan .il .dash { stroke-dasharray: 3 4; }
+.ilan .micro { font-family: var(--display); font-weight: 500; fill: var(--ink); }
+.ilan .rashi { font: 400 17px var(--rashi); fill: var(--ink); }
+.ilan .rashi.sm { font-size: 14px; }
+.ilan .prog { fill: none; stroke: var(--red); stroke-width: 6.5; stroke-linecap: round; }
+.ilan .eye-letter { font: 900 150px/1 var(--display); fill: var(--ink); }
+.ilan .vlt { font: 900 28px/1 var(--display); fill: var(--ink); }
+.ilan .vlt.big { font-size: 40px; fill: var(--red); }
+.ilan .daylt { font: 700 17px/1 var(--display); fill: var(--ink); }
+.ilan .daylt.dim { opacity: .45; }
+.ilan .daylt.now { font-weight: 900; font-size: 22px; fill: var(--red); }
+.ilan .pd { fill: none; stroke: var(--red); stroke-width: 1.2; }
+.ilan .pd.on { fill: var(--red); }
+.ilan.eye { width: min(100%, 19rem, 38dvh); }
+.ilan.chain { width: min(100%, 22rem); max-height: 36dvh; }
+.ilan.i14 { width: min(100%, 22rem, 58dvh); }
+
+/* the four stations at the head of a gate */
+.slots.stations { position: relative; gap: 1.5rem; margin: 0; }
+.slots.stations::before { content: ""; position: absolute; top: 50%; left: 14%; right: 14%; height: 5px; margin-top: -3px; border-block: 1.1px solid var(--ink); z-index: 0; }
+.slots.stations span { position: relative; z-index: 1; width: 2.7rem; height: 2.7rem; border: 1.3px solid var(--ink); background: var(--fill); color: var(--ink); font-size: 1.5rem; }
+.slots.stations span.in { background: radial-gradient(circle, var(--fill) 0 58%, transparent 60%), repeating-linear-gradient(128deg, var(--ink) 0 1px, var(--fill) 1px 4.5px); border-width: 1.6px; }
+.slots.stations span.live { border: 2px solid var(--red); }
+.gate-label { font: 700 1.3rem/1.3 var(--rashi); letter-spacing: .1em; }
+.gate-label::before, .gate-label::after { content: none; }
+.sealbtn { width: min(62%, 13rem, 27dvh); }
+html[data-motion="full"] .sealbtn.teach .gnode { animation: beckon 2.6s ease-in-out infinite; }
+.gate[data-phase] .gate-hint { font: 400 1.6rem/1.2 var(--rashi); letter-spacing: .16em; min-height: 1.4em; }
+.gate .gate-hint { min-height: 1.4em; }
+.gate:not(.is-spell) .veiled { min-height: min(11rem, 25dvh); }
+.threshold h1 { font-size: clamp(2rem, 9.5vw, 2.6rem); }
+.threshold .lead { font-size: 1.02em; }
+
+/* the whisper: four stations with their numbers */
+.wordnodes { display: flex; justify-content: center; gap: .5rem; position: relative; }
+.wn { display: grid; justify-items: center; gap: .1rem; width: 4.5rem; }
+.wn b { display: grid; place-items: center; width: 4rem; height: 4rem; border-radius: 50%; border: 1.6px solid var(--ink); background: radial-gradient(circle, var(--fill) 0 60%, transparent 62%), repeating-linear-gradient(128deg, var(--ink) 0 1px, var(--fill) 1px 4.5px); font: 900 2.3rem/1 var(--display); }
+.wn i { font: 900 1.5rem/1.1 var(--display); font-style: normal; color: var(--red); }
+.wn em { font: 400 .92rem/1.2 var(--rashi); font-style: normal; }
+.is-spell .names { font-size: clamp(2rem, 9.5vw, 2.6rem); color: var(--ink); line-height: 1.15; }
+.is-spell .line { font-size: 1.2rem; font-weight: 700; }
+.is-spell .lead { font-size: 1rem; }
+
+.after.leaf, .hesedleaf, .inviteleaf { justify-content: center; }
+.hesedleaf h1, .inviteleaf h1 { font-size: clamp(2rem, 9vw, 2.5rem); font-weight: 900; }
+.hesedleaf .line, .inviteleaf .line { font-weight: 700; }
+.home.leaf .today-line { color: var(--red); font-family: var(--rashi); font-weight: 400; }
+
+/* the night side: reading is on paper, breathing is in the dark */
+html:has(main[data-view="/practice"]) .shell, html:has(main[data-view="/moment"]) .shell { --ink: #e3d6b8; --paper: #080503; --fill: #080503; --red: #c4472a; --muted: #b3a47f; --faint: rgba(227, 214, 184, .28); --line: rgba(227, 214, 184, .4); color: var(--ink); }
+html:has(main[data-view="/practice"]) .shell::before, html:has(main[data-view="/moment"]) .shell::before { background: radial-gradient(70% 45% at 50% 42%, rgba(227, 214, 184, .07), transparent 72%), #080503; }
+html:has(main[data-view="/practice"]) .grain, html:has(main[data-view="/moment"]) .grain { opacity: .12; }
+.practice .stage-rings { opacity: .38; }
+.practice .phase { font: 400 clamp(1.7rem, 7.5vw, 2.1rem)/1.2 var(--rashi); letter-spacing: .16em; }
+.practice .timeleft { font-family: var(--rashi); }
+.practice .count { display: none; }
+.practice .controls .btn { border-color: var(--line); outline: 0; font: 400 1.15rem/1.2 var(--rashi); min-height: 3rem; }
+.practice .chip { border-color: var(--line); font-family: var(--rashi); }
+.listen { display: flex; align-items: center; justify-content: center; gap: .6rem; margin: 0; font: 400 .98rem/1.3 var(--rashi); color: var(--muted); }
+.listen svg { width: 1.3rem; height: 1.4rem; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
+.ilan.eye { width: min(100%, 17rem, 33dvh); }
+.threshold.leaf { gap: .4rem; }
+.threshold .chan { max-height: 1.6rem; }
+.threshold .margin.links { justify-content: center; }
+.ilan.chain { direction: ltr; }
+.ilan .vlt, .ilan .daylt { direction: ltr; }
+.ilan.i14 { max-height: 54dvh; }
+.home.leaf { gap: .35rem; }
+
+/* the measure and the three lengths */
+.node.plain { border-color: var(--ink); outline-color: var(--ink); touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.node.plain.holding { background: var(--ink); color: var(--paper); transform: scale(1.06); transition: transform 3s ease-out; }
+.measure h1 { font-size: clamp(2rem, 9vw, 2.5rem); font-weight: 900; }
+.levels { display: flex; flex-direction: column; gap: .5rem; }
+.levels[hidden] { display: none; }
+.levopts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; }
+.levopts button { display: grid; justify-items: center; gap: .15rem; padding: .6rem .2rem; min-height: 5.4rem; border: 1.3px solid var(--ink); background: transparent; color: var(--ink); font: inherit; cursor: pointer; }
+.levopts b { font: 900 1.5rem/1.1 var(--display); }
+.levopts span { font: 400 .82rem/1.25 var(--rashi); }
+.levopts i { font: 700 .95rem/1 var(--display); font-style: normal; color: var(--red); }
+.levopts button[aria-pressed="true"] { border: 2px solid var(--red); outline: 1px solid var(--red); outline-offset: 3px; }
+
+/* the title page, and the names of the gates */
+.front { gap: .3rem; }
+.hello { margin: 0; font: 400 1.05rem/1.2 var(--rashi); color: var(--red); letter-spacing: .08em; }
+.front .booktitle { font: 900 clamp(3.6rem, 19vw, 5rem)/1 var(--display); letter-spacing: .02em; margin: 0; }
+html[lang="en"] .front .booktitle { font-size: clamp(2.8rem, 14vw, 3.8rem); }
+.booksub { margin: 0; font: 400 1.15rem/1.3 var(--rashi); letter-spacing: .06em; }
+.front .ilan.eye { width: min(72%, 13rem, 25dvh); margin-block: .2rem; }
+.front .lead { font-size: 1.08rem; line-height: 1.5; margin: 0; }
+.dareline { margin: 0; font: 900 clamp(1.7rem, 8vw, 2.1rem)/1.2 var(--display); color: var(--red); }
+.terms { margin: 0; font: 400 .98rem/1.5 var(--rashi); }
+.terms i { font-style: normal; color: var(--red); }
+.front .node { width: 6rem; height: 6rem; }
+.gate-label { font: 900 clamp(2.2rem, 10vw, 2.8rem)/1.1 var(--display); letter-spacing: .12em; }
+.gate-gloss { margin: -.3rem 0 0; font: 400 .98rem/1.2 var(--rashi); letter-spacing: .08em; }
+.is-spell .gate-label { font: 700 1.3rem/1.3 var(--rashi); }
+.front .ilan.eye { width: min(62%, 11rem, 21dvh); }
+.front .terms { font-size: .9rem; }
+.front .chan.short { flex-basis: .5rem; min-height: .5rem; }
+
+/* ============ The descent: four gates on one scroll, darkening as it goes ============ */
+main[data-view="/gate"] > section.descent { position: relative; display: block; padding-block: 0; gap: 0; }
+.descent::before { content: ""; position: absolute; inset: -1.6rem -1.7rem -2.1rem; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(8, 5, 3, 0) 0, rgba(8, 5, 3, .1) 22%, rgba(8, 5, 3, .46) 44%, rgba(8, 5, 3, .8) 58%, rgba(8, 5, 3, .93) 76%, rgba(8, 5, 3, .98) 100%); }
+.dgate { min-height: calc(100dvh - 4.4rem); display: flex; flex-direction: column; gap: .5rem; justify-content: center; text-align: center; padding-block: .6rem; }
+.dgate.g2, .dgate.g3, .descent > .chan:nth-of-type(n+3) { --ink: #e3d6b8; --fill: rgba(8, 5, 3, .5); --red: #c4472a; --muted: #b3a47f; --line: rgba(227, 214, 184, .4); --faint: rgba(227, 214, 184, .28); color: var(--ink); }
+.dgate .veiled { min-height: min(11rem, 25dvh); display: grid; gap: .55rem; align-content: end; }
+.dgate .line { font-size: 1.3rem; line-height: 1.45; }
+.dgate .huge { font-size: clamp(3.4rem, 19vw, 5rem); }
+.dgate .verse span { font-size: 1.45rem; }
+.dgate .verse cite { color: var(--muted); }
+.dgate[data-phase] .gate-hint { font: 400 1.6rem/1.2 var(--rashi); letter-spacing: .16em; color: var(--ink); }
+.dgate .gate-hint { min-height: 1.4em; color: var(--muted); }
+.dgate.done .gate-hint { visibility: hidden; }
+.dgate .margin.links { opacity: .7; }
+.descent > .chan.long { display: block; margin-inline: auto; flex: none; height: 26dvh; max-height: none; }
+.descent > .chan.long:last-child { height: 8dvh; }
+.descent.opening { animation: gate-open .9s ease forwards; }
+html[data-motion="full"] .dgate .sealbtn.teach .gnode { animation: beckon 2.6s ease-in-out infinite; }
+/* the whisper is named in the dark, where the descent ended */
+html:has(.is-spell) .shell { --ink: #e3d6b8; --paper: #080503; --fill: #080503; --red: #c4472a; --muted: #b3a47f; --faint: rgba(227, 214, 184, .28); --line: rgba(227, 214, 184, .4); color: var(--ink); }
+html:has(.is-spell) .shell::before { background: radial-gradient(70% 45% at 50% 30%, rgba(227, 214, 184, .07), transparent 72%), #080503; }
+html:has(.is-spell) .grain { opacity: .12; }
+
+/* the book of days */
+.leafpage { justify-content: center; gap: .7rem; }
+.leafpage .gate-label { color: var(--red); }
+.lpart { display: grid; gap: .5rem; animation: rise 1.3s ease both; }
+.leafpage .verse { margin: 0; padding: .9rem .7rem; border: 3px double var(--ink); }
+.leafpage .verse span { display: block; font: 900 1.45rem/1.55 var(--display); }
+.leafpage .verse cite { display: block; margin-top: .4rem; font: 400 .95rem/1.3 var(--rashi); font-style: normal; color: var(--muted); }
+.leafpage .line { font-size: 1.25rem; line-height: 1.5; margin: 0; }
+.leafpage .line.strong { font-weight: 900; font-size: 1.4rem; }
+.lveil { margin: 0; padding: .9rem .6rem; border: 1.2px dashed var(--line); font: 400 1rem/1.3 var(--rashi); color: var(--muted); }
+.leafnav { display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem; margin-top: .4rem; }
+.leafnav button { width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1.2px solid var(--ink); background: transparent; color: var(--ink); font: 700 1rem/1 var(--display); cursor: pointer; }
+.leafnav button[aria-pressed="true"] { border: 2px solid var(--red); color: var(--red); }
+
+/* ============ After the first phone test ============ */
+/* the gates: a fixed frame, a sliding track, one layer of darkness */
+main[data-view="/gate"] > section.descent { --at: 0; --dk: 0; height: calc(100svh - 5.4rem); overflow: hidden; padding: 0; }
+.descent::before { inset: -1.6rem -1.7rem -2.1rem; background: #080503; opacity: var(--dk); transition: opacity 1.4s ease; }
+.dtrack { transform: translateY(calc(var(--at) * -1 * (100svh - 5.4rem))); transition: transform 1.4s cubic-bezier(.65, 0, .35, 1); will-change: transform; }
+.dgate { height: calc(100svh - 5.4rem); min-height: 0; box-sizing: border-box; overflow: hidden; padding-block: .3rem; gap: .4rem; }
+.dgate .veiled { min-height: 0; flex: 1 1 auto; align-content: center; }
+.dgate .sealbtn { width: min(60%, 12.5rem, 26svh); }
+
+/* the measure: one station, nothing else */
+.measure.leaf { justify-content: center; gap: .8rem; }
+.measure .lead { font-size: 1.15rem; }
+.sealbtn.meas { width: min(70%, 15rem, 34svh); touch-action: manipulation; }
+.sealbtn.meas .eye-letter { font-size: 76px; transform: translateY(-22px); }
+.sealbtn.meas.holding .il .thick { stroke: var(--red); }
+.measure .gate-hint { font: 400 1.15rem/1.4 var(--rashi); color: var(--ink); min-height: 2.8em; }
+/* the length: three stations of growing size */
+.lengthleaf { justify-content: center; gap: .7rem; }
+.lengthleaf h1 { font-size: clamp(2rem, 9vw, 2.5rem); font-weight: 900; }
+.levrows { display: grid; gap: .9rem; margin-block: .4rem; }
+.levrow { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 1.1rem; align-items: center; text-align: start; padding: 0; border: 0; background: none; color: var(--ink); font: inherit; cursor: pointer; }
+.levrow b { grid-row: 1 / 3; display: grid; place-items: center; border-radius: 50%; border: 1.5px solid var(--ink); outline: 1px solid var(--ink); outline-offset: 4px; font: 900 1.45rem/1 var(--display); margin: 5px; }
+.levrow.r0 b { width: 4.6rem; height: 4.6rem; }
+.levrow.r1 b { width: 5.4rem; height: 5.4rem; }
+.levrow.r2 b { width: 6.2rem; height: 6.2rem; }
+.levrow span { align-self: end; font: 400 1.1rem/1.2 var(--rashi); }
+.levrow i { align-self: start; font: 900 1.5rem/1.1 var(--display); font-style: normal; color: var(--muted); }
+.levrow[aria-pressed="true"] b { border: 2.4px solid var(--red); outline-color: var(--red); color: var(--red); }
+.levrow[aria-pressed="true"] i { color: var(--red); }
+main[data-view="/gate"] > section.descent { flex: none; }
+
+/* ============ Night first ============
+   The whole journey is on the night side: bone-coloured ink on near-black, one red thing.
+   Paper is kept for the one leaf that leaves the app, the card that is passed on. */
+html { background: #020100; }
+.shell { --ink: #e3d6b8; --paper: #0a0704; --fill: #0a0704; --red: #c4472a; --muted: #b3a47f; --faint: rgba(227, 214, 184, .28); --line: rgba(227, 214, 184, .4); --panel: rgba(227, 214, 184, .06); color: var(--ink); color-scheme: dark; }
+.shell::before { background: radial-gradient(85% 42% at 50% 20%, rgba(227, 198, 140, .11), transparent 72%), radial-gradient(60% 30% at 80% 90%, rgba(120, 60, 24, .10), transparent 70%), #0a0704; }
+.grain { opacity: .14; }
+body::before { opacity: .5; }
+.shell input, .shell textarea, .shell select { color: var(--ink); background: transparent; border-color: var(--line); }
+.shell a { color: var(--ink); }
+.btn.primary { color: #0a0704; }
+.node:hover { color: #0a0704; }
+.chip[aria-pressed="true"] { color: #0a0704; }
+.invited, .hello { color: var(--red); }
+.descent::before { background: #000; }
+.dgate.g2, .dgate.g3, .descent > .chan:nth-of-type(n+3) { --fill: #060402; }
+.slots.stations span.in, .wn b { background: radial-gradient(circle, var(--fill) 0 58%, transparent 60%), repeating-linear-gradient(128deg, rgba(227, 214, 184, .55) 0 1px, var(--fill) 1px 4.5px); }
+.dgate[data-phase="ready"] .gate-hint, .dgate[data-phase="meas"] .gate-hint { font: 400 1.2rem/1.35 var(--rashi); letter-spacing: .04em; min-height: 2.8em; }
+.levrow[disabled] { opacity: .38; cursor: default; }
+.card { background: #dccba3; }
+
+/* Rashi script is for the book's own marks (leaf numbers, catchwords, names of stations).
+   Anything a person must read to act or to stay safe is in square letters. */
+.margin, .margin.links a, .margin.links button, .glossline, .terms, .listen, .lveil, .levrow span, .leafpage .verse cite,
+.practice .timeleft, .practice .controls .btn, .practice .chip, .measure .gate-hint,
+.dgate[data-phase="ready"] .gate-hint, .dgate[data-phase="meas"] .gate-hint { font-family: var(--display); font-weight: 500; letter-spacing: 0; }
+.dgate[data-phase] .gate-hint, .practice .phase { font-family: var(--display); font-weight: 700; letter-spacing: .12em; }
+
+/* ============ The path in the open again ============ */
+.gpage { justify-content: center; gap: .6rem; }
+.gpage .veiled { min-height: 0; display: grid; gap: .7rem; align-content: center; flex: 0 1 auto; padding-block: .6rem; }
+.gpage .line { font-size: 1.35rem; line-height: 1.5; margin: 0; }
+.gpage .huge { font-size: clamp(3.6rem, 20vw, 5.2rem); }
+.gpage.g1 .shell, .gpage.g2, .gpage.g3 { }
+.chalkick { margin: .2rem 0 0; font: 900 1.35rem/1.2 var(--display); letter-spacing: .04em; }
+.sect { margin: .6rem 0 0; padding-top: .7rem; border-top: 3px double var(--line); font: 900 1.25rem/1.3 var(--display); text-align: center; }
+.challengeleaf { gap: .6rem; }
+.challengeleaf h1 { font-size: clamp(1.9rem, 8.5vw, 2.4rem); font-weight: 900; }
+.challengeleaf .levrows { gap: .6rem; margin: 0; }
+.challengeleaf .levrow.r0 b, .challengeleaf .levrow.r1 b, .challengeleaf .levrow.r2 b { width: 3.9rem; height: 3.9rem; font-size: 1.2rem; }
+.challengeleaf .times, .setup .times { display: grid; gap: .5rem; }
+.time-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3rem; border-bottom: 1px solid var(--faint); }
+.time-row input[type="time"] { font: 700 1.2rem/1 var(--display); padding: .4rem .5rem; border: 1px solid var(--line); min-height: 2.75rem; color-scheme: dark; }
+.time-row .check { display: flex; align-items: center; gap: .6rem; font-size: 1.1rem; }
+.time-row input[type="checkbox"] { width: 1.4rem; height: 1.4rem; accent-color: var(--red); }
+.challengeleaf .btn { align-self: center; min-width: 14rem; }
+.manage { display: grid; gap: 0; margin-top: .4rem; }
+.manage a { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: .75rem .1rem; border-bottom: 1px solid var(--faint); text-decoration: none; min-height: 2.75rem; }
+.manage a span { font-size: 1.05rem; }
+.manage a b { font: 900 1.1rem/1.2 var(--display); color: var(--red); }
+
+/* found in the QA pass */
+.sealbtn.meas .eye-letter.word { font-size: 46px; transform: translateY(-34px); }
+.challengeleaf h1 { font-size: clamp(1.45rem, 6.4vw, 1.9rem); white-space: nowrap; }
+.ilan.i14 { max-height: 40dvh; }
+.home.leaf .today-line { font-family: var(--display); font-weight: 700; }
+.home.leaf .manage { margin-top: .2rem; }
+
+/* ============ The ember ============
+   "Like a flame bound to a coal": one form follows the breath. */
+.stage { width: min(100%, 20rem); max-height: 46dvh; }
+.stage-rings { opacity: .28; }
+.ember { grid-area: 1 / 1; width: 64%; aspect-ratio: 1; border-radius: 50%; transform: scale(.3); opacity: .32; will-change: transform, opacity;
+  background: radial-gradient(circle, #ffc48a 0%, #f08a4b 14%, #d24a24 34%, #8f2410 58%, rgba(84, 18, 6, .5) 76%, rgba(60, 12, 4, 0) 100%);
+  box-shadow: 0 0 70px 22px rgba(210, 74, 36, .32), 0 0 22px 4px rgba(255, 170, 110, .25); }
+.sessring { grid-area: 1 / 1; width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
+.sessring circle { fill: none; stroke-width: .6; }
+.sessring .track { stroke: rgba(227, 214, 184, .22); }
+.sessring .done { stroke: var(--ink); stroke-width: 1; stroke-linecap: round; }
+.big.fill { display: none; }
+.big.ghost { z-index: 2; color: #f6ead0; -webkit-text-stroke: 0; font-size: min(26vw, 6.6rem, 16dvh); text-shadow: 0 2px 18px rgba(20, 6, 2, .85); }
+.stage.whole .big.ghost { font-size: min(15vw, 3.8rem); }
+html[data-motion="reduced"] .ember { transform: scale(.72); opacity: .7; }
+.countdown { margin: .2rem 0 0; font: 900 2rem/1 var(--display); font-variant-numeric: tabular-nums; letter-spacing: .06em; color: var(--ink); min-height: 1em; }
+.practice .word.mini { font-size: 1.4rem; margin-top: .1rem; }
+
+/* ============ The opening, and the passing-on ============ */
+.front { gap: .22rem; }
+.front .ilan.eye { width: min(46%, 8.6rem, 16dvh); margin-block: 0; }
+.front .booktitle { font-size: clamp(3.2rem, 17vw, 4.4rem); }
+.front .lead { font-size: 1.02rem; line-height: 1.45; }
+.giftline { margin: 0; font: 700 1.08rem/1.45 var(--display); color: var(--ink); }
+.front .dareline { font-size: clamp(1.5rem, 7vw, 1.9rem); }
+.front .chalkick { font-size: 1.15rem; }
+.front .node { width: 5.6rem; height: 5.6rem; font-size: 1.35rem; }
+.invited { align-self: stretch; margin: 0; padding: .55rem .8rem; border: 1px solid var(--red); display: grid; gap: .3rem; }
+.invited p { margin: 0; font: 700 1rem/1.35 var(--display); color: var(--red); }
+.invited blockquote { margin: 0; font: 500 1.05rem/1.45 var(--display); color: var(--ink); }
+.turn { margin-top: .6rem; padding: .9rem .8rem; border: 2px solid var(--red); display: grid; gap: .5rem; text-align: center; }
+.turn h2 { margin: 0; font: 900 1.5rem/1.2 var(--display); }
+.turn p { margin: 0; }
+a.btn { text-decoration: none; }
+.front .booksub { font: 700 1.12rem/1.3 var(--display); letter-spacing: .02em; }

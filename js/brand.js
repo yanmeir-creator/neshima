@@ -1,0 +1,96 @@
+/* Brand voice layer — "The Hadva Challenge / אתגר החדווה".
+   Loaded after strings.js and overrides the neutral copy with the campaign voice.
+   The idea in one line: the word חדוה (joy) IS the breath — its letters count 8·4·6·5. */
+(function () {
+  var S = window.NESHIMA_STRINGS;
+
+  Object.assign(S.en, {
+    brand: 'HADVA', brandAlt: 'חדוה',
+    heroKicker: 'The Hadva Challenge · 14 days',
+    heroTitle: 'Breathe joy.',
+    heroSub: 'Hadva — חדוה — is Hebrew for joy. Its four letters count 8·4·6·5: in, linger, out, rest. One word. One breath.',
+    pitch: [['7', 'breaths'], ['3', 'times a day'], ['14', 'days']],
+    heroDare: 'Don’t take our word for it. Try it.',
+    start: 'Start now · 90 seconds',
+    privacyLine: 'No sign-up. No app. What you write stays on your phone.',
+    invitedBy: function (n) { return n + ' invited you to the Hadva Challenge.'; },
+    how: [
+      ['Breathe the word', 'Four letters set the rhythm. You follow them, seven times.'],
+      ['Three times a day', 'Morning, midday, night. Ninety seconds each.'],
+      ['Build your seal', 'Every pause lights a point. Forty-two points make a seal that is only yours.'],
+      ['Pass it on', 'Send the challenge to someone you’d like to breathe with.']
+    ],
+    noPromise: 'We don’t promise a miracle. We promise fourteen days in which you stopped to breathe forty-two times. The rest you’ll see for yourself.',
+    rHadva: 'Hadva · 8·4·6·5', rHadvaD: 'The rhythm of the challenge: in, linger, out, rest.',
+    length: 'Breaths', lFull: '7 breaths', l21: '21 breaths',
+    breathOf: function (a, b) { return 'Breath ' + a + ' of ' + b; },
+    afterTitle: 'One Hadva. Counted.',
+    shareDay: 'Share today',
+    inviteQ: 'In for the Hadva Challenge?',
+    inviteBody: '14 days, 3 times a day, 7 breaths. Miss one? Keep going. Nothing resets.',
+    setup: 'I’m in',
+    setupTitle: 'Three times a day',
+    setupBody: 'Like the three daily prayers — morning, afternoon, night — three fixed moments. Pick them now and tie each one to something that already happens: coffee, lunch, bedtime.',
+    pauseNow: 'Breathe now · 7 breaths', pauseLong: 'Go longer · 21 breaths',
+    shortNote: 'Seven breaths are enough to put today on your seal.',
+    soFar: function (n) { return n + ' of 42'; },
+    sealLabel: function (n, d) { return 'My seal: ' + n + ' of 42 points lit, day ' + d + '.'; },
+    doneTitle: 'Fourteen days of Hadva.',
+    shareTitle: 'Pass it on', shareLink: 'Pass it on',
+    shareBody: 'Your seal shows only which pauses you took. Nothing you wrote is on it.',
+    inviteName: 'Your first name (optional — shown to the person you invite)',
+    copyText: 'Copy message', copied: 'Message copied.',
+    cardTitle: function (d) { return 'The Hadva Challenge · Day ' + d + '/14'; },
+    cardInvite: 'The Hadva Challenge · 14 days',
+    cardFoot: '7 breaths · 3 times a day · 14 days',
+    shareMsg: function (d, dots, url) { return 'The Hadva Challenge · Day ' + d + '/14\n' + dots + '\nח·ד·ו·ה = 8·4·6·5\nBreathe with me? ' + url; },
+    shareInviteMsg: function (url) { return 'The Hadva Challenge: 7 breaths, 3 times a day, 14 days.\nח·ד·ו·ה = 8·4·6·5\nBreathe with me? ' + url; },
+    practiceSettings: 'Rhythm & sound',
+    aboutBody: 'Hadva (חדוה) is a biblical Hebrew word for joy. The values of its letters — 8, 4, 6, 5 — are the breathing rhythm of the challenge. The rhythm is a contemporary method taught by Rabbi Yitzchak Ginsburgh (Gal Einai); this project is not affiliated with Gal Einai. The name is still a working name. This is a personal practice, not a medical product, and it contains no hidden or subliminal messages.'
+  });
+
+  Object.assign(S.he, {
+    brand: 'חדוה', brandAlt: 'HADVA',
+    heroKicker: 'אתגר החדווה · 14 ימים',
+    heroTitle: 'לנשום חדווה.',
+    heroSub: 'חדוה בגימטריה: 8·4·6·5. ארבע אותיות, נשימה אחת — שאיפה, השתהות, נשיפה, מנוחה. מילה שנושמים אותה.',
+    pitch: [['7', 'נשימות'], ['3', 'פעמים ביום'], ['14', 'ימים']],
+    heroDare: 'אל תאמינו לנו. תנסו.',
+    start: 'מתחילים עכשיו · דקה וחצי',
+    privacyLine: 'בלי הרשמה. בלי אפליקציה. מה שנכתב נשאר בטלפון.',
+    invitedBy: function (n) { return 'הזמנה מ' + n + ': אתגר החדווה.'; },
+    how: [
+      ['נושמים את המילה', 'ארבע אותיות קובעות את הקצב. הולכים אחריהן, שבע פעמים.'],
+      ['שלוש פעמים ביום', 'בוקר, צהריים, לילה. דקה וחצי בכל פעם.'],
+      ['בונים חותם', 'כל הפוגה מדליקה נקודה. ארבעים ושתיים נקודות יוצרות חותם אישי, שאין שני לו.'],
+      ['מעבירים הלאה', 'שולחים את האתגר הלאה, למי שבא לנשום יחד.']
+    ],
+    noPromise: 'לא מבטיחים נס. מבטיחים ארבעה־עשר ימים שבהם עצרתם לנשום ארבעים ושתיים פעמים. את השאר תראו בעצמכם.',
+    rHadva: 'חדוה · 8·4·6·5', rHadvaD: 'המקצב של האתגר: שאיפה, השתהות, נשיפה, מנוחה.',
+    length: 'נשימות', lFull: '7 נשימות', l21: '21 נשימות',
+    breathOf: function (a, b) { return 'נשימה ' + a + ' מתוך ' + b; },
+    afterTitle: 'חדווה אחת. נרשמה.',
+    shareDay: 'לשתף את היום',
+    inviteQ: 'נכנסים לאתגר החדווה?',
+    inviteBody: '14 ימים, 3 פעמים ביום, 7 נשימות. מפספסים? ממשיכים. שום דבר לא מתאפס.',
+    setup: 'אני בפנים',
+    setupTitle: 'שלוש פעמים ביום',
+    setupBody: 'כמו שחרית, מנחה וערבית — שלושה רגעים קבועים ביום. בוחרים אותם עכשיו, וקושרים כל אחד למשהו שכבר קורה: קפה, ארוחת צהריים, לפני השינה.',
+    pauseNow: 'נושמים עכשיו · 7 נשימות', pauseLong: 'ארוכה יותר · 21 נשימות',
+    shortNote: 'שבע נשימות מספיקות כדי שהיום יירשם בחותם.',
+    soFar: function (n) { return n + ' מתוך 42'; },
+    sealLabel: function (n, d) { return 'החותם שלי: ' + n + ' מתוך 42 נקודות דולקות, יום ' + d + '.'; },
+    doneTitle: 'ארבעה־עשר ימים של חדווה.',
+    shareTitle: 'מעבירים הלאה', shareLink: 'מעבירים הלאה',
+    shareBody: 'החותם מראה רק אילו הפוגות נעשו. שום דבר שנכתב כאן לא מופיע בו.',
+    inviteName: 'שם פרטי (רשות — יופיע אצל מי שמקבל את ההזמנה)',
+    copyText: 'העתקת ההודעה', copied: 'ההודעה הועתקה.',
+    cardTitle: function (d) { return 'אתגר החדווה · יום ' + d + '/14'; },
+    cardInvite: 'אתגר החדווה · 14 ימים',
+    cardFoot: '7 נשימות · 3 פעמים ביום · 14 ימים',
+    shareMsg: function (d, dots, url) { return 'אתגר החדווה · יום ' + d + '/14\n' + dots + '\nח·ד·ו·ה = 8·4·6·5\nנושמים איתי? ' + url; },
+    shareInviteMsg: function (url) { return 'אתגר החדווה: 7 נשימות, 3 פעמים ביום, 14 ימים.\nח·ד·ו·ה = 8·4·6·5\nנושמים איתי? ' + url; },
+    practiceSettings: 'מקצב וצליל',
+    aboutBody: '״חדוה״ היא מילה מקראית לשמחה, וערכי האותיות שלה — 8, 4, 6, 5 — הם קצב הנשימה של האתגר. המקצב הוא שיטה בת זמננו שמלמד הרב יצחק גינזבורג (גל עיני); המיזם אינו קשור לגל עיני. השם עדיין שם עבודה. זהו תרגול אישי ולא מוצר רפואי, ואין בו מסרים סמויים.'
+  });
+})();
