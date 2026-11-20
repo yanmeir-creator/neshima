@@ -62,6 +62,7 @@
     keepGo: 'ללוח הנשימה', manKeep: 'לחזור מחר', manKeepVal: 'מסך הבית · קישור אישי',
     restored: 'המקום שלך שוחזר.',
     sealLabel: function (n, d) { return 'האילן שלי: ' + n + ' מתוך 42, יום ' + d + '.'; },
+    privacyBody: 'אין חשבון ואין כלי מעקב. ההתקדמות, הדיווחים וההתבוננות נשמרים רק בדפדפן הזה, במכשיר הזה, והאתר אינו שולח אותם לשום מקום. לכן גם אין לנו דרך לשחזר אותם: מחיקת נתוני הדפדפן תמחק אותם, אלא אם נשמר הקישור האישי. כמו בכל אתר, חברת האירוח (GitHub) רואה את כתובת ה־IP של מי שגולש, ועשויה לרשום אותה ביומניה.',
     whence: 'מקורות', tune: 'קצב וצליל'
   });
   he.gates[4] = { label: 'חדוה', spell: true, lines: ['ארבעה שערים. ארבע אותיות.'],
@@ -151,6 +152,7 @@
     keepGo: 'To the breathing board', manKeep: 'Coming back', manKeepVal: 'home screen · personal link',
     restored: 'Your place has been restored.',
     sealLabel: function (n, d) { return 'My tree: ' + n + ' of 42, day ' + d + '.'; },
+    privacyBody: 'There is no account and no analytics. Your progress, check-ins and reflection are stored only in this browser on this device, and the site does not send them anywhere. That also means we cannot recover them: clearing browser data removes them, unless you kept your personal link. As with any website, the hosting company (GitHub) sees the IP address of whoever visits and may keep it in its logs.',
     whence: 'Sources', tune: 'Pace and sound'
   });
   en.gates[4] = { label: 'Hadva', spell: true, lines: ['Four gates. Four letters.'],
