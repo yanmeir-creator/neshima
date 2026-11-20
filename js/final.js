@@ -40,6 +40,8 @@
     testMsg: function (tx, url) { return '״' + tx + '״\nארבעה־עשר ימים של נשימה. נעשה לי חסד, ועכשיו הוא עובר אליך.\n' + url; },
     testCard: function (d) { return d >= 14 ? 'עמדתי באתגר ארבעה־עשר הימים' : d ? 'יום ' + d + ' מתוך ארבעה־עשר' : 'עדות'; },
     testFine: 'רק המשפט הזה יוצא מכאן, והוא יופיע גם למי שיפתח את הקישור שלך. כל השאר נשאר אצלך. ואם דבר לא השתנה — הדף נשאר ריק.',
+    afterAgain: 'זה נרשם באילן שלך.', inviteQ: 'ארבעה־עשר ימים.',
+    sealLabel: function (n, d) { return 'האילן שלי: ' + n + ' מתוך 42, יום ' + d + '.'; },
     whence: 'מקורות', tune: 'קצב וצליל'
   });
   he.gates[4] = { label: 'חדוה', spell: true, lines: ['ארבעה שערים. ארבע אותיות.'],
@@ -107,6 +109,8 @@
     testMsg: function (tx, url) { return '“' + tx + '”\nFourteen days of breath. A kindness was done to me, and now it passes to you.\n' + url; },
     testCard: function (d) { return d >= 14 ? 'I completed the fourteen-day challenge' : d ? 'Day ' + d + ' of fourteen' : 'Testimony'; },
     testFine: 'Only this sentence leaves here, and it will also be shown to whoever opens your link. All the rest stays with you. And if nothing changed, the leaf stays blank.',
+    afterAgain: 'It is marked on your tree.', inviteQ: 'Fourteen days.',
+    sealLabel: function (n, d) { return 'My tree: ' + n + ' of 42, day ' + d + '.'; },
     whence: 'Sources', tune: 'Pace and sound'
   });
   en.gates[4] = { label: 'Hadva', spell: true, lines: ['Four gates. Four letters.'],

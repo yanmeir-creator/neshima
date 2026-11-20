@@ -813,7 +813,7 @@
     // One thing on each leaf: this one closes the whisper; kindness and the fourteen days follow.
     var onward = logged && !state.vavs ? '#/hesed' : !state.challenge ? '#/invite' : logged ? '#/leaf' : '#/';
     return '<section class="after leaf">' + (logged ? wordmark('done-word') + '<p class="bigpips" aria-hidden="true">' + pips + '</p>' : '') +
-      '<h1 tabindex="-1">' + esc(logged ? s.afterTitle : s.afterShort) + '</h1>' + feel + chan() +
+      '<h1 tabindex="-1">' + esc(logged ? (state.sessions.filter(countable).length <= 1 ? s.afterTitle : s.afterAgain) : s.afterShort) + '</h1>' + feel + chan() +
       '<a class="node" href="' + onward + '">' + esc(s.next) + '</a>' +
       catchword(onward === '#/hesed' ? s.hesedCatch : onward === '#/invite' ? s.inviteCatch : onward === '#/leaf' ? s.leafCatch : '') + '</section>';
   };
@@ -1147,7 +1147,7 @@
     if (r === '/practice' && !pendingKind) { location.replace('#/'); return; }
     applyPrefs(); renderTop(r);
     main.dataset.view = r;
-    var bd = document.getElementById('backdrop'); if (bd && !bd.firstChild) bd.innerHTML = wheelSvg('bd', false);
+    var bd = document.getElementById('backdrop'); if (bd && !bd.firstChild) bd.innerHTML = wheelSvg('bd', true);
     if (r !== '/leaf') leafDay = -1;
     if (gateCtl) { gateCtl.stop(); gateCtl = null; }
     // How much candlelight falls on the page: dim at the threshold, raised by the hand inside a gate.
