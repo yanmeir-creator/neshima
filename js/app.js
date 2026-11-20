@@ -27,6 +27,7 @@
       chain: 0,                 // hands the leaf passed through before reaching this device (carried in the link)
       from: '',                 // the name it came from, if the link carried one
       fromWord: '',             // the sentence that person chose to send with it
+      keepSeen: false,          // the "come back tomorrow" leaf has been shown
       vavs: 0,                  // times this person passed it on from here
       testimony: '',            // one sentence the person chooses to put on the leaf they pass on
       lastSeen: null
@@ -151,7 +152,7 @@
     document.getElementById('skip').textContent = s.skip;
   }
   function renderTop(route) {
-    var s = t(), inSession = route === '/practice' || route === '/moment' || route === '/gate' || route === '/hesed' || route === '/invite' || route === '/measure' || route === '/length' || route === '/challenge' || (route === '/' && !state.challenge);
+    var s = t(), inSession = route === '/practice' || route === '/moment' || route === '/gate' || route === '/hesed' || route === '/invite' || route === '/measure' || route === '/length' || route === '/challenge' || route === '/ready' || (route === '/' && !state.challenge);
     top.hidden = inSession;
     top.innerHTML =
       '<a class="brand" href="#/" aria-label="NESHIMA — ' + esc(s.home) + '"><span class="brand-he" lang="he" dir="rtl">נשימה</span><span class="brand-en">NESHIMA</span></a>' +
@@ -564,27 +565,35 @@
       '<g class="il" filter="url(#ink)"><path d="M195 36 V590"/><path d="M195 36 L285 96 L195 156 L105 96 Z M195 156 L285 216 L195 276 L105 216 Z M195 276 L285 336 L195 396 L105 336 Z M195 396 L285 456 L195 516 L105 456 Z M105 96 V456 M285 96 V456"/>' + nodes + '</g>' + dots + txt +
       '<text class="rashi sm" x="195" y="636" text-anchor="middle">' + esc(s.lastLeaf) + '</text></svg>';
   }
+  // The board: fourteen days, three times a day. A circle lights for each time that was done.
+  function boardHtml(counts, todayIdx, label) {
+    var s = t(), out = '';
+    for (var i = 0; i < DAYS; i++) {
+      var c = Math.min(PER_DAY, counts[i] || 0), dots = '';
+      for (var j = 0; j < PER_DAY; j++) dots += '<i' + (j < c ? ' class="on"' : '') + '></i>';
+      out += '<div class="bday' + (i === todayIdx ? ' today' : todayIdx >= 0 && i > todayIdx ? ' future' : '') + '"><b>' + s.dayMark(i) + '</b>' + dots + '</div>';
+    }
+    return '<div class="board" role="img" aria-label="' + esc(label) + '">' + out + '</div>';
+  }
+  // Whoever has begun the fourteen days lands here: the board, and one action.
   function homeView() {
     var s = t(), day = challengeDay(), st = stats();
     var todayIdx = day >= 1 && day <= DAYS ? day - 1 : -1, todayCount = sessionsOn(dateKey(new Date()));
-    var away = state.lastSeen && diffDays(new Date(), parseKey(state.lastSeen)) > 1;
     return '<section class="home leaf">' +
-      (away ? '<p class="welcome">' + esc(s.welcomeBack) + '</p>' : '') +
-      '<p class="kicker">' + esc(day > DAYS ? s.dayBeyond(day) : s.day(day, DAYS)) + '</p>' +
-      '<h1 class="sr-only" tabindex="-1">' + esc(s.sealLabel(st.total, day)) + '</h1>' +
-      ilan14(st.counts, todayIdx, s.sealLabel(st.total, day)) +
+      '<div class="leafhead"><p class="folio">' + esc(day > DAYS ? s.dayBeyond(day) : s.day(day, DAYS)) + '</p></div>' +
+      '<h1 tabindex="-1">' + esc(s.homeT) + '</h1>' +
       '<p class="today-line">' + esc(todayCount >= PER_DAY ? s.todayFull : s.today(todayCount)) + '</p>' +
+      boardHtml(st.counts, todayIdx, s.sealLabel(st.total, day)) +
       (day >= DAYS ? '<a class="card-cta" href="#/reflect"><strong>' + esc(s.doneTitle) + '</strong><span>' + esc(s.doneCta) + '</span></a>' : '') +
-      chan('short') + '<button type="button" class="node" data-act="breathe">' + esc(s.gates[4].cta) + '</button>' +
+      '<button type="button" class="node" data-act="breathe">' + esc(s.homeGo) + '</button>' +
       (day >= 3 && !state.vavs ? '<div class="turn"><h2>' + esc(s.turnT) + '</h2><p>' + esc(s.turnBody) + '</p>' +
         '<div class="actions"><a class="btn primary" data-wa href="' + esc(waUrl()) + '" target="_blank" rel="noopener">' + esc(s.waBtn) + '</a><a class="btn" href="#/share">' + esc(s.moreWays) + '</a></div></div>' : '') +
       '<div class="manage"><h2 class="sect">' + esc(s.manT) + '</h2>' +
-        '<a href="#/length"><span>' + esc(s.manLen) + '</span><b>' + esc(s.levelNow(state.settings.level || 'nefesh')) + '</b></a>' +
+        '<a href="#/length"><span>' + esc(s.manLen) + '</span><b>' + esc(s.levelNow(state.settings.level || 'ruach')) + '</b></a>' +
         '<a href="#/setup"><span>' + esc(s.manRem) + '</span><b dir="ltr">' + esc(state.challenge.times.filter(function (x, i) { return state.challenge.on[i]; }).join(' · ') || '—') + '</b></a>' +
-        '<a href="#/measure"><span>' + esc(s.manPace) + '</span><b>' + esc(s.manPaceVal((23 * state.settings.unit).toFixed(1))) + '</b></a></div>' +
-      '<nav class="margin links"><a href="#/leaf">' + esc(s.leafToday) + '</a><a href="#/share">' + esc(s.shareDay) + '</a><a href="#/moment">' + esc(s.moment) + '</a></nav>' +
-      '<p class="fine">' + esc(s.shortNote) + '</p>' +
-      '<nav class="foot"><a href="#/intro">' + esc(s.practiceSettings) + '</a><a href="#/reflect">' + esc(s.reflectLink) + '</a><a href="#/setup">' + esc(s.remEdit) + '</a></nav>' +
+        '<a href="#/measure"><span>' + esc(s.manPace) + '</span><b>' + esc(s.manPaceVal((23 * state.settings.unit).toFixed(1))) + '</b></a>' +
+        '<a href="#/keep"><span>' + esc(s.manKeep) + '</span><b>' + esc(s.manKeepVal) + '</b></a></div>' +
+      '<nav class="margin links"><a href="#/leaf">' + esc(s.leafToday) + '</a><a href="#/share">' + esc(s.shareDay) + '</a><a href="#/reflect">' + esc(s.leaveText) + '</a><a href="#/moment">' + esc(s.moment) + '</a></nav>' +
       footLinks() + '</section>';
   }
 
@@ -601,6 +610,33 @@
     return { breaths: n, unit: S / (per * n), seconds: S };
   }
   function mmss(sec) { return Math.floor(sec / 60) + ':' + pad(Math.round(sec % 60)); }
+  // Everything a person does is kept on their own device. So that they can come back from
+  // another device, or after the browser has cleared its storage, their place can travel in
+  // a link: the start date, the length, their unit and how many times each day was done.
+  // No name, no address, no server.
+  function packState() {
+    var c = dayCounts().map(function (n) { return Math.min(PER_DAY, n); }).join('');
+    return ['1', state.challenge.start.replace(/-/g, ''), state.settings.level || 'ruach', Math.round(state.settings.unit * 1000), c, state.lang].join('.');
+  }
+  function myUrl() { var u = siteUrl(); return u && state.challenge ? u + '?s=' + packState() : ''; }
+  (function () {
+    var raw = ''; try { raw = new URLSearchParams(location.search).get('s') || ''; } catch (e) { /* old browser */ }
+    if (!raw || state.challenge) return;   // never overwrite a place that is already here
+    var p = raw.split('.');
+    if (p[0] !== '1' || !/^\d{8}$/.test(p[1]) || !LEVELS[p[2]] || !/^[0-3]{14}$/.test(p[4] || '')) return;
+    var start = p[1].slice(0, 4) + '-' + p[1].slice(4, 6) + '-' + p[1].slice(6), sd = parseKey(start);
+    if (isNaN(sd.getTime())) return;
+    var unit = Math.max(0.35, Math.min(0.8, (+p[3] || 500) / 1000));
+    state.challenge = { start: start, times: ['07:30', '13:00', '21:30'], on: [true, true, true] };
+    state.settings.level = p[2]; state.settings.unit = unit; state.settings.measured = Math.round(unit * 80) / 10;
+    state.sessions = [];
+    for (var i = 0; i < DAYS; i++) for (var j = 0; j < +p[4].charAt(i); j++) { var dd = addDays(sd, i); state.sessions.push({ d: dateKey(dd), t: dd.getTime(), kind: 'full', secs: LEVELS[p[2]] }); }
+    if (p[5] === 'he' || p[5] === 'en') state.lang = p[5];
+    state.keepSeen = true; save();
+    setTimeout(function () { toast(t().restored); }, 700);
+  })();
+  var installEvt = null;
+  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); installEvt = e; });
 
   views['/intro'] = function () {
     var s = t(), set = state.settings, phases = B.phasesFor(set.rhythm, set.unit);
@@ -792,30 +828,56 @@
       '<text class="rashi sm" x="150" y="' + (me + 5) + '" text-anchor="end">' + esc(s.vavYou) + '</text><text class="rashi sm" x="160" y="' + (me + 88) + '" text-anchor="end">' + esc(s.vavWho) + '</text>';
     return '<svg class="ilan chain" viewBox="0 0 390 ' + (me + 112) + '" aria-hidden="true" lang="he"><g class="il" filter="url(#ink)">' + out + '</g>' + txt + '</svg>';
   }
+  // A session ends on "done": the board with the new circle lit, a way to pass it on, a way
+  // to leave a few words, and one step onward.
   views['/after'] = function () {
     var s = t(), d = lastDone;
     if (!d) { setTimeout(function () { go('/'); }, 0); return ''; }
     if (d.kind === 'moment') {
-      return '<section class="after leaf"><h1 tabindex="-1">' + esc(s.momentAfter) + '</h1>' + chan() +
+      return '<section class="after leaf"><h1 tabindex="-1">' + esc(s.momentAfter) + '</h1>' +
         '<a class="node" href="#/">' + esc(s.next) + '</a>' +
         '<details class="more support"><summary>' + esc(s.supportT) + '</summary><p>' + esc(s.support) + '</p></details></section>';
     }
-    var logged = d.idx >= 0, today = Math.min(sessionsOn(dateKey(new Date())), PER_DAY), pips = '';
-    for (var p = 0; p < PER_DAY; p++) pips += '<i class="bigpip' + (p < today ? ' on' : '') + '"></i>';
-    var feel = '';
-    if (logged) {
-      feel = d.feel
-        ? '<p class="note">' + esc(d.feel === 'less' ? s.feelLess : s.feelThanks) + '</p>'
-        : '<div class="feel"><p class="feel-q">' + esc(s.feelQ) + '</p>' +
-          '<div class="feel-opts"><button type="button" class="chip" data-feel="more">' + esc(s.fMore) + '</button><button type="button" class="chip" data-feel="same">' + esc(s.fSame) + '</button><button type="button" class="chip" data-feel="less">' + esc(s.fLess) + '</button></div>' +
-          '<p class="fine">' + esc(s.feelOpt) + '</p></div>';
-    }
-    // One thing on each leaf: this one closes the whisper; kindness and the fourteen days follow.
-    var onward = logged && !state.vavs ? '#/hesed' : !state.challenge ? '#/invite' : logged ? '#/leaf' : '#/';
-    return '<section class="after leaf">' + (logged ? wordmark('done-word') + '<p class="bigpips" aria-hidden="true">' + pips + '</p>' : '') +
-      '<h1 tabindex="-1">' + esc(logged ? (state.sessions.filter(countable).length <= 1 ? s.afterTitle : s.afterAgain) : s.afterShort) + '</h1>' + feel + chan() +
-      '<a class="node" href="' + onward + '">' + esc(s.next) + '</a>' +
-      catchword(onward === '#/hesed' ? s.hesedCatch : onward === '#/invite' ? s.inviteCatch : onward === '#/leaf' ? s.leafCatch : '') + '</section>';
+    var logged = d.idx >= 0, day = state.challenge ? challengeDay() : 1, st = stats();
+    var todayIdx = day >= 1 && day <= DAYS ? day - 1 : -1, today = Math.min(sessionsOn(dateKey(new Date())), PER_DAY);
+    return '<section class="after leaf done">' +
+      '<div class="leafhead"><p class="folio">' + esc(s.day(Math.min(day, DAYS), DAYS)) + '</p></div>' +
+      '<h1 tabindex="-1">' + esc(logged ? s.doneT : s.afterShort) + '</h1>' +
+      (logged ? '<p class="today-line">' + esc(today >= PER_DAY ? s.todayFull : s.today(today)) + '</p>' : '') +
+      boardHtml(st.counts, todayIdx, s.sealLabel(st.total, day)) +
+      '<div class="good"><h2>' + esc(s.goodT) + '</h2><p>' + esc(s.goodBody) + '</p><div class="actions">' +
+        '<a class="btn" data-wa href="' + esc(waUrl()) + '" target="_blank" rel="noopener">' + esc(s.goodBtn) + '</a><a class="btn" href="#/share">' + esc(s.moreWays) + '</a></div></div>' +
+      '<a class="node" href="' + (state.keepSeen ? '#/' : '#/keep') + '">' + esc(s.next) + '</a>' +
+      '<nav class="margin links"><a href="#/leaf">' + esc(s.leafToday) + '</a><a href="#/reflect">' + esc(s.leaveText) + '</a></nav></section>';
+  };
+  // "Ready?" — a beat to put the headphones on. The touch here is what starts the sound.
+  views['/ready'] = function () {
+    var s = t(), set = state.settings;
+    if (!set.level) { set.level = 'ruach'; save(); }
+    return '<section class="ready leaf"><div class="leafhead"><p class="folio">' + esc(s.levelNow(set.level)) + '</p></div>' +
+      '<h1 tabindex="-1">' + esc(s.readyT) + '</h1><p class="lead">' + esc(s.readyLead) + '</p>' +
+      '<div class="rlines">' + s.readyLines.map(function (l) { return '<p class="line">' + esc(l) + '</p>'; }).join('') + '</div>' +
+      '<p class="glossline">' + esc(s.gates[4].safety) + '</p>' +
+      '<button type="button" class="node" data-act="begin">' + esc(s.readyGo) + '</button>' +
+      '<nav class="margin links"><a href="#/length">' + esc(s.manLen) + '</a></nav></section>';
+  };
+  // Coming back tomorrow, with no account: an icon on the home screen, three reminders in the
+  // phone's calendar, and a personal link that carries the person's place.
+  views['/keep'] = function () {
+    var s = t(), ios = /iphone|ipad|ipod/i.test(navigator.userAgent), url = myUrl();
+    var alone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone;
+    if (!state.keepSeen) { state.keepSeen = true; save(); }
+    if (!state.challenge) { setTimeout(function () { go('/'); }, 0); return ''; }
+    var times = state.challenge.times.filter(function (x, i) { return state.challenge.on[i]; }).join(' · ');
+    return '<section class="keep leaf"><div class="leafhead"><p class="folio">' + esc(s.manKeep) + '</p></div>' +
+      '<h1 tabindex="-1">' + esc(s.keepT) + '</h1><p class="lead">' + esc(s.keepLead) + '</p>' +
+      (alone ? '' : '<div class="keep-card"><h2>' + esc(s.keepHomeT) + '</h2><p>' + esc(s.keepHomeB) + '</p>' +
+        (installEvt ? '<div class="row"><button type="button" class="btn" data-act="install">' + esc(s.keepHomeBtn) + '</button></div>' : '<p class="how">' + esc(ios ? s.keepHomeIos : s.keepHomeOther) + '</p>') + '</div>') +
+      '<div class="keep-card"><h2>' + esc(s.keepRemT) + '</h2><p>' + esc(s.keepRemB) + ' <bdi dir="ltr">' + esc(times) + '</bdi></p>' +
+        '<div class="row"><button type="button" class="btn" data-act="calDefault">' + esc(s.keepRemBtn) + '</button><a class="btn" href="#/setup">' + esc(s.keepRemEdit) + '</a></div></div>' +
+      (url ? '<div class="keep-card"><h2>' + esc(s.keepLinkT) + '</h2><p>' + esc(s.keepLinkB) + '</p>' +
+        '<div class="row"><a class="btn" href="' + esc('https://wa.me/?text=' + encodeURIComponent(s.keepLinkMsg(url))) + '" target="_blank" rel="noopener">' + esc(s.keepLinkWa) + '</a><button type="button" class="btn" data-act="copyMine">' + esc(s.keepLinkCopy) + '</button></div></div>' : '') +
+      '<a class="node" href="#/">' + esc(s.keepGo) + '</a></section>';
   };
   views['/hesed'] = function () {
     var s = t(), onward = !state.challenge ? '#/invite' : '#/';
@@ -863,13 +925,12 @@
      something is being measured. */
   views['/measure'] = function () {
     var s = t(), set = state.settings;
-    return '<section class="measure leaf"><div class="leafhead">' + folio(7) + '</div>' +
+    return '<section class="measure leaf"><div class="leafhead">' + folio(8) + '</div>' +
       '<h1 tabindex="-1">' + esc(s.measT) + '</h1>' +
       '<p class="lead">' + esc(s.measBody) + '</p>' + chan() +
       '<button type="button" class="sealbtn meas" id="measBtn" aria-label="' + esc(s.measTap) + '">' + gateNode('m', '') + '</button>' +
       '<p class="gate-hint" id="measOut" aria-live="polite">' + esc(set.measured ? s.measRes(set.measured.toFixed(1), (23 * set.unit).toFixed(1)) : s.measTap) + '</p>' +
-      (set.measured ? chan() + '<a class="node" href="' + (state.challenge ? '#/' : '#/challenge') + '">' + esc(s.next) + '</a>' : chan('dash')) +
-      (state.challenge ? '' : catchword(s.chalCatch)) + '</section>';
+      (set.measured ? '<a class="node" href="' + (state.sessions.some(countable) ? '#/' : '#/ready') + '">' + esc(s.next) + '</a>' : '') + '</section>';
   };
   function startMeasure() {
     var s = t(), btn = document.getElementById('measBtn'), out = document.getElementById('measOut');
@@ -886,7 +947,7 @@
       if (sec < 1.2) { out.textContent = s.measShort; draw(0); num.textContent = s.measIn; num.classList.add('word'); return; }
       var set = state.settings;
       set.unit = Math.round(Math.max(0.35, Math.min(0.8, sec / 8)) * 1000) / 1000; set.measured = Math.round(sec * 10) / 10;
-      if (!set.level) set.level = 'nefesh';
+      if (!set.level) set.level = 'ruach';
       save(); render(true);
     }
     btn.addEventListener('click', function () {
@@ -911,22 +972,13 @@
     return g;
   }
   views['/challenge'] = function () {
-    var s = t(), set = state.settings, ch = chDraft || state.challenge || { times: ['07:30', '13:00', '21:30'], on: [true, true, true] }, names = [s.t1, s.t2, s.t3];
-    if (!set.level) { set.level = 'nefesh'; save(); }
-    return '<section class="challengeleaf leaf"><div class="leafhead">' + folio(8) + '</div>' +
+    var s = t(), set = state.settings;
+    if (!set.level) { set.level = 'ruach'; save(); }   // the middle length, unless the person chooses otherwise
+    return '<section class="challengeleaf leaf"><div class="leafhead">' + folio(7) + '</div>' +
       '<h1 tabindex="-1">' + esc(s.inviteQ) + '</h1>' +
       '<p class="lead">' + esc(s.chalBody) + '</p>' +
       '<h2 class="sect">' + esc(s.chalLen) + '</h2>' + levRows() +
-      '<h2 class="sect">' + esc(s.chalRem) + '</h2>' +
-      '<div class="times">' + names.map(function (n, i) {
-        return '<div class="time-row"><label class="check"><input type="checkbox" id="on' + i + '"' + (ch.on[i] ? ' checked' : '') + '><span>' + esc(n) + '</span></label>' +
-          '<input type="time" id="tm' + i + '" value="' + esc(ch.times[i]) + '" aria-label="' + esc(n) + '"></div>';
-      }).join('') + '</div>' +
-      '<p class="glossline">' + esc(s.chalRemNote) + '</p>' +
-      '<button type="button" class="btn" data-act="calOnly">' + esc(s.addCal) + '</button>' +
-      chan('short') +
-      '<button type="button" class="node" data-act="startChallenge">' + esc(s.chalGo) + '</button>' +
-      catchword(s.cueIn) + '</section>';
+      '<button type="button" class="node" data-act="startChallenge">' + esc(s.chalGo) + '</button></section>';
   };
   // The length: three stations, one for each name of the soul, measured in hesed (72).
   views['/length'] = function () {
@@ -1189,10 +1241,14 @@
     skipGate: function () { gateStep = t().gates.length - 1; go('/gate'); },
     spell: function () {
       // First the person's own breath is measured and a length chosen; then the whisper.
-      if (!state.challenge) { go('/measure'); return; }
+      if (!state.challenge) { go('/challenge'); return; }
+      go(state.settings.measured ? '/ready' : '/measure');
+    },
+    breathe: function () {
+      if (!state.settings.measured) { go('/measure'); return; }           // the breath is measured before the first time
+      if (!state.sessions.some(countable)) { go('/ready'); return; }
       B.sound.prime(); pendingBreaths = null; pendingKind = 'full'; go('/practice');
     },
-    breathe: function () { beginNow(state.settings.level ? null : 7); },
     breatheLong: function () { beginNow(21); },
     quicker: function () { stepUnit(-1); },
     slower: function () { stepUnit(1); },
@@ -1227,10 +1283,15 @@
     cal: function () { readSetup(); download('hadva-reminders.ics', 'text/calendar;charset=utf-8', buildIcs()); toast(t().calDone); go('/'); },
     noCal: function () { readSetup(); go('/'); },
     startChallenge: function () {
-      readSetup(); chDraft = null;
-      if (!state.settings.level) state.settings.level = 'nefesh';
-      save(); B.sound.prime(); pendingBreaths = null; pendingKind = 'full'; go('/practice');
+      // Nothing delays the start: the fourteen days begin now, and reminders are offered later.
+      if (!state.challenge) state.challenge = { start: dateKey(new Date()), times: ['07:30', '13:00', '21:30'], on: [true, true, true] };
+      if (!state.settings.level) state.settings.level = 'ruach';
+      chDraft = null; save();
+      go(state.settings.measured && state.sessions.some(countable) ? '/' : state.settings.measured ? '/ready' : '/measure');
     },
+    install: function () { if (installEvt) { installEvt.prompt(); installEvt = null; } },
+    calDefault: function () { if (!state.challenge) return; download('neshima-reminders.ics', 'text/calendar;charset=utf-8', buildIcs()); toast(t().calDone); },
+    copyMine: function () { var u = myUrl(); if (u && navigator.clipboard) navigator.clipboard.writeText(u).then(function () { toast(t().copied); }); },
     calOnly: function () { var keep = grabTimes(); readSetup(); chDraft = keep; download('neshima-reminders.ics', 'text/calendar;charset=utf-8', buildIcs()); toast(t().calDone); },
     joinNow: function () {
       if (!state.challenge) { state.challenge = { start: dateKey(new Date()), times: ['07:30', '13:00', '21:30'], on: [true, true, true] }; save(); }
