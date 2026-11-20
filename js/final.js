@@ -46,6 +46,34 @@
     after: ['חדוה. שמחה.', 'האות היא המידה, והמידה היא הנשימה.', 'עתה — בקצב הנשימה שלך. הקול מוביל, והעיניים יכולות להיעצם.'],
     safety: 'לאט, ולא עמוק. ראש שמסתחרר — מרפים, ושבים לנשימה של כל יום.', cta: 'לנשום' };
   he.leaves[2].b = 'היום, נשימה אחת בכל פעם — בתודה.';
+  // The opening already says that the secret is a breath; the gates lead to its measure.
+  he.gates[3] = { label: 'סוד', gloss: 'שער רביעי', items: [['line', 'וכך כתוב בספר ישן:'], ['verse', 'וְהָאֲנָחָה הוּא אֲרִיכַת הַנְּשִׁימָה', 'ליקוטי מוהר״ן, תורה ח'], ['line', 'לאריכות הזאת יש מידה.'], ['line', 'והמידה — מילה אחת.']] };
+  he.land = {
+    kicker: 'סוד ישן · הוסתר בספר קבלה',
+    h1a: 'יש סוד מוסתר.', h1b: 'כאן הוא מתגלה לך.',
+    sub: 'נשימה, במקצב סודי אחד, שבכוחה לשנות את המציאות שלך.',
+    cta: 'לגלות את הסוד', why: 'רוצה להבין למה?',
+    terms: ['ארבעה־עשר ימים', 'שלוש פעמים ביום', 'בלי רישום', 'בלי עלות'],
+    s1tag: 'לאן הגעת', s1h: 'אל דף שנשמר הרבה זמן.',
+    s1p: ['בספר קבלה ישן הוסתר סוד פשוט: לנשימה יש מידה.', 'מי שנושם במידה הזאת — משהו בו מתיישב, ומשהו בעולמו זז.', 'המידה נקראת במילה אחת. היא מחכה מאחורי ארבעה שערים.'],
+    s2tag: 'למה זה עובד', s2h: 'שלושה עדים.', s2sub: 'שלושה עולמות שאינם מכירים זה את זה — אומרים אותו דבר.',
+    pillars: [
+      { tag: 'הקבלה', h: 'הנשימה מתקנת.', q: 'כִּי עִקַּר תִּקּוּן הַשֵּׂכֶל הוּא עַל־יְדֵי הַנְּשִׁימָה', c: 'רבי נחמן מברסלב · ליקוטי מוהר״ן, תורה ס',
+        p: 'ועוד כתב: מי שמאריך את נשימתו עושה את עצמו בריה חדשה. חמש מאות שנה לפניו כתב מקובל אחר: לפי כוח נשימתך.' },
+      { tag: 'המעבדה', h: 'הגוף נרגע.', stat: '6', statL: 'נשימות בדקה', c: 'מחקרים על נשימה איטית וקצב הלב',
+        p: 'כשהנשימה מאטה לקצב הזה, הלב מתחיל לנוע איתה. האות עובר בעצב התועה, הוואגוס — עצב המנוחה של הגוף. זה נמדד במעבדה שוב ושוב, ומתרגלים מדווחים על פחות לחץ ופחות חרדה.' },
+      { tag: 'התדר', h: 'משנים תדר — משנים מציאות.', c: 'דולורס קנון · תורת התדר',
+        p: 'דולורס קנון, שחקרה את עומק התודעה, לימדה שהמציאות שאדם חי בה תלויה בתדר שלו. הפיזיקה מתארת את החומר עצמו כתנודה של שדות. והנשימה היא הדרך הפשוטה ביותר לשנות תדר.' }
+    ],
+    s2foot: 'שלוש שפות. דבר אחד.', s2more: 'כל המקורות',
+    s3tag: 'האתגר', s3h: 'ארבעה־עשר ימים.', s3sub: 'זה כל מה שמתבקש ממך.',
+    steps: [['מודדים את הנשימה שלך', 'שאיפה אחת, והמקצב נבנה לפי המידה שלך.'], ['נושמים שלוש פעמים ביום', 'שלוש דקות ושלושים ושש שניות. עם אוזניות, בעיניים עצומות.'], ['בכל יום נפתח דף', 'ארבעה־עשר דפים מן הספר. אחד ליום.'], ['ביום הארבעה־עשר כותבים', 'מה השתנה. במילים שלך.']],
+    s4tag: 'חסד', s4h: 'זה ניתן לך בלי תמורה.',
+    s4p: 'מישהו עשה איתך חסד. אם זה ייטיב איתך — יגיע תורך: להעביר את הדף לאדם אחד. כך הסוד עובר, מיד ליד.',
+    s5a: 'אל תאמינו.', s5b: 'נסו.', cta2: 'לפתוח את השער',
+    fine: 'לאט ובנחת. גוף שמבקש לעצור — עוצרים.',
+    spine: ['הסוד', 'לאן הגעת', 'שלושה עדים', 'האתגר', 'חסד', 'השער']
+  };
 
   Object.assign(en, {
     frontSub: 'An old secret, hidden in a book of Kabbalah',
@@ -85,4 +113,31 @@
     after: ['Hadva. Joy.', 'The letter is the measure, and the measure is the breath.', 'Now — at the pace of your own breath. The sound leads, and the eyes may close.'],
     safety: 'Slower, not deeper. A head that spins: let go, and return to the breath of every day.', cta: 'Breathe' };
   en.leaves[2].b = 'Today, one breath each time — in thanks.';
+  en.gates[3] = { label: 'Sod', gloss: 'the fourth gate · the secret', items: [['line', 'And so it is written in an old book:'], ['verse', 'וְהָאֲנָחָה הוּא אֲרִיכַת הַנְּשִׁימָה', '“The sigh is the lengthening of the breath.” Likutey Moharan, Lesson 8'], ['line', 'That lengthening has a measure.'], ['line', 'And the measure is one word.']] };
+  en.land = {
+    kicker: 'An old secret · hidden in a book of Kabbalah',
+    h1a: 'There is a hidden secret.', h1b: 'Here it is shown to you.',
+    sub: 'A breath, in one secret rhythm, with the power to change your reality.',
+    cta: 'Uncover the secret', why: 'Want to understand why?',
+    terms: ['Fourteen days', 'three times a day', 'no sign-up', 'no cost'],
+    s1tag: 'Where you are', s1h: 'At a leaf kept a long time.',
+    s1p: ['In an old book of Kabbalah a simple secret was hidden: the breath has a measure.', 'Whoever breathes in that measure — something in them settles, and something in their world moves.', 'The measure is named in one word. It waits behind four gates.'],
+    s2tag: 'Why it works', s2h: 'Three witnesses.', s2sub: 'Three worlds that do not know one another say the same thing.',
+    pillars: [
+      { tag: 'Kabbalah', h: 'The breath repairs.', q: 'כִּי עִקַּר תִּקּוּן הַשֵּׂכֶל הוּא עַל־יְדֵי הַנְּשִׁימָה', c: 'Rabbi Nachman of Breslov · Likutey Moharan, Lesson 60',
+        p: '“For the essential repair of the mind is through the breath.” He also wrote: whoever lengthens their breath makes themselves a new creature. Five hundred years before him another Kabbalist wrote: by the strength of your breath.' },
+      { tag: 'The laboratory', h: 'The body settles.', stat: '6', statL: 'breaths a minute', c: 'Studies of slow breathing and heart rate',
+        p: 'When the breath slows to this pace, the heart begins to move with it. The signal travels in the wandering nerve, the vagus — the body’s nerve of rest. This has been measured in the laboratory again and again, and people who practise report less stress and less anxiety.' },
+      { tag: 'Frequency', h: 'Change the frequency — change the reality.', c: 'Dolores Cannon · the teaching of frequency',
+        p: 'Dolores Cannon, who searched the depths of the mind, taught that the reality a person lives in depends on their frequency. Physics describes matter itself as vibration of fields. And the breath is the simplest way to change a frequency.' }
+    ],
+    s2foot: 'Three tongues. One thing.', s2more: 'All the sources',
+    s3tag: 'The challenge', s3h: 'Fourteen days.', s3sub: 'That is all that is asked of you.',
+    steps: [['Your breath is measured', 'One in-breath, and the rhythm is built on your own measure.'], ['You breathe three times a day', 'Three minutes and thirty-six seconds. Headphones on, eyes closed.'], ['Each day a leaf opens', 'Fourteen leaves of the book. One a day.'], ['On the fourteenth day you write', 'What changed. In your own words.']],
+    s4tag: 'Kindness', s4h: 'It is given to you for nothing.',
+    s4p: 'Someone did you a kindness. If it does you good, your turn will come: to pass the leaf to one person. That is how the secret travels, hand to hand.',
+    s5a: 'Do not believe.', s5b: 'Try.', cta2: 'Open the gate',
+    fine: 'Slowly and at ease. A body that asks to stop, stops.',
+    spine: ['The secret', 'Where you are', 'Three witnesses', 'The challenge', 'Kindness', 'The gate']
+  };
 })();

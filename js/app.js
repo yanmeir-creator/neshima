@@ -151,7 +151,7 @@
     document.getElementById('skip').textContent = s.skip;
   }
   function renderTop(route) {
-    var s = t(), inSession = route === '/practice' || route === '/moment' || route === '/gate' || route === '/hesed' || route === '/invite' || route === '/measure' || route === '/length' || route === '/challenge' || (route === '/' && !state.challenge && !state.sessions.some(countable));
+    var s = t(), inSession = route === '/practice' || route === '/moment' || route === '/gate' || route === '/hesed' || route === '/invite' || route === '/measure' || route === '/length' || route === '/challenge' || (route === '/' && !state.challenge);
     top.hidden = inSession;
     top.innerHTML =
       '<a class="brand" href="#/" aria-label="NESHIMA — ' + esc(s.home) + '"><span class="brand-he" lang="he" dir="rtl">נשימה</span><span class="brand-en">NESHIMA</span></a>' +
@@ -274,24 +274,99 @@
   }
   // The opening leaf is the book's title page: where the visitor has arrived, what is kept
   // here, the dare, the terms, and one station that opens it.
+  // The wheel: rings of small script, the twenty-two letters with their numbers, and an ember
+  // at the centre that breathes in the proportion 8 · 4 · 6 · 5. The four letters of the
+  // rhythm are the only red ones. Nothing here is explained on the page.
+  var ALEF = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט', 'י', 'כ', 'ל', 'מ', 'נ', 'ס', 'ע', 'פ', 'צ', 'ק', 'ר', 'ש', 'ת'];
+  var GEM = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400];
+  function wheelSvg(p, rich) {
+    var tk = '', cells = '', lt = '', nm = '', i, a, hot;
+    for (i = 0; i < 72; i++) tk += '<line x1="300" y1="' + (i % 3 ? 13 : 10) + '" x2="300" y2="20" transform="rotate(' + i * 5 + ' 300 300)"/>';
+    for (i = 0; i < 22; i++) {
+      a = i * 360 / 22; hot = 'חדוה'.indexOf(ALEF[i]) >= 0 ? ' hot' : '';
+      cells += '<line x1="300" y1="92" x2="300" y2="172" transform="rotate(' + (a + 180 / 22).toFixed(2) + ' 300 300)"/>';
+      lt += '<text class="wl' + hot + '" x="300" y="131" transform="rotate(' + a.toFixed(2) + ' 300 300)">' + ALEF[i] + '</text>';
+      nm += '<text class="wg' + hot + '" x="300" y="164" transform="rotate(' + a.toFixed(2) + ' 300 300)">' + GEM[i] + '</text>';
+    }
+    return '<svg class="wheel" viewBox="0 0 600 600" aria-hidden="true" lang="he"><defs>' +
+      '<linearGradient id="' + p + 'g" x1="0" y1="0" x2="600" y2="600" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f3dfae"/><stop offset=".5" stop-color="#c39a52"/><stop offset="1" stop-color="#7d5b28"/></linearGradient>' +
+      '<radialGradient id="' + p + 'e"><stop offset="0" stop-color="#ffd09a"/><stop offset=".25" stop-color="#ef7a3c"/><stop offset=".6" stop-color="#a02c14" stop-opacity=".75"/><stop offset="1" stop-color="#5a1206" stop-opacity="0"/></radialGradient>' +
+      (rich ? ringPath(p + 'a', 300, 300, 257) + ringPath(p + 'b', 300, 300, 224) : '') + '</defs>' +
+      '<g fill="none" stroke="url(#' + p + 'g)"><circle cx="300" cy="300" r="290" stroke-width="2.2"/><circle cx="300" cy="300" r="280" stroke-width=".8"/><g stroke-width="1">' + tk + '</g>' +
+        '<circle cx="300" cy="300" r="246" stroke-width=".8"/><circle cx="300" cy="300" r="212" stroke-width="1.6"/><circle cx="300" cy="300" r="208" stroke-width=".6"/>' +
+        '<g stroke-width=".7">' + cells + '</g><circle cx="300" cy="300" r="152" stroke-width=".7"/><circle cx="300" cy="300" r="128" stroke-width="1.6"/><circle cx="300" cy="300" r="122" stroke-width=".6"/></g>' +
+      (rich ? '<g class="w-spin"><text class="w-micro" direction="rtl" font-size="13"><textPath href="#' + p + 'a" startOffset="100%" textLength="' + Math.round(2 * Math.PI * 257 - 8) + '" lengthAdjust="spacing">' + MICRO_1 + MICRO_1 + MICRO_2 + '</textPath></text></g>' +
+        '<g class="w-spin back"><text class="w-micro" direction="rtl" font-size="12"><textPath href="#' + p + 'b" startOffset="100%" textLength="' + Math.round(2 * Math.PI * 224 - 8) + '" lengthAdjust="spacing">' + MICRO_2 + MICRO_2 + MICRO_1 + '</textPath></text></g>' : '') +
+      '<g class="w-letters" text-anchor="middle">' + lt + nm + '</g>' +
+      '<circle class="w-ember" cx="300" cy="300" r="96" fill="url(#' + p + 'e)"/>' +
+      '<g fill="none" stroke="url(#' + p + 'g)"><path d="M204 300 Q300 226 396 300 Q300 374 204 300 Z" stroke-width="1.8" fill="#0b0806" fill-opacity=".5"/><circle cx="300" cy="300" r="40" stroke-width="1.4"/><circle cx="300" cy="300" r="31" stroke-width=".7"/></g>' +
+      '<circle cx="300" cy="300" r="12" fill="#f6e3b6"/></svg>';
+  }
+  function icoSvg(k) {
+    var g = 'fill="none" stroke="#c9a35a" stroke-width="1.6" stroke-linecap="round"', body;
+    if (k === 0) body = '<path d="M60 16 L94 38 L94 72 L60 92 L26 72 L26 38 Z M60 16 V108 M26 38 L94 72 M94 38 L26 72"/>' +
+      [[60, 16], [94, 38], [26, 38], [94, 72], [26, 72], [60, 55], [60, 92], [60, 108]].map(function (c) { return '<circle cx="' + c[0] + '" cy="' + c[1] + '" r="7" fill="#0f0b08"/>'; }).join('');
+    else if (k === 1) body = '<path d="M6 60 C12 60 14 52 20 52 S28 68 34 68 S42 40 50 40 S58 80 66 80 S74 24 84 24 S94 96 104 96 S110 60 114 60"/><path d="M6 108 H114" stroke-width=".8"/><circle cx="84" cy="24" r="4" fill="#e8603a" stroke="none"/>';
+    else body = '<circle cx="60" cy="60" r="6" fill="#e8603a" stroke="none"/><circle cx="60" cy="60" r="18"/><circle cx="60" cy="60" r="30" opacity=".75"/><circle cx="60" cy="60" r="42" opacity=".5"/><circle cx="60" cy="60" r="54" opacity=".28"/>';
+    return '<svg class="ico" viewBox="0 0 120 120" aria-hidden="true"><g ' + g + '>' + body + '</g></svg>';
+  }
+  // The opening makes the case before anyone is asked to walk the gates: where you are, what
+  // is offered, three witnesses, what the fourteen days ask, the kindness, and the gate.
   function thresholdView() {
-    var s = t();
-    return '<section class="threshold leaf front">' +
-      '<div class="leafhead">' + folio(1) + '<p class="folio nums" dir="ltr" aria-hidden="true">8 · 4 · 6 · 5</p></div>' +
-      (invitedBy || state.chain ? '<div class="invited"><p>' + esc(s.invitedBy(invitedBy, state.chain)) + '</p>' + (invitedWord ? '<blockquote>' + esc('״' + invitedWord + '״') + '</blockquote>' : '') + '</div>' : '<p class="hello">' + esc(s.thTitle) + '</p>') +
-      '<h1 class="booktitle" tabindex="-1">' + esc(s.frontTitle) + '</h1>' +
-      '<p class="booksub">' + esc(s.frontSub) + '</p>' +
-      eyeIlan() +
-      '<p class="lead">' + esc(s.frontBody) + '</p>' +
-      '<p class="giftline">' + esc(s.frontGift) + '</p>' +
-      '<p class="dareline">' + esc(s.frontDare) + '</p>' +
-      '<p class="chalkick">' + esc(s.frontChal) + '</p>' +
-      '<p class="terms">' + s.frontTerms.map(esc).join(' <i aria-hidden="true">·</i> ') + '</p>' +
-      chan('short') +
-      '<button type="button" class="node" data-act="enter">' + esc(s.thEnter) + '</button>' +
-      '<p class="margin">' + esc(s.thFine) + '</p>' +
-      '<nav class="margin links"><a href="#/sources">' + esc(s.srcTitle) + '</a><button type="button" class="linkish" data-act="skipGate">' + esc(s.thSkip) + '</button><button type="button" class="linkish" data-act="lang" lang="' + s.switchLang + '">' + esc(s.switchTo) + '</button></nav>' +
-      catchword(s.gates[0].label) + '</section>';
+    var s = t(), L = s.land, rtl = s.dir === 'rtl', inv = invitedBy || state.chain;
+    var marks = rtl ? ['א', 'ב', 'ג', 'ד'] : ['I', 'II', 'III', 'IV'];
+    function cta(txt, cls) { return '<button type="button" class="cta' + (cls ? ' ' + cls : '') + '" data-act="enter"><span>' + esc(txt) + '</span><i aria-hidden="true">' + (rtl ? '←' : '→') + '</i></button>'; }
+    function head(n, tag, h) { return '<p class="sec-num" aria-hidden="true">' + n + '</p><div class="sec-head"><p class="sec-tag rv">' + esc(tag) + '</p><h2 class="sec-h rv">' + esc(h) + '</h2></div>'; }
+    var terms = '<p class="terms2">' + L.terms.map(esc).join('<i aria-hidden="true">·</i>') + '</p>';
+    return '<section class="land" id="land">' +
+      '<nav class="spine" id="spine" aria-label="' + esc(s.home) + '">' + L.spine.map(function (n, i) { return '<button type="button" data-jump="l' + i + '" aria-label="' + esc(n) + '"><span>' + esc(n) + '</span></button>'; }).join('') + '</nav>' +
+      '<div class="lsec hero" id="l0"><div class="hero-wheel" aria-hidden="true">' + wheelSvg('hw', true) + '</div><div class="hero-txt">' +
+        (inv ? '<div class="hero-inv"><p>' + esc(s.invitedBy(invitedBy, state.chain)) + '</p>' + (invitedWord ? '<blockquote>' + esc('״' + invitedWord + '״') + '</blockquote>' : '') + '</div>' : '') +
+        '<p class="kicker2">' + esc(L.kicker) + '</p>' +
+        '<h1 class="hero-h" tabindex="-1"><span>' + esc(L.h1a) + '</span><span class="gold">' + esc(L.h1b) + '</span></h1>' +
+        '<p class="hero-sub">' + esc(L.sub) + '</p>' +
+        '<div class="hero-act">' + cta(L.cta) + '<button type="button" class="why" data-jump="l1">' + esc(L.why) + ' <i aria-hidden="true">↓</i></button></div>' + terms +
+      '</div></div>' +
+      '<div class="lsec about" id="l1">' + head(marks[0], L.s1tag, L.s1h) + '<div class="about-p">' + L.s1p.map(function (p) { return '<p class="rv">' + esc(p) + '</p>'; }).join('') + '</div></div>' +
+      '<div class="lsec why-sec" id="l2">' + head(marks[1], L.s2tag, L.s2h) + '<p class="sec-sub rv">' + esc(L.s2sub) + '</p>' +
+        '<div class="pillars">' + L.pillars.map(function (P, i) {
+          return '<article class="pillar rv">' + icoSvg(i) + '<p class="p-tag">' + esc(P.tag) + '</p><h3>' + esc(P.h) + '</h3>' +
+            (P.q ? '<blockquote lang="he" dir="rtl">' + esc(P.q) + '</blockquote>' : '') +
+            (P.stat ? '<p class="p-stat"><b>' + esc(P.stat) + '</b><span>' + esc(P.statL) + '</span></p>' : '') +
+            '<p class="p-body">' + esc(P.p) + '</p><p class="p-cite">' + esc(P.c) + '</p></article>';
+        }).join('') + '</div>' +
+        '<p class="sec-foot rv"><b>' + esc(L.s2foot) + '</b><a href="#/sources">' + esc(L.s2more) + '</a></p><div class="mid-cta rv">' + cta(L.cta) + '</div></div>' +
+      '<div class="lsec chal-sec" id="l3">' + head(marks[2], L.s3tag, L.s3h) + '<p class="sec-sub rv">' + esc(L.s3sub) + '</p>' +
+        '<ol class="steps">' + L.steps.map(function (st, i) { return '<li class="rv"><b aria-hidden="true">' + (rtl ? marks[i] : i + 1) + '</b><h3>' + esc(st[0]) + '</h3><p>' + esc(st[1]) + '</p></li>'; }).join('') + '</ol></div>' +
+      '<div class="lsec hesed-sec" id="l4">' + head(marks[3], L.s4tag, L.s4h) + '<p class="sec-sub wide rv">' + esc(L.s4p) + '</p>' +
+        '<p class="vavline rv" lang="he" dir="rtl" aria-hidden="true"><i>ו</i><i>ו</i><i>ו</i><i>ו</i><i class="me">ו</i></p></div>' +
+      '<div class="lsec final" id="l5"><div class="final-wheel" aria-hidden="true">' + wheelSvg('fw', false) + '</div>' +
+        '<p class="final-h rv"><span>' + esc(L.s5a) + '</span> <span class="red">' + esc(L.s5b) + '</span></p>' +
+        '<div class="rv">' + cta(L.cta2, 'big') + '</div>' + terms +
+        '<p class="fine2">' + esc(L.fine) + '</p>' +
+        '<nav class="land-links"><a href="#/sources">' + esc(s.srcTitle) + '</a><button type="button" class="linkish" data-act="skipGate">' + esc(s.thSkip) + '</button><button type="button" class="linkish" data-act="lang" lang="' + s.switchLang + '">' + esc(s.switchTo) + '</button></nav></div>' +
+      '<div class="stick" id="stick">' + cta(L.cta) + '</div></section>';
+  }
+  function startLanding() {
+    var land = document.getElementById('land'), secs = land.querySelectorAll('.lsec'), spine = document.getElementById('spine').children, stick = document.getElementById('stick');
+    var rv = land.querySelectorAll('.rv'), io = null, alive = true, i;
+    if ('IntersectionObserver' in window && !reducedMotion()) {
+      io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+      for (i = 0; i < rv.length; i++) io.observe(rv[i]);
+    } else for (i = 0; i < rv.length; i++) rv[i].classList.add('in');
+    function onScroll() {
+      if (!alive) return;
+      var mid = window.innerHeight * 0.5, cur = 0, k;
+      for (k = 0; k < secs.length; k++) if (secs[k].getBoundingClientRect().top <= mid) cur = k;
+      for (k = 0; k < spine.length; k++) spine[k].classList.toggle('on', k === cur);
+      stick.classList.toggle('on', window.scrollY > window.innerHeight * 0.7 && cur < secs.length - 1);
+    }
+    land.addEventListener('click', function (e) {
+      var j = e.target.closest('[data-jump]'); if (!j) return;
+      var el = document.getElementById(j.dataset.jump); if (el) el.scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth', block: 'start' });
+    });
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    gateCtl = { stop: function () { alive = false; window.removeEventListener('scroll', onScroll); if (io) io.disconnect(); } };
   }
   views['/gate'] = function () {
     var s = t(), g = s.gates[gateStep];
@@ -457,7 +532,7 @@
 
   function landingView() {
     var s = t(), tried = state.sessions.some(countable);
-    if (!tried) return thresholdView();
+    return thresholdView();   // whoever has not begun the fourteen days sees the opening
     return '<section class="landing">' +
       (invitedBy || state.chain ? '<p class="invited">' + esc(s.invitedBy(invitedBy, state.chain)) + '</p>' : '') +
       '<p class="kicker">' + esc(s.heroKicker) + '</p>' +
@@ -1072,6 +1147,7 @@
     if (r === '/practice' && !pendingKind) { location.replace('#/'); return; }
     applyPrefs(); renderTop(r);
     main.dataset.view = r;
+    var bd = document.getElementById('backdrop'); if (bd && !bd.firstChild) bd.innerHTML = wheelSvg('bd', false);
     if (r !== '/leaf') leafDay = -1;
     if (gateCtl) { gateCtl.stop(); gateCtl = null; }
     // How much candlelight falls on the page: dim at the threshold, raised by the hand inside a gate.
@@ -1086,6 +1162,7 @@
     else if (r === '/moment') startSession('moment');
     else if (r === '/share') drawCard();
     else if (r === '/measure') startMeasure();
+    else if (r === '/' && document.getElementById('land')) startLanding();
     if (r === '/' && state.challenge) { state.lastSeen = dateKey(new Date()); save(); }
     if (!keepFocus) { window.scrollTo(0, 0); var h1 = main.querySelector('h1'); if (h1 && r !== '/') h1.focus({ preventScroll: true }); }
   }
