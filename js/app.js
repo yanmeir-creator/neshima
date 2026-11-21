@@ -165,7 +165,10 @@
     var s = t(), inSession = route === '/practice' || route === '/moment' || route === '/gate' || route === '/hesed' || route === '/invite' || route === '/measure' || route === '/length' || route === '/challenge' || route === '/ready' || route === '/first' || route === '/begin' || (route === '/' && opening());
     top.hidden = inSession;
     top.innerHTML =
-      '<a class="brand" href="#/" aria-label="NESHIMA — ' + esc(s.home) + '"><span class="brand-he" lang="he" dir="rtl">נשימה</span><span class="brand-en">NESHIMA</span></a>' +
+      // In Hebrew the name is the Hebrew word, with the Latin letters small beside it; in English it is the other way round.
+      '<a class="brand" href="#/" aria-label="NESHIMA — ' + esc(s.home) + '">' + (s.dir === 'rtl'
+        ? '<span class="brand-he" lang="he" dir="rtl">נשימה</span><span class="brand-en">NESHIMA</span>'
+        : '<span class="brand-main">NESHIMA</span><span class="brand-sub" lang="he" dir="rtl">נשימה</span>') + '</a>' +
       '<button type="button" class="sos" data-act="sos">' + esc(s.sosTop) + '</button>' +
       '<button type="button" class="lang" data-act="lang" lang="' + s.switchLang + '">' + esc(s.switchTo) + '</button>' + menuBtn();
   }

@@ -221,7 +221,7 @@
     src3: 'That the breath is the key, many sources from different worlds agree: Kabbalah, medicine and quantum physics.', more: 'Read more',
     cta: 'Uncover the secret', cta3: 'Begin the challenge', why: 'Want to understand why?',
     terms: ['Fourteen days', 'three times a day', 'no sign-up', 'no cost'],
-    openLink: 'The opening page', next3: 'Onward', introK: 'Neshima', introGo: 'Receive the gift', introA: 'How is your breath', introB: 'right now?',
+    openLink: 'The opening page', next3: 'Onward', introK: 'NESHIMA', introGo: 'Receive the gift', introA: 'How is your breath', introB: 'right now?',
     s1tag: 'The secret', s1h: 'There is a hidden secret. Here it is shown to you.',
     intro: ['Short? That is stress.',
       'It goes down to the heart, to sleep, to the gut. A great source of illness, wrote Maimonides eight hundred years ago. The research agrees.',
