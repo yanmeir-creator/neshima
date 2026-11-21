@@ -107,7 +107,7 @@
     s1p: ['קצרה? זה הלחץ.',
       'הוא יורד אל הלב, אל השינה, אל הבטן. מקור גדול לחולאים, כתב הרמב״ם לפני שמונה מאות שנה. המחקר מאשר.',
       'מדיטציה, יוגה, חופשה. לא תמיד יש זמן.',
-      'יש לי מתנה בשבילך, שתלך איתך לכל מקום. חסד. קח אותו.'],
+      'יש לי מתנה בשבילך: סוד קסום, שהולך איתך לכל מקום ועוזר לך. חסד. קח אותו.'],
     s2tag: 'למה זה עובד', s2h: 'שלושה עדים.', s2sub: 'שלושה עולמות שאינם מכירים זה את זה — אומרים אותו דבר.',
     pillars: [
       { tag: 'הקבלה', h: 'הנשימה מתקנת.', q: 'כִּי עִקַּר תִּקּוּן הַשֵּׂכֶל הוּא עַל־יְדֵי הַנְּשִׁימָה', c: 'רבי נחמן מברסלב · ליקוטי מוהר״ן, תורה ס',
@@ -217,7 +217,7 @@
     s1p: ['Short? That is stress.',
       'It goes down to the heart, to sleep, to the gut. A great source of illness, wrote Maimonides eight hundred years ago. The research agrees.',
       'Meditation, yoga, a holiday. There is not always time.',
-      'I have a gift for you, one that will go with you everywhere. A kindness. Take it.'],
+      'I have a gift for you: a magical secret that goes with you everywhere and helps you. A kindness. Take it.'],
     s2tag: 'Why it works', s2h: 'Three witnesses.', s2sub: 'Three worlds that do not know one another say the same thing.',
     pillars: [
       { tag: 'Kabbalah', h: 'The breath repairs.', q: 'כִּי עִקַּר תִּקּוּן הַשֵּׂכֶל הוּא עַל־יְדֵי הַנְּשִׁימָה', c: 'Rabbi Nachman of Breslov · Likutey Moharan, Lesson 60',
