@@ -337,9 +337,11 @@
         '<p class="kicker2">' + esc(L.kicker) + '</p>' +
         '<h2 class="hero-h"><span>' + esc(L.h1a) + '</span><span class="gold">' + esc(L.h1b) + '</span></h2>' +
         '<p class="hero-sub">' + esc(L.sub) + '</p>' +
-        '<div class="hero-act">' + cta(L.cta) + '<button type="button" class="why" data-jump="l2">' + esc(L.why) + ' <i aria-hidden="true">↓</i></button></div>' + terms +
+        '<div class="hero-act">' + cta(L.cta) + '<button type="button" class="why" data-jump="l3">' + esc(L.why) + ' <i aria-hidden="true">↓</i></button></div>' + terms +
       '</div></div>' +
-      '<div class="lsec why-sec" id="l2">' + head(marks[0], L.s2tag, L.s2h) + '<p class="sec-sub rv">' + esc(L.s2sub) + '</p>' +
+      '<div class="lsec chal-sec" id="l2">' + head(marks[0], L.s3tag, L.s3h) + '<p class="sec-sub rv">' + esc(L.s3sub) + '</p>' +
+        '<ol class="steps">' + L.steps.map(function (st, i) { return '<li class="rv"><b aria-hidden="true">' + (rtl ? marks[i] : i + 1) + '</b><h3>' + esc(st[0]) + '</h3><p>' + esc(st[1]) + '</p></li>'; }).join('') + '</ol><div class="mid-cta rv">' + cta(L.cta3) + '</div></div>' +
+      '<div class="lsec why-sec" id="l3">' + head(marks[1], L.s2tag, L.s2h) + '<p class="sec-sub rv">' + esc(L.s2sub) + '</p>' +
         '<div class="pillars">' + L.pillars.map(function (P, i) {
           return '<article class="pillar rv">' + icoSvg(i) + '<p class="p-tag">' + esc(P.tag) + '</p><h3>' + esc(P.h) + '</h3>' +
             (P.q ? '<blockquote lang="he" dir="rtl">' + esc(P.q) + '</blockquote>' : '') +
@@ -347,8 +349,6 @@
             '<p class="p-body">' + esc(P.p) + '</p><p class="p-cite">' + esc(P.c) + '</p></article>';
         }).join('') + '</div>' +
         '<p class="sec-foot rv"><b>' + esc(L.s2foot) + '</b><a href="#/sources">' + esc(L.s2more) + '</a></p><div class="mid-cta rv">' + cta(L.cta) + '</div></div>' +
-      '<div class="lsec chal-sec" id="l3">' + head(marks[1], L.s3tag, L.s3h) + '<p class="sec-sub rv">' + esc(L.s3sub) + '</p>' +
-        '<ol class="steps">' + L.steps.map(function (st, i) { return '<li class="rv"><b aria-hidden="true">' + (rtl ? marks[i] : i + 1) + '</b><h3>' + esc(st[0]) + '</h3><p>' + esc(st[1]) + '</p></li>'; }).join('') + '</ol></div>' +
       '<div class="lsec hesed-sec" id="l4">' + head(marks[2], L.s4tag, L.s4h) + '<p class="sec-sub wide rv">' + esc(L.s4p) + '</p>' +
         '<p class="vavline rv" lang="he" dir="rtl" aria-hidden="true"><i>ו</i><i>ו</i><i>ו</i><i>ו</i><i class="me">ו</i></p></div>' +
       '<div class="lsec final" id="l5"><div class="final-wheel" aria-hidden="true">' + wheelSvg('fw', false) + '</div>' +
@@ -370,7 +370,7 @@
       var mid = window.innerHeight * 0.5, cur = 0, k;
       for (k = 0; k < secs.length; k++) if (secs[k].getBoundingClientRect().top <= mid) cur = k;
       for (k = 0; k < spine.length; k++) spine[k].classList.toggle('on', k === cur);
-      stick.classList.toggle('on', cur >= 2 && cur < secs.length - 1);
+      stick.classList.toggle('on', cur >= 3 && cur < secs.length - 1);   // the first three screens each have their own button
     }
     land.addEventListener('click', function (e) {
       var j = e.target.closest('[data-jump]'); if (!j) return;

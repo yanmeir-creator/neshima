@@ -95,7 +95,7 @@
     kicker: 'סוד ישן · הוסתר בספר קבלה',
     h1a: 'יש סוד מוסתר.', h1b: 'כאן הוא מתגלה לך.',
     sub: 'נשימה, במקצב סודי אחד, שבכוחה לשנות את המציאות שלך.',
-    cta: 'לגלות את הסוד', why: 'רוצה להבין למה?',
+    cta: 'לגלות את הסוד', cta3: 'להתחיל את האתגר', why: 'רוצה להבין למה?',
     terms: ['ארבעה־עשר ימים', 'שלוש פעמים ביום', 'בלי רישום', 'בלי עלות'],
     // The founder's pitch (21 November 2026). Before it, this section read: "אל דף שנשמר הרבה זמן." /
     // "בספר קבלה ישן הוסתר סוד פשוט: לנשימה יש מידה." / "מי שנושם במידה הזאת — משהו בו מתיישב,
@@ -121,12 +121,12 @@
     ],
     s2foot: 'שלוש שפות. דבר אחד.', s2more: 'כל המקורות',
     s3tag: 'האתגר', s3h: 'ארבעה־עשר ימים.', s3sub: 'זה כל מה שמתבקש ממך.',
-    steps: [['מודדים את הנשימה שלך', 'שאיפה אחת, והמקצב נבנה לפי המידה שלך.'], ['נושמים שלוש פעמים ביום', 'שלוש דקות ושלושים ושש שניות. עם אוזניות, בעיניים עצומות.'], ['בכל יום נפתח דף', 'ארבעה־עשר דפים מן הספר. אחד ליום.'], ['ביום הארבעה־עשר כותבים', 'מה השתנה. במילים שלך.']],
+    steps: [['מודדים את הנשימה שלך', 'שאיפה אחת, והמקצב נבנה לפי המידה שלך.'], ['נושמים שלוש פעמים ביום', 'שלוש וחצי, שש או שתים־עשרה דקות, לבחירתך. עם אוזניות, בעיניים עצומות.'], ['בכל יום נפתח דף', 'ארבעה־עשר דפים מן הספר. אחד ליום.'], ['ביום הארבעה־עשר כותבים', 'מה השתנה. במילים שלך.']],
     s4tag: 'חסד', s4h: 'זה ניתן לך בלי תמורה.',
     s4p: 'מישהו עשה איתך חסד. אם זה ייטיב איתך — יגיע תורך: להעביר את הדף לאדם אחד. כך הסוד עובר, מיד ליד.',
     s5a: 'אל תאמינו.', s5b: 'נסו.', cta2: 'לנשימה הראשונה',
     fine: 'לאט ובנחת. גוף שמבקש לעצור — עוצרים.',
-    spine: ['הקדמה', 'השער', 'שלושה עדים', 'האתגר', 'חסד', 'נשימה ראשונה']
+    spine: ['הקדמה', 'השער', 'האתגר', 'שלושה עדים', 'חסד', 'נשימה ראשונה']
   };
 
   Object.assign(en, {
@@ -213,7 +213,7 @@
     kicker: 'An old secret · hidden in a book of Kabbalah',
     h1a: 'There is a hidden secret.', h1b: 'Here it is shown to you.',
     sub: 'A breath, in one secret rhythm, with the power to change your reality.',
-    cta: 'Uncover the secret', why: 'Want to understand why?',
+    cta: 'Uncover the secret', cta3: 'Begin the challenge', why: 'Want to understand why?',
     terms: ['Fourteen days', 'three times a day', 'no sign-up', 'no cost'],
     introK: 'Neshima', introGo: 'Receive the gift', introA: 'How is your breath', introB: 'right now?',
     s1tag: 'The secret', s1h: 'There is a hidden secret. Here it is shown to you.',
@@ -233,12 +233,12 @@
     ],
     s2foot: 'Three tongues. One thing.', s2more: 'All the sources',
     s3tag: 'The challenge', s3h: 'Fourteen days.', s3sub: 'That is all that is asked of you.',
-    steps: [['Your breath is measured', 'One in-breath, and the rhythm is built on your own measure.'], ['You breathe three times a day', 'Three minutes and thirty-six seconds. Headphones on, eyes closed.'], ['Each day a leaf opens', 'Fourteen leaves of the book. One a day.'], ['On the fourteenth day you write', 'What changed. In your own words.']],
+    steps: [['Your breath is measured', 'One in-breath, and the rhythm is built on your own measure.'], ['You breathe three times a day', 'Three and a half, six or twelve minutes, as you choose. Headphones on, eyes closed.'], ['Each day a leaf opens', 'Fourteen leaves of the book. One a day.'], ['On the fourteenth day you write', 'What changed. In your own words.']],
     s4tag: 'Kindness', s4h: 'It is given to you for nothing.',
     s4p: 'Someone did you a kindness. If it does you good, your turn will come: to pass the leaf to one person. That is how the secret travels, hand to hand.',
     s5a: 'Do not believe.', s5b: 'Try.', cta2: 'To the first breath',
     fine: 'Slowly and at ease. A body that asks to stop, stops.',
-    spine: ['Introduction', 'The gate', 'Three witnesses', 'The challenge', 'Kindness', 'First breath']
+    spine: ['Introduction', 'The gate', 'The challenge', 'Three witnesses', 'Kindness', 'First breath']
   };
 // The sources page, as the founder frames it: the rhythm is the secret, noted in an old book
   // of Kabbalah, and it comes first; everything after it explains why breath changes reality.
