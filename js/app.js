@@ -167,8 +167,42 @@
     top.innerHTML =
       '<a class="brand" href="#/" aria-label="NESHIMA — ' + esc(s.home) + '"><span class="brand-he" lang="he" dir="rtl">נשימה</span><span class="brand-en">NESHIMA</span></a>' +
       '<button type="button" class="sos" data-act="sos">' + esc(s.sosTop) + '</button>' +
-      '<button type="button" class="lang" data-act="lang" lang="' + s.switchLang + '">' + esc(s.switchTo) + '</button>';
+      '<button type="button" class="lang" data-act="lang" lang="' + s.switchLang + '">' + esc(s.switchTo) + '</button>' + menuBtn();
   }
+
+  /* ---------- The menu: the same few places, from every page that is not a breath ---------- */
+  var menuEl = null;
+  function menuBtn(cls) {
+    return '<button type="button" class="menubtn' + (cls ? ' ' + cls : '') + '" data-act="menu" aria-label="' + esc(t().menuT) + '" aria-haspopup="true" aria-expanded="false"><i aria-hidden="true"></i></button>';
+  }
+  function closeMenu() {
+    if (!menuEl || menuEl.hidden) return;
+    menuEl.hidden = true;
+    var b = document.querySelector('.menubtn[aria-expanded="true"]'); if (b) b.setAttribute('aria-expanded', 'false');
+  }
+  function openMenu(btn) {
+    var s = t(), r = route(), onOpening = r === '/' && opening(), onBoard = r === '/' && !onOpening;
+    if (!menuEl) { menuEl = document.createElement('nav'); menuEl.id = 'menu'; menuEl.className = 'menu'; menuEl.hidden = true; document.querySelector('.shell').appendChild(menuEl); }
+    menuEl.setAttribute('aria-label', s.menuT); menuEl.dir = s.dir; menuEl.lang = state.lang;
+    // On the page one is on, its own line is left out. The language is offered here only on the
+    // opening, where the top bar with its language button is not shown.
+    menuEl.innerHTML =
+      (state.challenge && !onBoard ? '<a href="' + (SHOW_OPENING ? './' : '#/') + '">' + esc(s.keepGo) + '</a>' : '') +
+      (!onOpening ? '<a href="./?open">' + esc(s.land.openLink) + '</a>' : '') +
+      (r !== '/sources' ? '<a href="#/sources">' + esc(s.srcTitle) + '</a>' : '') +
+      (r !== '/settings' ? '<a href="#/settings">' + esc(s.settingsLink) + '</a>' : '') +
+      (onOpening ? '<button type="button" data-act="lang" lang="' + s.switchLang + '">' + esc(s.switchTo) + '</button>' : '');
+    var q = btn.getBoundingClientRect();
+    menuEl.style.top = Math.round(q.bottom + 8) + 'px';
+    if (s.dir === 'rtl') { menuEl.style.left = Math.max(8, Math.round(q.left)) + 'px'; menuEl.style.right = 'auto'; }
+    else { menuEl.style.right = Math.max(8, Math.round(window.innerWidth - q.right)) + 'px'; menuEl.style.left = 'auto'; }
+    menuEl.hidden = false; btn.setAttribute('aria-expanded', 'true');
+    var first = menuEl.querySelector('a,button'); if (first) first.focus({ preventScroll: true });
+  }
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape' || !menuEl || menuEl.hidden) return;
+    var b = document.querySelector('.menubtn[aria-expanded="true"]'); closeMenu(); if (b) b.focus();
+  });
 
   /* ---------- Views ---------- */
   var views = {};
@@ -329,7 +363,7 @@
     function cta(txt, cls) { return '<button type="button" class="cta' + (cls ? ' ' + cls : '') + '" data-act="enter"><span>' + esc(txt) + '</span><i aria-hidden="true">' + (rtl ? '←' : '→') + '</i></button>'; }
     function head(n, tag, h) { return '<p class="sec-num" aria-hidden="true">' + n + '</p><div class="sec-head"><p class="sec-tag rv">' + esc(tag) + '</p><h2 class="sec-h rv">' + esc(h) + '</h2></div>'; }
     var terms = '<p class="terms2">' + L.terms.map(esc).join('<i aria-hidden="true">·</i>') + '</p>';
-    return '<section class="land" id="land">' +
+    return '<section class="land" id="land">' + menuBtn('land-menu') +
       '<nav class="spine" id="spine" aria-label="' + esc(s.home) + '">' + L.spine.map(function (n, i) { return '<button type="button" data-jump="l' + i + '" aria-label="' + esc(n) + '"><span>' + esc(n) + '</span></button>'; }).join('') + '</nav>' +
       // Screen one, the introduction: what this gives, said before anyone enters. A glimpse of the wheel.
       '<div class="lsec hero intro" id="l0"><div class="hero-wheel" aria-hidden="true">' + wheelSvg('hw', true) + '</div><div class="hero-txt">' +
@@ -1291,6 +1325,7 @@
   function go(path) { if (route() === path && location.hash) render(); else location.hash = '#' + path; }
   function render(keepFocus) {
     var r = route();
+    closeMenu();
     if (session && r !== '/practice' && r !== '/moment') { session.engine.stop(); if (session.audio) session.audio.stop(); session = null; B.sound.stopWater(); B.keepAwake(false); }
     if (r === '/practice' && !pendingKind) { location.replace('#/'); return; }
     applyPrefs(); renderTop(r);
@@ -1440,8 +1475,10 @@
 
   document.addEventListener('click', function (e) {
     if (e.target.closest('[data-wa]')) { passed(); return; }   // a send was opened: one more vav
+    if (menuEl && !menuEl.hidden && !e.target.closest('#menu') && !e.target.closest('.menubtn')) closeMenu();
     var el = e.target.closest('[data-act],[data-set],[data-feel],[data-leaf]');
     if (!el) return;
+    if (el.dataset.act === 'menu') { if (menuEl && !menuEl.hidden) closeMenu(); else openMenu(el); return; }
     if (el.dataset.leaf) { leafDay = +el.dataset.leaf; render(true); return; }
     if (el.dataset.act) { acts[el.dataset.act](); return; }
     if (el.dataset.feel) {
