@@ -300,3 +300,16 @@ html:has(main[data-view="/first"]) .backdrop { display: none; }
 #main .blist li { display: grid; grid-template-columns: 2.7rem 1fr; gap: .9rem; align-items: start; }
 #main .blist b { width: 2.7rem; height: 2.7rem; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--gold); background: rgba(201, 163, 90, .08); font: 900 1.25rem/1 var(--display); color: var(--bone); }
 #main .blist span { padding-top: .35rem; font: 500 clamp(1.15rem, 1.8vw, 1.4rem)/1.5 var(--display); color: var(--bone); }
+
+/* ---------- "done": the way onward stays on screen while the page scrolls under it ---------- */
+#main .after.done > .node { position: sticky; bottom: .9rem; z-index: 3; }
+/* the two ways to pass it on share one row, so that on a phone they sit above that button */
+#main .after.done .good .actions { flex-direction: row; flex-wrap: nowrap; }
+#main .after.done .good .actions .btn { flex: 1 1 0; min-width: 0; }
+@media (max-width: 899px) and (max-height: 720px) {
+  #main .after.done { padding-top: .6rem; gap: .55rem; }
+  #main .after.done .board, #main .after.done .good { margin-top: 0; }
+  #main .after.done .good { padding: .75rem 1rem; gap: .4rem; }
+  #main .after.done .good h2 { font-size: 1.25rem; }
+  #main .after.done .good p { font-size: 1rem; line-height: 1.45; }
+}
