@@ -331,13 +331,3 @@ html:has(main[data-view="/first"]) .backdrop { display: none; }
 .brand-main { font: 900 1.45rem/1 var(--display); letter-spacing: .12em; background: linear-gradient(100deg, #f6e4b4, #c9a35a 60%, #8f6c31); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .brand-sub { font: 700 1rem/1 var(--display); color: var(--muted); }
 @media (max-width: 480px) { .top .brand-sub { display: none; } .brand-main { font-size: 1.2rem; letter-spacing: .1em; } }
-
-/* ---------- running text is set in Rubik; headings, buttons, labels, verses and the wheel stay in Frank Ruhl ----------
-   Every rule in these sheets names its typeface as var(--display). A paragraph of running text is given
-   its own --display, so the rule that styles it picks up Rubik without being rewritten. To go back to one
-   typeface for everything, delete this block (and, if wished, the two Rubik files and their @font-face). */
-.shell { --head: var(--display); --text: "Rubik", "Frank Ruhl Libre", "David Libre", Arial, sans-serif; }
-:where(.land, #main) p:where(:not(.folio, .today-line, .kicker2, .kicker, .sec-tag, .sec-num, .p-tag, .tag, .final-h, .phase, .count, .countdown, .timeleft, .slots, .names, .vavs, .vavline, .v, .p-stat, .lveil, .moment-lead, .listen, .gate-hint, .sr-only)),
-#main .blist span { --display: var(--text); font-family: var(--text); }
-.land .hero-pitch, .land .about-p { --display: var(--text); }
-#main .practice p { --display: var(--head); }
