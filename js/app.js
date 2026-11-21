@@ -678,15 +678,15 @@
      ?gates=old to walk them. */
   var OLD_GATES = /[?&]gates=old/.test(location.search);
   views['/first'] = function () {
-    var s = t(), labs = [s.cueIn, s.cueLinger, s.cueOut, s.cueRest];
+    var s = t(), labs = [s.actIn, s.actLinger, s.actOut, s.actRest];
     return '<section class="first leaf" id="first">' +
       '<div class="leafhead"><p class="folio">' + esc(s.firstKick) + '</p></div>' +
       '<h1 tabindex="-1">' + esc(s.firstT) + '</h1>' +
       '<p class="lead fpre">' + esc(s.firstLead) + '</p>' +
       '<div class="fword" dir="rtl" lang="he" aria-hidden="true">' + LETTERS.map(function (l, i) { return '<span class="fl"><b>' + l[0] + '</b><i>' + l[1] + '</i><em lang="' + state.lang + '">' + esc(labs[i]) + '</em></span>'; }).join('') + '</div>' +
-      '<div class="stage" aria-hidden="true" lang="he"><svg class="sessring" viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="48.5"/><circle class="done" id="fProg" cx="50" cy="50" r="48.5" pathLength="100" stroke-dasharray="0 100"/></svg>' +
+      '<div class="stage says" aria-hidden="true"><svg class="sessring" viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="48.5"/><circle class="done" id="fProg" cx="50" cy="50" r="48.5" pathLength="100" stroke-dasharray="0 100"/></svg>' +
         '<div class="ember" id="fEmber"></div><span class="big ghost" id="fBig"></span></div>' +
-      '<p class="phase" id="fPhase" aria-live="polite"></p>' +
+      '<p class="sr-only" id="fPhase" aria-live="polite"></p>' +
       '<button type="button" class="node" id="fGo">' + esc(s.firstGo) + '</button>' +
       '<div class="freveal"><p class="names" id="fName" tabindex="-1">' + esc(s.firstDone1) + '</p><p class="line">' + esc(s.firstDone2) + '</p>' +
         '<p class="sr-only">' + esc(s.firstDoneSr) + '</p>' +
@@ -698,7 +698,7 @@
   function startFirst() {
     var s = t(), sec = document.getElementById('first'), goBtn = document.getElementById('fGo'), ember = document.getElementById('fEmber');
     var big = document.getElementById('fBig'), prog = document.getElementById('fProg'), phaseEl = document.getElementById('fPhase'), cells = sec.querySelectorAll('.fl');
-    var U = 0.5, P = [['in', 8, s.cueIn], ['linger', 4, s.cueLinger], ['out', 6, s.cueOut], ['rest', 5, s.cueRest]], ALL = 23 * U;
+    var U = 0.5, P = [['in', 8, s.actIn], ['linger', 4, s.actLinger], ['out', 6, s.actOut], ['rest', 5, s.actRest]], ALL = 23 * U;
     var t0 = 0, raf = 0, alive = true, cur = -1, reduced = reducedMotion();
     function paint(v) { if (reduced) return; ember.style.transform = 'scale(' + (0.3 + 0.7 * v).toFixed(4) + ')'; ember.style.opacity = (0.32 + 0.68 * v).toFixed(3); }
     function tick(now) {
@@ -714,7 +714,7 @@
       while (i < 3 && e >= acc + P[i][1] * U) { acc += P[i][1] * U; i++; }
       var p = (e - acc) / (P[i][1] * U);
       if (i !== cur) {
-        cur = i; phaseEl.textContent = P[i][2]; big.textContent = LETTERS[i][0];
+        cur = i; phaseEl.textContent = P[i][2]; big.textContent = P[i][2];   // the circle says what to do
         for (var j = 0; j <= i; j++) cells[j].classList.add('on');   // every letter up to this one: a hidden tab or a slow phone can skip a part
         if (state.settings.cue) B.sound.cue(P[i][0], P[i][1] * U);
       }
@@ -762,6 +762,7 @@
     var phases = B.phasesFor(moment ? 'moment' : set.rhythm, pl ? pl.unit : set.unit);
     var target = pendingBreaths || (pl ? pl.breaths : set.breaths), breath = 0;
     var labels = { in: s.pIn, linger: s.pLinger, out: s.pOut, rest: s.pRest };
+    var words = { in: s.actIn, linger: s.actLinger, out: s.actOut, rest: s.actRest };   // what the circle says
     var phaseEl = document.getElementById('phase'), liveEl = document.getElementById('live');
     var countEl = document.getElementById('count'), leftEl = document.getElementById('left');
     var stage = document.getElementById('stage'), ghost = document.getElementById('bigGhost'), fill = document.getElementById('bigFill');
@@ -773,6 +774,7 @@
     var cdEl = document.getElementById('cdown'), lastRem = '';
     var ember = document.getElementById('ember'), sessProg = moment ? null : document.getElementById('sessProg'), syncAt = null, syncBase = 0;
     root.dataset.rhythm = phases.length ? 'paced' : 'own';
+    if (phases.length) stage.classList.add('says');
     mini.innerHTML = phases.map(function (p) { return '<span class="lt lt-' + p.key + '" data-k="' + p.key + '"><b>' + LETTER_OF[p.key] + '</b></span>'; }).join('');
     if (!phases.length) {
       ghost.textContent = fill.textContent = 'חדוה'; stage.classList.add('whole'); stage.style.setProperty('--f', '1');
@@ -801,8 +803,9 @@
             leftEl.textContent = s.breathOf(breath, target);
           }
         }
-        ghost.textContent = fill.textContent = LETTER_OF[key];
-        phaseEl.textContent = labels[key]; liveEl.textContent = labels[key];
+        // The circle says what to do now. The letters sit small beneath it and light in turn.
+        ghost.textContent = fill.textContent = words[key];
+        phaseEl.textContent = ''; liveEl.textContent = labels[key];
         root.dataset.phase = key;
         var lts = mini.children;
         for (var i = 0; i < lts.length; i++) lts[i].classList.toggle('on', lts[i].dataset.k === key);
@@ -1326,7 +1329,7 @@
         root.dataset.paused = '1';
       } else {
         delete root.dataset.paused;
-        btn.textContent = s.pause; document.getElementById('phase').textContent = session.labels[root.dataset.phase] || s.pOwn;
+        btn.textContent = s.pause; document.getElementById('phase').textContent = root.dataset.rhythm === 'paced' ? '' : s.pOwn;
         if (state.settings.sound === 'water' && !muted) B.sound.startWater();
         if (session.audio) session.audio.el.play();
         session.engine.resume();
