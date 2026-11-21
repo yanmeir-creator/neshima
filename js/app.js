@@ -755,7 +755,6 @@
           : '<button type="button" class="btn" data-act="pause" id="pauseBtn">' + esc(s.pause) + '</button><button type="button" class="btn" data-act="end">' + esc(s.end) + '</button>') +
         '<button type="button" class="chip" data-act="mute" id="muteBtn" aria-pressed="' + (state.settings.sound !== 'off' || state.settings.cue) + '">' + esc(state.settings.sound !== 'off' || state.settings.cue ? s.soundOn : s.soundOff) + '</button>' +
       '</div>' +
-      (moment ? '<details class="more support"><summary>' + esc(s.supportT) + '</summary><p>' + esc(s.support) + '</p></details>' : '') +
       '</section>';
   }
   views['/practice'] = function () { return practiceView(pendingKind || 'full'); };
@@ -908,8 +907,7 @@
         '<h1 tabindex="-1">' + esc(s.momentAfter) + '</h1><p class="lead">' + esc(d.natural ? s.sosAfterLead(sosLen()) : s.sosAfterShort) + '</p>' +
         (state.challenge ? '<a class="node" href="#/">' + esc(s.sosHome) + '</a>'
           : '<p class="line">' + esc(s.sosPitch) + '</p><a class="node" href="#/">' + esc(s.sosPitchGo) + '</a>') +
-        '<nav class="margin links"><button type="button" class="linkish" data-act="sos">' + esc(s.sosAgain) + '</button></nav>' +
-        '<details class="more support"><summary>' + esc(s.supportT) + '</summary><p>' + esc(s.support) + '</p></details></section>';
+        '<nav class="margin links"><button type="button" class="linkish" data-act="sos">' + esc(s.sosAgain) + '</button></nav></section>';
     }
     var logged = d.idx >= 0, day = state.challenge ? challengeDay() : 1, st = stats();
     var todayIdx = day >= 1 && day <= DAYS ? day - 1 : -1, today = Math.min(sessionsOn(dateKey(new Date())), PER_DAY);
@@ -1259,7 +1257,7 @@
       '<div class="panel"><h2>' + esc(s.privacyT) + '</h2><p>' + esc(s.privacyBody) + '</p>' +
         '<div class="actions"><button type="button" class="btn" data-act="export">' + esc(s.exportBtn) + '</button>' +
         '<button type="button" class="btn danger" data-act="wipe">' + esc(s.deleteBtn) + '</button></div></div>' +
-      '<div class="panel"><h2>' + esc(s.aboutT) + '</h2><p>' + esc(s.aboutBody) + '</p><a class="inline-link" href="#/sources">' + esc(s.sourcesLink) + '</a></div>' +
+      '<div class="panel"><h2>' + esc(s.aboutT) + '</h2><p>' + esc(s.aboutBody) + '</p><p class="fine">' + esc(s.support) + '</p><a class="inline-link" href="#/sources">' + esc(s.sourcesLink) + '</a></div>' +
       '<div class="actions"><a class="btn" href="#/">' + esc(s.back) + '</a></div></section>';
   };
 
