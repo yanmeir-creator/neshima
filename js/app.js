@@ -153,7 +153,7 @@
     document.getElementById('skip').textContent = s.skip;
   }
   function renderTop(route) {
-    var s = t(), inSession = route === '/practice' || route === '/moment' || route === '/gate' || route === '/hesed' || route === '/invite' || route === '/measure' || route === '/length' || route === '/challenge' || route === '/ready' || (route === '/' && !state.challenge);
+    var s = t(), inSession = route === '/practice' || route === '/moment' || route === '/gate' || route === '/hesed' || route === '/invite' || route === '/measure' || route === '/length' || route === '/challenge' || route === '/ready' || route === '/first' || (route === '/' && !state.challenge);
     top.hidden = inSession;
     top.innerHTML =
       '<a class="brand" href="#/" aria-label="NESHIMA — ' + esc(s.home) + '"><span class="brand-he" lang="he" dir="rtl">נשימה</span><span class="brand-en">NESHIMA</span></a>' +
@@ -670,6 +670,63 @@
   /* ---------- Practice: the letters are the guide ---------- */
   var session = null, pendingKind = null, muted = false, lastDone = null;
   function ease(x) { return 0.5 - 0.5 * Math.cos(Math.PI * x); }
+
+  /* ---------- The first breath ----------
+     One guided breath in place of the four gates. In each of its four parts a letter lights
+     with its number (8, 4, 6, 5), so the rhythm is found by doing it, and the word is whole
+     when the breath ends. The four gates are still in the code; open the site with
+     ?gates=old to walk them. */
+  var OLD_GATES = /[?&]gates=old/.test(location.search);
+  views['/first'] = function () {
+    var s = t(), labs = [s.cueIn, s.cueLinger, s.cueOut, s.cueRest];
+    return '<section class="first leaf" id="first">' +
+      '<div class="leafhead"><p class="folio">' + esc(s.firstKick) + '</p></div>' +
+      '<h1 tabindex="-1">' + esc(s.firstT) + '</h1>' +
+      '<p class="lead fpre">' + esc(s.firstLead) + '</p>' +
+      '<div class="fword" dir="rtl" lang="he" aria-hidden="true">' + LETTERS.map(function (l, i) { return '<span class="fl"><b>' + l[0] + '</b><i>' + l[1] + '</i><em lang="' + state.lang + '">' + esc(labs[i]) + '</em></span>'; }).join('') + '</div>' +
+      '<div class="stage" aria-hidden="true" lang="he"><svg class="sessring" viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="48.5"/><circle class="done" id="fProg" cx="50" cy="50" r="48.5" pathLength="100" stroke-dasharray="0 100"/></svg>' +
+        '<div class="ember" id="fEmber"></div><span class="big ghost" id="fBig"></span></div>' +
+      '<p class="phase" id="fPhase" aria-live="polite"></p>' +
+      '<button type="button" class="node" id="fGo">' + esc(s.firstGo) + '</button>' +
+      '<div class="freveal"><p class="names" id="fName" tabindex="-1">' + esc(s.firstDone1) + '</p><p class="line">' + esc(s.firstDone2) + '</p>' +
+        '<p class="sr-only">' + esc(s.firstDoneSr) + '</p>' +
+        '<p class="glossline">' + esc(s.gates[4].safety) + '</p>' +
+        '<button type="button" class="node" data-act="spell">' + esc(s.next) + '</button>' +
+        '<nav class="margin links"><button type="button" class="linkish" id="fAgain">' + esc(s.firstAgain) + '</button><a href="#/sources">' + esc(s.srcTitle) + '</a></nav></div>' +
+      '</section>';
+  };
+  function startFirst() {
+    var s = t(), sec = document.getElementById('first'), goBtn = document.getElementById('fGo'), ember = document.getElementById('fEmber');
+    var big = document.getElementById('fBig'), prog = document.getElementById('fProg'), phaseEl = document.getElementById('fPhase'), cells = sec.querySelectorAll('.fl');
+    var U = 0.5, P = [['in', 8, s.cueIn], ['linger', 4, s.cueLinger], ['out', 6, s.cueOut], ['rest', 5, s.cueRest]], ALL = 23 * U;
+    var t0 = 0, raf = 0, alive = true, cur = -1, reduced = reducedMotion();
+    function paint(v) { if (reduced) return; ember.style.transform = 'scale(' + (0.3 + 0.7 * v).toFixed(4) + ')'; ember.style.opacity = (0.32 + 0.68 * v).toFixed(3); }
+    function tick(now) {
+      if (!alive) return;
+      var e = (now - t0) / 1000;
+      if (e >= ALL) {
+        sec.classList.remove('running'); sec.classList.add('revealed'); phaseEl.textContent = '';
+        document.getElementById('fName').focus({ preventScroll: true }); window.scrollTo(0, 0);
+        return;
+      }
+      var acc = 0, i = 0;
+      while (i < 3 && e >= acc + P[i][1] * U) { acc += P[i][1] * U; i++; }
+      var p = (e - acc) / (P[i][1] * U);
+      if (i !== cur) {
+        cur = i; phaseEl.textContent = P[i][2]; big.textContent = LETTERS[i][0]; cells[i].classList.add('on');
+        if (state.settings.cue) B.sound.cue(P[i][0], P[i][1] * U);
+      }
+      paint(i === 0 ? ease(p) : i === 1 ? 1 : i === 2 ? 1 - ease(p) : 0);
+      prog.setAttribute('stroke-dasharray', (e / ALL * 100).toFixed(2) + ' 100');
+      raf = requestAnimationFrame(tick);
+    }
+    goBtn.addEventListener('click', function () {
+      if (t0) return;
+      B.sound.unlock(); sec.classList.add('running'); t0 = performance.now(); raf = requestAnimationFrame(tick);
+    });
+    document.getElementById('fAgain').addEventListener('click', function () { render(); });
+    gateCtl = { stop: function () { alive = false; cancelAnimationFrame(raf); } };
+  }
 
   function practiceView(kind) {
     var s = t(), moment = kind === 'moment';
@@ -1216,6 +1273,7 @@
     else if (r === '/share') drawCard();
     else if (r === '/measure') startMeasure();
     else if (r === '/' && document.getElementById('land')) startLanding();
+    else if (r === '/first') startFirst();
     if (r === '/' && state.challenge) { state.lastSeen = dateKey(new Date()); save(); }
     if (!keepFocus) { window.scrollTo(0, 0); var h1 = main.querySelector('h1'); if (h1 && r !== '/') h1.focus({ preventScroll: true }); }
   }
@@ -1236,10 +1294,14 @@
   }
   var acts = {
     lang: function () { state.lang = t().switchLang; save(); render(true); },
-    enter: function () { gateStep = 0; gateAuto = true; B.sound.unlock(); go('/gate'); },
+    enter: function () {
+      B.sound.unlock();
+      if (OLD_GATES) { gateStep = 0; gateAuto = true; go('/gate'); return; }   // the four gates, kept for comparison
+      go('/first');
+    },
     gateSound: function () { state.settings.gateSound = !state.settings.gateSound; save(); if (state.settings.gateSound) B.sound.unlock(); render(true); },
     deeper: function () { gateStep = Math.min(gateStep + 1, t().gates.length - 1); render(); },
-    skipGate: function () { gateStep = t().gates.length - 1; go('/gate'); },
+    skipGate: function () { if (OLD_GATES) { gateStep = t().gates.length - 1; go('/gate'); return; } go('/challenge'); },
     spell: function () {
       // First the person's own breath is measured and a length chosen; then the whisper.
       if (!state.challenge) { go('/challenge'); return; }

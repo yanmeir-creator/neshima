@@ -41,6 +41,13 @@
     testCard: function (d) { return d >= 14 ? 'עמדתי באתגר ארבעה־עשר הימים' : d ? 'יום ' + d + ' מתוך ארבעה־עשר' : 'עדות'; },
     testFine: 'רק המשפט הזה יוצא מכאן, והוא יופיע גם למי שיפתח את הקישור שלך. כל השאר נשאר אצלך. ואם דבר לא השתנה — הדף נשאר ריק.',
     afterAgain: 'זה נרשם באילן שלך.', inviteQ: 'ארבעה־עשר ימים.',
+    firstKick: 'הנשימה הראשונה', firstT: 'נשימה אחת.',
+    firstLead: 'יחד עם העיגול. ארבעה חלקים — ובכל חלק נדלקת אות.',
+    firstGo: 'להתחיל', firstAgain: 'עוד פעם',
+    firstDone1: 'חדוה. שמחה.',
+    firstDone2: 'זה הסוד: נשימה, במידה הזאת.',
+    firstDoneSr: 'שאיפה 8, השתהות 4, נשיפה 6, מנוחה 5.',
+    thSkip: 'כבר הייתי כאן',
     chalBody: 'שלוש פעמים ביום, ארבעה־עשר ימים. נשימת חדוה, בקצב הנשימה שלך.',
     chalLen: 'אורך כל פעם, לבחירתך', chalGo: 'להתחיל',
     levNote: 'אפשר לשנות בכל יום.',
@@ -69,6 +76,9 @@
     after: ['חדוה. שמחה.', 'האות היא המידה, והמידה היא הנשימה.', 'עתה — בקצב הנשימה שלך. הקול מוביל, והעיניים יכולות להיעצם.'],
     safety: 'לאט, ולא עמוק. ראש שמסתחרר — מרפים, ושבים לנשימה של כל יום.', cta: 'לנשום' };
   he.leaves[2].b = 'היום, נשימה אחת בכל פעם — בתודה.';
+  // The path no longer passes through gates; these lines used to point back at them.
+  he.leaves[3].b = 'שלושה כבר פגשת: נפש, רוח, נשמה. שניים מחכים למעלה.';
+  he.testBody = 'משפט אחד, במילים שלך: מה השתנה. הוא ייכתב על דף, והדף ילך הלאה — אל מי שעוד לא גילה את הסוד.';
   // The opening already says that the secret is a breath; the gates lead to its measure.
   he.gates[3] = { label: 'סוד', gloss: 'שער רביעי', items: [['line', 'וכך כתוב בספר ישן:'], ['verse', 'וְהָאֲנָחָה הוּא אֲרִיכַת הַנְּשִׁימָה', 'ליקוטי מוהר״ן, תורה ח'], ['line', 'לאריכות הזאת יש מידה.'], ['line', 'והמידה — מילה אחת.']] };
   he.land = {
@@ -78,7 +88,7 @@
     cta: 'לגלות את הסוד', why: 'רוצה להבין למה?',
     terms: ['ארבעה־עשר ימים', 'שלוש פעמים ביום', 'בלי רישום', 'בלי עלות'],
     s1tag: 'לאן הגעת', s1h: 'אל דף שנשמר הרבה זמן.',
-    s1p: ['בספר קבלה ישן הוסתר סוד פשוט: לנשימה יש מידה.', 'מי שנושם במידה הזאת — משהו בו מתיישב, ומשהו בעולמו זז.', 'המידה נקראת במילה אחת. היא מחכה מאחורי ארבעה שערים.'],
+    s1p: ['בספר קבלה ישן הוסתר סוד פשוט: לנשימה יש מידה.', 'מי שנושם במידה הזאת — משהו בו מתיישב, ומשהו בעולמו זז.', 'המידה נקראת במילה אחת. נשימה אחת, והיא מתגלה.'],
     s2tag: 'למה זה עובד', s2h: 'שלושה עדים.', s2sub: 'שלושה עולמות שאינם מכירים זה את זה — אומרים אותו דבר.',
     pillars: [
       { tag: 'הקבלה', h: 'הנשימה מתקנת.', q: 'כִּי עִקַּר תִּקּוּן הַשֵּׂכֶל הוּא עַל־יְדֵי הַנְּשִׁימָה', c: 'רבי נחמן מברסלב · ליקוטי מוהר״ן, תורה ס',
@@ -93,9 +103,9 @@
     steps: [['מודדים את הנשימה שלך', 'שאיפה אחת, והמקצב נבנה לפי המידה שלך.'], ['נושמים שלוש פעמים ביום', 'שלוש דקות ושלושים ושש שניות. עם אוזניות, בעיניים עצומות.'], ['בכל יום נפתח דף', 'ארבעה־עשר דפים מן הספר. אחד ליום.'], ['ביום הארבעה־עשר כותבים', 'מה השתנה. במילים שלך.']],
     s4tag: 'חסד', s4h: 'זה ניתן לך בלי תמורה.',
     s4p: 'מישהו עשה איתך חסד. אם זה ייטיב איתך — יגיע תורך: להעביר את הדף לאדם אחד. כך הסוד עובר, מיד ליד.',
-    s5a: 'אל תאמינו.', s5b: 'נסו.', cta2: 'לפתוח את השער',
+    s5a: 'אל תאמינו.', s5b: 'נסו.', cta2: 'לנשימה הראשונה',
     fine: 'לאט ובנחת. גוף שמבקש לעצור — עוצרים.',
-    spine: ['הסוד', 'לאן הגעת', 'שלושה עדים', 'האתגר', 'חסד', 'השער']
+    spine: ['הסוד', 'לאן הגעת', 'שלושה עדים', 'האתגר', 'חסד', 'נשימה ראשונה']
   };
 
   Object.assign(en, {
@@ -131,6 +141,13 @@
     testCard: function (d) { return d >= 14 ? 'I completed the fourteen-day challenge' : d ? 'Day ' + d + ' of fourteen' : 'Testimony'; },
     testFine: 'Only this sentence leaves here, and it will also be shown to whoever opens your link. All the rest stays with you. And if nothing changed, the leaf stays blank.',
     afterAgain: 'It is marked on your tree.', inviteQ: 'Fourteen days.',
+    firstKick: 'The first breath', firstT: 'One breath.',
+    firstLead: 'Together with the ring. Four parts — and in each part a letter lights.',
+    firstGo: 'Begin', firstAgain: 'Once more',
+    firstDone1: 'Hadva. Joy.',
+    firstDone2: 'This is the secret: a breath, in this measure.',
+    firstDoneSr: 'In 8, linger 4, out 6, rest 5.',
+    thSkip: 'I have been here',
     chalBody: 'Three times a day, for fourteen days. The Hadva breath, at the pace of your own breath.',
     chalLen: 'The length of each time — your choice', chalGo: 'Begin',
     levNote: 'You can change it on any day.',
@@ -159,6 +176,8 @@
     after: ['Hadva. Joy.', 'The letter is the measure, and the measure is the breath.', 'Now — at the pace of your own breath. The sound leads, and the eyes may close.'],
     safety: 'Slower, not deeper. A head that spins: let go, and return to the breath of every day.', cta: 'Breathe' };
   en.leaves[2].b = 'Today, one breath each time — in thanks.';
+  en.leaves[3].b = 'Three you have met: nefesh, ruach, neshamah. Two wait higher up.';
+  en.testBody = 'One sentence, in your own words: what changed. It is written on a leaf, and the leaf goes on — to one who has not yet uncovered the secret.';
   en.gates[3] = { label: 'Sod', gloss: 'the fourth gate · the secret', items: [['line', 'And so it is written in an old book:'], ['verse', 'וְהָאֲנָחָה הוּא אֲרִיכַת הַנְּשִׁימָה', '“The sigh is the lengthening of the breath.” Likutey Moharan, Lesson 8'], ['line', 'That lengthening has a measure.'], ['line', 'And the measure is one word.']] };
   en.land = {
     kicker: 'An old secret · hidden in a book of Kabbalah',
@@ -167,7 +186,7 @@
     cta: 'Uncover the secret', why: 'Want to understand why?',
     terms: ['Fourteen days', 'three times a day', 'no sign-up', 'no cost'],
     s1tag: 'Where you are', s1h: 'At a leaf kept a long time.',
-    s1p: ['In an old book of Kabbalah a simple secret was hidden: the breath has a measure.', 'Whoever breathes in that measure — something in them settles, and something in their world moves.', 'The measure is named in one word. It waits behind four gates.'],
+    s1p: ['In an old book of Kabbalah a simple secret was hidden: the breath has a measure.', 'Whoever breathes in that measure — something in them settles, and something in their world moves.', 'The measure is named in one word. One breath, and it shows itself.'],
     s2tag: 'Why it works', s2h: 'Three witnesses.', s2sub: 'Three worlds that do not know one another say the same thing.',
     pillars: [
       { tag: 'Kabbalah', h: 'The breath repairs.', q: 'כִּי עִקַּר תִּקּוּן הַשֵּׂכֶל הוּא עַל־יְדֵי הַנְּשִׁימָה', c: 'Rabbi Nachman of Breslov · Likutey Moharan, Lesson 60',
@@ -182,9 +201,9 @@
     steps: [['Your breath is measured', 'One in-breath, and the rhythm is built on your own measure.'], ['You breathe three times a day', 'Three minutes and thirty-six seconds. Headphones on, eyes closed.'], ['Each day a leaf opens', 'Fourteen leaves of the book. One a day.'], ['On the fourteenth day you write', 'What changed. In your own words.']],
     s4tag: 'Kindness', s4h: 'It is given to you for nothing.',
     s4p: 'Someone did you a kindness. If it does you good, your turn will come: to pass the leaf to one person. That is how the secret travels, hand to hand.',
-    s5a: 'Do not believe.', s5b: 'Try.', cta2: 'Open the gate',
+    s5a: 'Do not believe.', s5b: 'Try.', cta2: 'To the first breath',
     fine: 'Slowly and at ease. A body that asks to stop, stops.',
-    spine: ['The secret', 'Where you are', 'Three witnesses', 'The challenge', 'Kindness', 'The gate']
+    spine: ['The secret', 'Where you are', 'Three witnesses', 'The challenge', 'Kindness', 'First breath']
   };
 // The sources page, as the founder frames it: the rhythm is the secret, noted in an old book
   // of Kabbalah, and it comes first; everything after it explains why breath changes reality.
@@ -209,4 +228,12 @@
     'How this practice reads them',
     { ref: 'What the sources come to', body: 'From these sources comes a way of regarding the breath: as a gift, as a repair, and as something that changes a person and their world. They are the explanation of why breath changes reality. The rhythm itself is the secret.' },
     'I believe that breath has spiritual depth, and that whoever changes their frequency changes their reality. I found the rhythm in an old book of Kabbalah, and I give it here to everyone, for nothing. This is a personal spiritual practice, not medical treatment; it promises no result and contains no hidden messages.');
+  // The four gates are no longer on the path, so the Pardes source no longer names them.
+  [he, en].forEach(function (L) {
+    L.src.forEach(function (it) {
+      if (!it.url) return;
+      if (it.url.indexOf('Chagigah') >= 0) it.body = it.body.replace(' אלה שמות ארבעת השערים.', '').replace(' These name the four gates.', '');
+      if (it.url.indexOf('Sefer_Yetzirah.1.7') >= 0) it.body = it.body.replace('השורה שמעל השער.', 'השורה הכתובה סביב הגלגל.').replace('The line over the gate:', 'The line written around the wheel:');
+    });
+  });
 })();

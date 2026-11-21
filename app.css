@@ -186,3 +186,29 @@ html[dir="ltr"] #main .node::after { content: "→"; }
 #main .bday { background: rgba(13, 9, 6, .84); border-color: rgba(201, 163, 90, .3); }
 #main .bday i { border-color: rgba(201, 163, 90, .62); }
 #main .bday.future { opacity: .8; }
+
+/* ---------- the first breath ---------- */
+html:has(main[data-view="/first"]) .backdrop { display: none; }
+@media (min-width: 900px) { html:has(main[data-view="/first"]) .shell > * { max-width: 40rem; margin-inline: auto; } }
+#main > section.first { align-items: center; text-align: center; justify-content: center; gap: .7rem; }
+#main > section.first h1, #main > section.first .lead, #main .first .line, #main .first .glossline, #main .first .names { text-align: center; }
+#main > section.first .lead { max-width: 30ch; }
+#main .first .leafhead { justify-content: center; }
+#main .fword { display: flex; justify-content: center; gap: .7rem; margin: .4rem 0; }
+#main .fl { display: grid; justify-items: center; gap: .15rem; width: 4.3rem; }
+#main .fl b { width: 4rem; height: 4rem; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); font: 900 2.2rem/1 var(--display); color: transparent; transition: color .7s ease, border-color .7s ease, background .7s ease, box-shadow .7s ease; }
+#main .fl i { font: 900 1.4rem/1.1 var(--display); font-style: normal; color: var(--red); opacity: 0; transition: opacity .7s ease; }
+#main .fl em { font: 500 .88rem/1.2 var(--display); font-style: normal; color: var(--muted); opacity: 0; transition: opacity .7s ease; }
+#main .fl.on b { color: var(--bone); border-color: var(--gold); background: rgba(201, 163, 90, .1); box-shadow: 0 0 20px rgba(239, 122, 60, .4); }
+#main .fl.on i, #main .fl.on em { opacity: 1; }
+#main > section.first h1 { font-size: clamp(2.2rem, 4vw, 3rem); }
+#main .first .stage { width: min(100%, 17rem, 32dvh); max-height: none; }
+#main .first:not(.running) .phase { display: none; }
+@media (min-width: 900px) { #main > section.first .lead { max-width: none; } }
+#main .first .phase { margin: .5rem 0; min-height: 1.3em; font: 900 clamp(1.7rem, 4vw, 2.2rem)/1.2 var(--display); letter-spacing: .1em; color: var(--bone); }
+#main .first .node { align-self: center; }
+#main .freveal { display: none; gap: .7rem; justify-items: center; }
+#main .first.revealed .freveal { display: grid; }
+#main .first.revealed .stage, #main .first.revealed .phase, #main .first.revealed #fGo, #main .first.revealed .fpre, #main > section.first.revealed h1, #main .first.running #fGo { display: none; }
+#main .first .names { color: var(--bone); font-size: clamp(2.4rem, 6vw, 3.6rem); line-height: 1.15; outline: 0; }
+#main .first .margin.links { justify-content: center; }
