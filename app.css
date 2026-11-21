@@ -286,3 +286,7 @@ html:has(main[data-view="/first"]) .backdrop { display: none; }
   #main .fl { width: 3.6rem; }
   #main .first .node { margin-top: .4rem; }
 }
+/* the fixed button at the bottom of a phone, while it is put away, cannot be seen or touched:
+   on a real phone the browser's own bars move, and a bar that is only pushed below the edge can peek */
+.land .stick { visibility: hidden; transition: transform .45s cubic-bezier(.2, .7, .2, 1), visibility 0s .45s; }
+.land .stick.on { visibility: visible; transition: transform .45s cubic-bezier(.2, .7, .2, 1), visibility 0s; }
