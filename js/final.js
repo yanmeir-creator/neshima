@@ -122,8 +122,8 @@
       { tag: 'פיזיקת הקוונטים', h: 'משנים תדר, משנים מציאות.', p: 'בעומקו, החומר הוא תנודה, והמתבונן משפיע על מה שהוא רואה.', c: 'פיזיקת הקוונטים · תורת התדר של דולורס קנון' }
     ],
     s2foot: 'שלוש שפות, דבר אחד.', s2more: 'כל המקורות',
-    s3tag: 'האתגר', s3h: 'ארבעה־עשר ימים.', s3sub: 'זה כל מה שמתבקש ממך.',
-    steps: [['מודדים את הנשימה שלך', 'שאיפה אחת, והמקצב נבנה לפי המידה שלך.'], ['נושמים שלוש פעמים ביום', 'שלוש וחצי, שש או שתים־עשרה דקות, לבחירתך. עם אוזניות, בעיניים עצומות.'], ['בכל יום נפתח דף', 'ארבעה־עשר דפים מן הספר. אחד ליום.'], ['ביום הארבעה־עשר כותבים', 'מה השתנה. במילים שלך.']],
+    s3tag: 'האתגר', s3h: 'אני מזמין אותך לארבעה־עשר ימים.', s3sub: 'שלוש פעמים ביום, כמה דקות בכל פעם. זה כל מה שמתבקש ממך.',
+    steps: [['נושמים שלוש פעמים ביום', 'שלוש וחצי, שש או שתים־עשרה דקות, לבחירתך. עם אוזניות, בעיניים עצומות.'], ['בכל יום נפתח דף', 'ארבעה־עשר דפים מן הספר. אחד ליום.'], ['ביום הארבעה־עשר כותבים', 'מה השתנה. במילים שלך.']],
     s4tag: 'חסד', s4h: 'זה ניתן לך בלי תמורה.',
     s4p: 'מישהו עשה איתך חסד. אם זה ייטיב איתך — יגיע תורך: להעביר את הדף לאדם אחד. כך הסוד עובר, מיד ליד.',
     s5a: 'אל תאמינו.', s5b: 'נסו.', cta2: 'לנשימה הראשונה',
@@ -235,8 +235,8 @@
       { tag: 'Quantum physics', h: 'Change the frequency, change the reality.', p: 'In its depth, matter is vibration, and the one who observes affects what is seen.', c: 'Quantum physics · the frequency teaching of Dolores Cannon' }
     ],
     s2foot: 'Three tongues. One thing.', s2more: 'All the sources',
-    s3tag: 'The challenge', s3h: 'Fourteen days.', s3sub: 'That is all that is asked of you.',
-    steps: [['Your breath is measured', 'One in-breath, and the rhythm is built on your own measure.'], ['You breathe three times a day', 'Three and a half, six or twelve minutes, as you choose. Headphones on, eyes closed.'], ['Each day a leaf opens', 'Fourteen leaves of the book. One a day.'], ['On the fourteenth day you write', 'What changed. In your own words.']],
+    s3tag: 'The challenge', s3h: 'I invite you to fourteen days.', s3sub: 'Three times a day, a few minutes each time. That is all that is asked of you.',
+    steps: [['You breathe three times a day', 'Three and a half, six or twelve minutes, as you choose. Headphones on, eyes closed.'], ['Each day a leaf opens', 'Fourteen leaves of the book. One a day.'], ['On the fourteenth day you write', 'What changed. In your own words.']],
     s4tag: 'Kindness', s4h: 'It is given to you for nothing.',
     s4p: 'Someone did you a kindness. If it does you good, your turn will come: to pass the leaf to one person. That is how the secret travels, hand to hand.',
     s5a: 'Do not believe.', s5b: 'Try.', cta2: 'To the first breath',

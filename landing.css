@@ -140,7 +140,7 @@ html[data-motion="reduced"] .rv { opacity: 1; transform: none; }
   .about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(3rem, 6vw, 7rem); align-items: end; }
   .about .about-p { margin: 0; }
   .pillars { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem; }
-  .steps { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; }
+  .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
   .steps::before { inset-block: auto; top: calc(1.7rem - 3px); inset-inline: 1.7rem; width: auto; height: 6px; border-inline: 0; border-block: 1px solid rgba(201, 163, 90, .45); }
   .steps li { grid-template-columns: 1fr; row-gap: .7rem; }
   .steps b { grid-row: auto; }
