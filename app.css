@@ -218,3 +218,18 @@ html:has(main[data-view="/first"]) .backdrop { display: none; }
 #main .practice .word.mini { font-size: 1.7rem; gap: .75em; margin: 0 0 .2rem; }
 #main .practice .word.mini .lt b { color: rgba(201, 163, 90, .5); transition: color .4s ease; }
 #main .practice .word.mini .lt.on b { color: var(--red); }
+
+/* ---------- a hard moment: one hesed, 72 seconds ---------- */
+.top .sos { margin-inline-start: auto; min-height: 2.75rem; padding: .4rem .9rem; display: inline-flex; align-items: center; gap: .5rem; background: none; border: 1px solid rgba(232, 96, 58, .7); color: var(--bone); font: 700 .95rem/1 var(--display); cursor: pointer; white-space: nowrap; }
+.top .sos::before, #main .sosrow b::before, .land .sos-link::before { content: ""; flex: none; width: .6rem; height: .6rem; border-radius: 50%; background: #e8603a; box-shadow: 0 0 10px rgba(232, 96, 58, .9); }
+.top .sos:hover, #main .sosrow:hover { background: rgba(232, 96, 58, .14); }
+#main .sosrow { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .3rem 1rem; width: 100%; min-height: 3.6rem; padding: .7rem 1.1rem; background: rgba(232, 96, 58, .06); border: 1px solid rgba(232, 96, 58, .6); color: var(--bone); cursor: pointer; text-align: start; }
+#main .sosrow b { display: inline-flex; align-items: center; gap: .6rem; font: 900 1.2rem/1.2 var(--display); }
+#main .sosrow span { font: 500 1rem/1.2 var(--display); color: var(--muted); }
+#main .practice .moment-lead { margin: 0 0 .3rem; font: 900 clamp(1.5rem, 3.4vw, 2rem)/1.2 var(--display); color: var(--bone); }
+#main .practice .sosk { margin: 0 0 .3rem; }
+#main .practice.is-moment .stage { width: min(100%, 17rem, 34dvh); max-height: none; }
+.land .sos-link { display: inline-flex; align-items: center; gap: .6rem; margin-top: .8rem; padding: .6rem 0; min-height: 2.75rem; background: none; border: 0; cursor: pointer; color: #ebe0c6; font: 700 1.05rem/1.3 var(--display); text-align: start; }
+.land .sos-link span { border-bottom: 1px solid rgba(232, 96, 58, .8); }
+.land .sos-link i { font-style: normal; color: #e8603a; }
+@media (max-width: 480px) { .top { gap: .6rem; } .top .brand-en { display: none; } }

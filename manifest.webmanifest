@@ -20,5 +20,19 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "רגע קשה · נשימה של 72 שניות",
+      "short_name": "רגע קשה",
+      "url": "./#/moment",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
   ]
 }

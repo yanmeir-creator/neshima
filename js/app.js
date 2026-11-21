@@ -157,6 +157,7 @@
     top.hidden = inSession;
     top.innerHTML =
       '<a class="brand" href="#/" aria-label="NESHIMA — ' + esc(s.home) + '"><span class="brand-he" lang="he" dir="rtl">נשימה</span><span class="brand-en">NESHIMA</span></a>' +
+      '<button type="button" class="sos" data-act="sos">' + esc(s.sosTop) + '</button>' +
       '<button type="button" class="lang" data-act="lang" lang="' + s.switchLang + '">' + esc(s.switchTo) + '</button>';
   }
 
@@ -328,6 +329,7 @@
         '<h1 class="hero-h" tabindex="-1"><span>' + esc(L.h1a) + '</span><span class="gold">' + esc(L.h1b) + '</span></h1>' +
         '<p class="hero-sub">' + esc(L.sub) + '</p>' +
         '<div class="hero-act">' + cta(L.cta) + '<button type="button" class="why" data-jump="l1">' + esc(L.why) + ' <i aria-hidden="true">↓</i></button></div>' + terms +
+        '<button type="button" class="sos-link" data-act="sos"><span>' + esc(s.sosLand) + '</span> <i aria-hidden="true">' + (rtl ? '←' : '→') + '</i></button>' +
       '</div></div>' +
       '<div class="lsec about" id="l1">' + head(marks[0], L.s1tag, L.s1h) + '<div class="about-p">' + L.s1p.map(function (p) { return '<p class="rv">' + esc(p) + '</p>'; }).join('') + '</div></div>' +
       '<div class="lsec why-sec" id="l2">' + head(marks[1], L.s2tag, L.s2h) + '<p class="sec-sub rv">' + esc(L.s2sub) + '</p>' +
@@ -587,6 +589,7 @@
       boardHtml(st.counts, todayIdx, s.sealLabel(st.total, day)) +
       (day >= DAYS ? '<a class="card-cta" href="#/reflect"><strong>' + esc(s.doneTitle) + '</strong><span>' + esc(s.doneCta) + '</span></a>' : '') +
       '<button type="button" class="node" data-act="breathe">' + esc(s.homeGo) + '</button>' +
+      '<button type="button" class="sosrow" data-act="sos"><b>' + esc(s.sosBtn) + '</b><span>' + esc(s.sosSub) + '</span></button>' +
       (day >= 3 && !state.vavs ? '<div class="turn"><h2>' + esc(s.turnT) + '</h2><p>' + esc(s.turnBody) + '</p>' +
         '<div class="actions"><a class="btn primary" data-wa href="' + esc(waUrl()) + '" target="_blank" rel="noopener">' + esc(s.waBtn) + '</a><a class="btn" href="#/share">' + esc(s.moreWays) + '</a></div></div>' : '') +
       '<div class="manage"><h2 class="sect">' + esc(s.manT) + '</h2>' +
@@ -594,7 +597,7 @@
         '<a href="#/setup"><span>' + esc(s.manRem) + '</span><b dir="ltr">' + esc(state.challenge.times.filter(function (x, i) { return state.challenge.on[i]; }).join(' · ') || '—') + '</b></a>' +
         '<a href="#/measure"><span>' + esc(s.manPace) + '</span><b>' + esc(s.manPaceVal((23 * state.settings.unit).toFixed(1))) + '</b></a>' +
         '<a href="#/keep"><span>' + esc(s.manKeep) + '</span><b>' + esc(s.manKeepVal) + '</b></a></div>' +
-      '<nav class="margin links"><a href="#/leaf">' + esc(s.leafToday) + '</a><a href="#/share">' + esc(s.shareDay) + '</a><a href="#/reflect">' + esc(s.leaveText) + '</a><a href="#/moment">' + esc(s.moment) + '</a></nav>' +
+      '<nav class="margin links"><a href="#/leaf">' + esc(s.leafToday) + '</a><a href="#/share">' + esc(s.shareDay) + '</a><a href="#/reflect">' + esc(s.leaveText) + '</a></nav>' +
       footLinks() + '</section>';
   }
 
@@ -602,10 +605,11 @@
   // Hesed is 72 in gematria. A whisper lasts three, five or ten times 72 seconds, and the three
   // lengths carry the three names of the soul, each of which also means breath.
   var LEVELS = { nefesh: 216, ruach: 360, neshama: 720 };
+  var HESED = 72;   // a hard moment lasts one hesed
   // The length is kept exact: the count of breaths is rounded, and the pace is then adjusted by
   // a few percent so that whole breaths fill the time precisely.
   function plan(rhythm, unit, level) {
-    var per = B.cycleSeconds(B.phasesFor(rhythm, 1)), S = LEVELS[level];
+    var per = B.cycleSeconds(B.phasesFor(rhythm, 1)), S = typeof level === 'number' ? level : LEVELS[level];
     if (!S || !per) return null;
     var n = Math.max(1, Math.round(S / (per * unit)));
     return { breaths: n, unit: S / (per * n), seconds: S };
@@ -733,7 +737,7 @@
   function practiceView(kind) {
     var s = t(), moment = kind === 'moment';
     return '<section class="practice' + (moment ? ' is-moment' : '') + '" id="practice">' +
-      (moment ? '<p class="moment-lead">' + esc(s.momentLead) + '</p>' : '') +
+      (moment ? '<p class="folio sosk">' + esc(s.sosSub) + '</p><p class="moment-lead">' + esc(s.momentLead) + '</p>' : '') +
       (!moment && state.settings.sound === 'guide' ? '<p class="listen"><svg viewBox="0 0 24 26" aria-hidden="true"><path d="M2 16 V12 a10 10 0 0 1 20 0 V16"/><rect x="0.8" y="15" width="5" height="9" rx="2"/><rect x="18.2" y="15" width="5" height="9" rx="2"/></svg>' + esc(s.listenHint) + '</p>' : '') +
       '<div class="stage" id="stage" aria-hidden="true" lang="he"><div class="stage-rings">' + ringsSvg('') + '</div>' +
         '<svg class="sessring" viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="48.5"/><circle class="done" id="sessProg" cx="50" cy="50" r="48.5" pathLength="100" stroke-dasharray="0 100"/></svg>' +
@@ -742,11 +746,11 @@
       '<p class="count" aria-hidden="true"><bdi id="count"></bdi></p>' +
       '<p class="sr-only" id="live" aria-live="polite"></p>' +
       '<div class="word mini" id="mini" dir="rtl" lang="he" aria-hidden="true"></div>' +
-      (moment ? '' : '<p class="countdown" aria-hidden="true"><bdi id="cdown" dir="ltr"></bdi></p>') +
+      '<p class="countdown" aria-hidden="true"><bdi id="cdown" dir="ltr"></bdi></p>' +
       '<p class="timeleft" id="left"></p>' +
       (!moment && state.settings.rhythm !== 'own' && state.settings.sound !== 'guide' ? '<div class="pace-row"><button type="button" class="chip" data-act="quicker">' + esc(s.quicker) + '</button><button type="button" class="chip" data-act="slower">' + esc(s.slower) + '</button></div>' : '') +
       '<div class="controls">' +
-        (moment ? '<button type="button" class="btn primary" data-act="end">' + esc(s.momentDone) + '</button>'
+        (moment ? '<button type="button" class="btn" data-act="end">' + esc(s.momentDone) + '</button>'
           : '<button type="button" class="btn" data-act="pause" id="pauseBtn">' + esc(s.pause) + '</button><button type="button" class="btn" data-act="end">' + esc(s.end) + '</button>') +
         '<button type="button" class="chip" data-act="mute" id="muteBtn" aria-pressed="' + (state.settings.sound !== 'off' || state.settings.cue) + '">' + esc(state.settings.sound !== 'off' || state.settings.cue ? s.soundOn : s.soundOff) + '</button>' +
       '</div>' +
@@ -758,9 +762,11 @@
 
   function startSession(kind) {
     var s = t(), set = state.settings, moment = kind === 'moment';
-    var pl = !moment && !pendingBreaths ? plan(set.rhythm, set.unit, set.level) : null;
-    var phases = B.phasesFor(moment ? 'moment' : set.rhythm, pl ? pl.unit : set.unit);
-    var target = pendingBreaths || (pl ? pl.breaths : set.breaths), breath = 0;
+    // A hard moment is one hesed (72 seconds) of the same breath, at the person's own pace. It
+    // starts at once: nothing is rendered ahead, so there is nothing to wait for.
+    var pl = moment ? plan('hadva', set.unit, HESED) : (!pendingBreaths ? plan(set.rhythm, set.unit, set.level) : null);
+    var phases = B.phasesFor(moment ? 'hadva' : set.rhythm, pl ? pl.unit : set.unit);
+    var target = moment ? pl.breaths : (pendingBreaths || (pl ? pl.breaths : set.breaths)), breath = 0;
     var labels = { in: s.pIn, linger: s.pLinger, out: s.pOut, rest: s.pRest };
     var words = { in: s.actIn, linger: s.actLinger, out: s.actOut, rest: s.actRest };   // what the circle says
     var phaseEl = document.getElementById('phase'), liveEl = document.getElementById('live');
@@ -772,7 +778,7 @@
     // Listening mode: the session follows a rendered track, so it carries on with the screen off.
     var guide = set.sound === 'guide' && phases.length > 0 && !moment, gAudio = null, cyc = B.cycleSeconds(phases);
     var cdEl = document.getElementById('cdown'), lastRem = '';
-    var ember = document.getElementById('ember'), sessProg = moment ? null : document.getElementById('sessProg'), syncAt = null, syncBase = 0;
+    var ember = document.getElementById('ember'), sessProg = document.getElementById('sessProg'), syncAt = null, syncBase = 0;
     root.dataset.rhythm = phases.length ? 'paced' : 'own';
     if (phases.length) stage.classList.add('says');
     mini.innerHTML = phases.map(function (p) { return '<span class="lt lt-' + p.key + '" data-k="' + p.key + '"><b>' + LETTER_OF[p.key] + '</b></span>'; }).join('');
@@ -798,7 +804,7 @@
         if (guide && engine.elapsed() >= cyc * target - 0.05) { phaseEl.textContent = ''; liveEl.textContent = ''; return; }
         if (key === phases[0].key) {
           breath = guide ? Math.floor(engine.elapsed() / cyc + 0.01) + 1 : breath + 1;
-          if (!moment) {
+          {
             if (breath > target) { finishSession(engine.elapsed(), true); return; }
             leftEl.textContent = s.breathOf(breath, target);
           }
@@ -815,7 +821,7 @@
         if (!session) return;
         if (guide && f.elapsed >= cyc * target) { stage.style.setProperty('--f', '0'); countEl.textContent = ''; return; }
         if (f.phase !== 'own') {
-          if (cdEl && cyc && !moment) { var rem = clock(Math.max(0, cyc * target - f.elapsed)); if (rem !== lastRem) { cdEl.textContent = rem; lastRem = rem; } }
+          if (cdEl && cyc) { var rem = clock(Math.max(0, cyc * target - f.elapsed)); if (rem !== lastRem) { cdEl.textContent = rem; lastRem = rem; } }
           var c = String(Math.max(1, Math.ceil(f.phaseLeft)));
           if (c !== lastCount) { countEl.textContent = c; lastCount = c; }
           if (!reduced) {
@@ -897,8 +903,11 @@
     var s = t(), d = lastDone;
     if (!d) { setTimeout(function () { go('/'); }, 0); return ''; }
     if (d.kind === 'moment') {
-      return '<section class="after leaf"><h1 tabindex="-1">' + esc(s.momentAfter) + '</h1>' +
-        '<a class="node" href="#/">' + esc(s.next) + '</a>' +
+      return '<section class="after leaf sosdone"><div class="leafhead"><p class="folio">' + esc(s.sosSub) + '</p></div>' +
+        '<h1 tabindex="-1">' + esc(s.momentAfter) + '</h1><p class="lead">' + esc(d.natural ? s.sosAfterLead : s.sosAfterShort) + '</p>' +
+        (state.challenge ? '<a class="node" href="#/">' + esc(s.sosHome) + '</a>'
+          : '<p class="line">' + esc(s.sosPitch) + '</p><a class="node" href="#/">' + esc(s.sosPitchGo) + '</a>') +
+        '<nav class="margin links"><button type="button" class="linkish" data-act="sos">' + esc(s.sosAgain) + '</button></nav>' +
         '<details class="more support"><summary>' + esc(s.supportT) + '</summary><p>' + esc(s.support) + '</p></details></section>';
     }
     var logged = d.idx >= 0, day = state.challenge ? challengeDay() : 1, st = stats();
@@ -1254,7 +1263,7 @@
   };
 
   /* ---------- Router ---------- */
-  function route() { var h = location.hash.replace(/^#/, ''); return views[h] ? h : '/'; }
+  function route() { var h = location.hash.replace(/^#/, ''); if (h === '/sos') h = '/moment'; return views[h] ? h : '/'; }
   function go(path) { if (route() === path && location.hash) render(); else location.hash = '#' + path; }
   function render(keepFocus) {
     var r = route();
@@ -1306,6 +1315,7 @@
     },
     gateSound: function () { state.settings.gateSound = !state.settings.gateSound; save(); if (state.settings.gateSound) B.sound.unlock(); render(true); },
     deeper: function () { gateStep = Math.min(gateStep + 1, t().gates.length - 1); render(); },
+    sos: function () { B.sound.unlock(); go('/moment'); },   // the tap itself wakes the sound
     skipGate: function () { if (OLD_GATES) { gateStep = t().gates.length - 1; go('/gate'); return; } go('/challenge'); },
     spell: function () {
       // First the person's own breath is measured and a length chosen; then the whisper.
