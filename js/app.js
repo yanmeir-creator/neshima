@@ -326,12 +326,12 @@
       '<div class="lsec hero" id="l0"><div class="hero-wheel" aria-hidden="true">' + wheelSvg('hw', true) + '</div><div class="hero-txt">' +
         (inv ? '<div class="hero-inv"><p>' + esc(s.invitedBy(invitedBy, state.chain)) + '</p>' + (invitedWord ? '<blockquote>' + esc('״' + invitedWord + '״') + '</blockquote>' : '') + '</div>' : '') +
         '<p class="kicker2">' + esc(L.kicker) + '</p>' +
-        '<h1 class="hero-h" tabindex="-1"><span>' + esc(L.h1a) + '</span><span class="gold">' + esc(L.h1b) + '</span></h1>' +
-        '<p class="hero-sub">' + esc(L.sub) + '</p>' +
+        '<h1 class="hero-h q" tabindex="-1"><span>' + esc(L.introA) + '</span><span class="gold">' + esc(L.introB) + '</span></h1>' +
+        '<div class="hero-pitch">' + L.intro.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') + '</div>' +
         '<div class="hero-act">' + cta(L.cta) + '<button type="button" class="why" data-jump="l1">' + esc(L.why) + ' <i aria-hidden="true">↓</i></button></div>' + terms +
         '<button type="button" class="sos-link" data-act="sos"><span>' + esc(s.sosLand(sosLen())) + '</span> <i aria-hidden="true">' + (rtl ? '←' : '→') + '</i></button>' +
       '</div></div>' +
-      '<div class="lsec about" id="l1">' + head(marks[0], L.s1tag, L.s1h) + '<div class="about-p">' + L.s1p.map(function (p) { return '<p class="rv">' + esc(p) + '</p>'; }).join('') + '<div class="rv pitch-cta">' + cta(L.cta) + '</div></div></div>' +
+      '<div class="lsec about" id="l1"><p class="sec-num" aria-hidden="true">' + marks[0] + '</p><div class="sec-head"><p class="sec-tag rv">' + esc(L.s1tag) + '</p><h2 class="sec-h rv">' + esc(L.h1a) + ' <span class="gold">' + esc(L.h1b) + '</span></h2></div>' + '<div class="about-p">' + L.s1p.map(function (p) { return '<p class="rv">' + esc(p) + '</p>'; }).join('') + '<div class="rv pitch-cta">' + cta(L.cta) + '</div></div></div>' +
       '<div class="lsec why-sec" id="l2">' + head(marks[1], L.s2tag, L.s2h) + '<p class="sec-sub rv">' + esc(L.s2sub) + '</p>' +
         '<div class="pillars">' + L.pillars.map(function (P, i) {
           return '<article class="pillar rv">' + icoSvg(i) + '<p class="p-tag">' + esc(P.tag) + '</p><h3>' + esc(P.h) + '</h3>' +

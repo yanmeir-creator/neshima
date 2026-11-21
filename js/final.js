@@ -100,14 +100,16 @@
     // The founder's pitch (21 November 2026). Before it, this section read: "אל דף שנשמר הרבה זמן." /
     // "בספר קבלה ישן הוסתר סוד פשוט: לנשימה יש מידה." / "מי שנושם במידה הזאת — משהו בו מתיישב,
     // ומשהו בעולמו זז." / "המידה נקראת במילה אחת. נשימה אחת, והיא מתגלה."
-    s1tag: 'השורש', s1h: 'איך הנשימה שלך עכשיו?',
+    introA: 'איך הנשימה שלך', introB: 'עכשיו?',
+    s1tag: 'הסוד', s1h: 'יש סוד מוסתר. כאן הוא מתגלה לך.',
     // The version before this one, in the founder's first wording: "הסטרס, הלחץ, הוא אבי אבות
     // החולאים." / "הרמב״ם כתב על כך כבר לפני שמונה מאות שנה, והמחקר של היום מאשר." / "לכן יש
     // לנו סוד. פתרון פשוט, שעובד אצלנו כמו קסם." / "ואני רוצה לעשות איתך חסד, ולתת לך אותו במתנה."
-    s1p: ['קצרה? זה הלחץ.',
+    intro: ['קצרה? זה הלחץ.',
       'הוא יורד אל הלב, אל השינה, אל הבטן. מקור גדול לחולאים, כתב הרמב״ם לפני שמונה מאות שנה. המחקר מאשר.',
       'מדיטציה, יוגה, חופשה. לא תמיד יש זמן.',
       'יש לי מתנה בשבילך: סוד קסום, שהולך איתך לכל מקום ועוזר לך. חסד. קח אותו.'],
+    s1p: ['נשימה, במקצב סודי אחד, שבכוחה לשנות את המציאות שלך.', 'בספר קבלה ישן הוסתר סוד פשוט: לנשימה יש מידה.', 'נשימה אחת, והיא מתגלה.'],
     s2tag: 'למה זה עובד', s2h: 'שלושה עדים.', s2sub: 'שלושה עולמות שאינם מכירים זה את זה — אומרים אותו דבר.',
     pillars: [
       { tag: 'הקבלה', h: 'הנשימה מתקנת.', q: 'כִּי עִקַּר תִּקּוּן הַשֵּׂכֶל הוּא עַל־יְדֵי הַנְּשִׁימָה', c: 'רבי נחמן מברסלב · ליקוטי מוהר״ן, תורה ס',
@@ -124,7 +126,7 @@
     s4p: 'מישהו עשה איתך חסד. אם זה ייטיב איתך — יגיע תורך: להעביר את הדף לאדם אחד. כך הסוד עובר, מיד ליד.',
     s5a: 'אל תאמינו.', s5b: 'נסו.', cta2: 'לנשימה הראשונה',
     fine: 'לאט ובנחת. גוף שמבקש לעצור — עוצרים.',
-    spine: ['הסוד', 'השורש', 'שלושה עדים', 'האתגר', 'חסד', 'נשימה ראשונה']
+    spine: ['הקדמה', 'הסוד', 'שלושה עדים', 'האתגר', 'חסד', 'נשימה ראשונה']
   };
 
   Object.assign(en, {
@@ -213,11 +215,13 @@
     sub: 'A breath, in one secret rhythm, with the power to change your reality.',
     cta: 'Uncover the secret', why: 'Want to understand why?',
     terms: ['Fourteen days', 'three times a day', 'no sign-up', 'no cost'],
-    s1tag: 'The root', s1h: 'How is your breath right now?',
-    s1p: ['Short? That is stress.',
+    introA: 'How is your breath', introB: 'right now?',
+    s1tag: 'The secret', s1h: 'There is a hidden secret. Here it is shown to you.',
+    intro: ['Short? That is stress.',
       'It goes down to the heart, to sleep, to the gut. A great source of illness, wrote Maimonides eight hundred years ago. The research agrees.',
       'Meditation, yoga, a holiday. There is not always time.',
       'I have a gift for you: a magical secret that goes with you everywhere and helps you. A kindness. Take it.'],
+    s1p: ['A breath, in one secret rhythm, with the power to change your reality.', 'In an old book of Kabbalah a simple secret was hidden: the breath has a measure.', 'One breath, and it shows itself.'],
     s2tag: 'Why it works', s2h: 'Three witnesses.', s2sub: 'Three worlds that do not know one another say the same thing.',
     pillars: [
       { tag: 'Kabbalah', h: 'The breath repairs.', q: 'כִּי עִקַּר תִּקּוּן הַשֵּׂכֶל הוּא עַל־יְדֵי הַנְּשִׁימָה', c: 'Rabbi Nachman of Breslov · Likutey Moharan, Lesson 60',
@@ -234,7 +238,7 @@
     s4p: 'Someone did you a kindness. If it does you good, your turn will come: to pass the leaf to one person. That is how the secret travels, hand to hand.',
     s5a: 'Do not believe.', s5b: 'Try.', cta2: 'To the first breath',
     fine: 'Slowly and at ease. A body that asks to stop, stops.',
-    spine: ['The secret', 'The root', 'Three witnesses', 'The challenge', 'Kindness', 'First breath']
+    spine: ['Introduction', 'The secret', 'Three witnesses', 'The challenge', 'Kindness', 'First breath']
   };
 // The sources page, as the founder frames it: the rhythm is the secret, noted in an old book
   // of Kabbalah, and it comes first; everything after it explains why breath changes reality.

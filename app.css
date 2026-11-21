@@ -238,3 +238,17 @@ html:has(main[data-view="/first"]) .backdrop { display: none; }
 .land .about-p p:last-of-type { color: #e9c987; font-weight: 700; }
 .land .about-p .pitch-cta { margin-top: .9rem; }
 @media (max-width: 899px) { .land .about-p .pitch-cta { display: none; } }  /* on a phone the fixed button at the bottom is already there */
+
+/* ---------- the introduction: the pitch is the first screen ---------- */
+.land .hero-h.q { font-size: clamp(2.4rem, 5.6vw, 5.2rem); line-height: 1.02; }
+.land .hero-pitch { display: grid; gap: .55rem; max-width: 40ch; font: 500 clamp(1.05rem, 1.55vw, 1.25rem)/1.5 var(--display); color: var(--dim); text-shadow: 0 1px 16px #0a0705, 0 0 3px #0a0705; }
+.land .hero-pitch p { margin: 0; }
+.land .hero-pitch p:first-child { color: var(--bone); font-weight: 700; }
+.land .hero-pitch p:last-child { color: #e9c987; font-weight: 700; }
+@media (max-width: 899px) { .land .hero-h.q { font-size: clamp(2.3rem, 11vw, 3.4rem); } }
+@media (max-width: 899px) {
+  /* the eye of the wheel sits above the question, and the text gets a dark ground to stand on */
+  .land .lsec > .hero-wheel { top: -38vw; }
+  .land .hero-txt::before { content: ""; position: absolute; z-index: -1; inset: -3rem -1.4rem -2.6rem; pointer-events: none;
+    background: linear-gradient(180deg, rgba(10, 7, 5, 0), rgba(10, 7, 5, .7) 4.5rem, rgba(10, 7, 5, .9) 9rem); }
+}
