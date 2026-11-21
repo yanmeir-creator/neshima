@@ -98,7 +98,7 @@
     kicker: 'סוד עתיק · מספר קבלה',
     h1a: 'יש סוד מוסתר.', h1b: 'כאן הוא מתגלה לך.',
     // Before 21 November 2026: 'נשימה, במקצב סודי אחד, שבכוחה לשנות את המציאות שלך.'
-    sub: 'הנשימה היא המפתח. יש לי קוד סודי לתת לך: מקצב אחד, מיוחד מאוד, מתוך ספר קבלה עתיק. בכוחו לשנות את המציאות שלך.',
+    sub: 'הנשימה היא המפתח. יש קוד סודי שהגיע עכשיו אליך: מקצב אחד, מיוחד מאוד, מתוך ספר קבלה עתיק. בכוחו לשנות את המציאות שלך.',
     src3: 'שהנשימה היא המפתח, על כך מסכימים מקורות רבים מעולמות שונים: הקבלה, הרפואה ופיזיקת הקוונטים.', more: 'לקרוא עוד',
     cta: 'לגלות את הסוד', cta3: 'להתחיל את האתגר', why: 'רוצה להבין למה?',
     terms: ['ארבעה־עשר ימים', 'שלוש פעמים ביום', 'בלי רישום', 'בלי עלות'],
@@ -217,7 +217,7 @@
   en.land = {
     kicker: 'An ancient secret · from a book of Kabbalah',
     h1a: 'There is a hidden secret.', h1b: 'Here it is shown to you.',
-    sub: 'The breath is the key. I have a secret code to give you: one rhythm, a very special one, from an ancient book of Kabbalah. It has the power to change your reality.',
+    sub: 'The breath is the key. A secret code has now reached you: one rhythm, a very special one, from an ancient book of Kabbalah. It has the power to change your reality.',
     src3: 'That the breath is the key, many sources from different worlds agree: Kabbalah, medicine and quantum physics.', more: 'Read more',
     cta: 'Uncover the secret', cta3: 'Begin the challenge', why: 'Want to understand why?',
     terms: ['Fourteen days', 'three times a day', 'no sign-up', 'no cost'],
