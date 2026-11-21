@@ -331,7 +331,7 @@
         '<div class="hero-act">' + cta(L.cta) + '<button type="button" class="why" data-jump="l1">' + esc(L.why) + ' <i aria-hidden="true">↓</i></button></div>' + terms +
         '<button type="button" class="sos-link" data-act="sos"><span>' + esc(s.sosLand(sosLen())) + '</span> <i aria-hidden="true">' + (rtl ? '←' : '→') + '</i></button>' +
       '</div></div>' +
-      '<div class="lsec about" id="l1">' + head(marks[0], L.s1tag, L.s1h) + '<div class="about-p">' + L.s1p.map(function (p) { return '<p class="rv">' + esc(p) + '</p>'; }).join('') + '</div></div>' +
+      '<div class="lsec about" id="l1">' + head(marks[0], L.s1tag, L.s1h) + '<div class="about-p">' + L.s1p.map(function (p) { return '<p class="rv">' + esc(p) + '</p>'; }).join('') + '<div class="rv pitch-cta">' + cta(L.cta) + '</div></div></div>' +
       '<div class="lsec why-sec" id="l2">' + head(marks[1], L.s2tag, L.s2h) + '<p class="sec-sub rv">' + esc(L.s2sub) + '</p>' +
         '<div class="pillars">' + L.pillars.map(function (P, i) {
           return '<article class="pillar rv">' + icoSvg(i) + '<p class="p-tag">' + esc(P.tag) + '</p><h3>' + esc(P.h) + '</h3>' +
@@ -1257,7 +1257,7 @@
       '<div class="panel"><h2>' + esc(s.privacyT) + '</h2><p>' + esc(s.privacyBody) + '</p>' +
         '<div class="actions"><button type="button" class="btn" data-act="export">' + esc(s.exportBtn) + '</button>' +
         '<button type="button" class="btn danger" data-act="wipe">' + esc(s.deleteBtn) + '</button></div></div>' +
-      '<div class="panel"><h2>' + esc(s.aboutT) + '</h2><p>' + esc(s.aboutBody) + '</p><p class="fine">' + esc(s.support) + '</p><a class="inline-link" href="#/sources">' + esc(s.sourcesLink) + '</a></div>' +
+      '<div class="panel"><h2>' + esc(s.aboutT) + '</h2><p>' + esc(s.aboutBody) + '</p><a class="inline-link" href="#/sources">' + esc(s.sourcesLink) + '</a></div>' +
       '<div class="actions"><a class="btn" href="#/">' + esc(s.back) + '</a></div></section>';
   };
 

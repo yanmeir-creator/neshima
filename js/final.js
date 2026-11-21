@@ -97,8 +97,11 @@
     sub: 'נשימה, במקצב סודי אחד, שבכוחה לשנות את המציאות שלך.',
     cta: 'לגלות את הסוד', why: 'רוצה להבין למה?',
     terms: ['ארבעה־עשר ימים', 'שלוש פעמים ביום', 'בלי רישום', 'בלי עלות'],
-    s1tag: 'לאן הגעת', s1h: 'אל דף שנשמר הרבה זמן.',
-    s1p: ['בספר קבלה ישן הוסתר סוד פשוט: לנשימה יש מידה.', 'מי שנושם במידה הזאת — משהו בו מתיישב, ומשהו בעולמו זז.', 'המידה נקראת במילה אחת. נשימה אחת, והיא מתגלה.'],
+    // The founder's pitch (21 November 2026). Before it, this section read: "אל דף שנשמר הרבה זמן." /
+    // "בספר קבלה ישן הוסתר סוד פשוט: לנשימה יש מידה." / "מי שנושם במידה הזאת — משהו בו מתיישב,
+    // ומשהו בעולמו זז." / "המידה נקראת במילה אחת. נשימה אחת, והיא מתגלה."
+    s1tag: 'השורש', s1h: 'איך הנשימה שלך עכשיו?',
+    s1p: ['הסטרס, הלחץ, הוא אבי אבות החולאים.', 'הרמב״ם כתב על כך כבר לפני שמונה מאות שנה, והמחקר של היום מאשר.', 'לכן יש לנו סוד. פתרון פשוט, שעובד אצלנו כמו קסם.', 'ואני רוצה לעשות איתך חסד, ולתת לך אותו במתנה.'],
     s2tag: 'למה זה עובד', s2h: 'שלושה עדים.', s2sub: 'שלושה עולמות שאינם מכירים זה את זה — אומרים אותו דבר.',
     pillars: [
       { tag: 'הקבלה', h: 'הנשימה מתקנת.', q: 'כִּי עִקַּר תִּקּוּן הַשֵּׂכֶל הוּא עַל־יְדֵי הַנְּשִׁימָה', c: 'רבי נחמן מברסלב · ליקוטי מוהר״ן, תורה ס',
@@ -115,7 +118,7 @@
     s4p: 'מישהו עשה איתך חסד. אם זה ייטיב איתך — יגיע תורך: להעביר את הדף לאדם אחד. כך הסוד עובר, מיד ליד.',
     s5a: 'אל תאמינו.', s5b: 'נסו.', cta2: 'לנשימה הראשונה',
     fine: 'לאט ובנחת. גוף שמבקש לעצור — עוצרים.',
-    spine: ['הסוד', 'לאן הגעת', 'שלושה עדים', 'האתגר', 'חסד', 'נשימה ראשונה']
+    spine: ['הסוד', 'השורש', 'שלושה עדים', 'האתגר', 'חסד', 'נשימה ראשונה']
   };
 
   Object.assign(en, {
@@ -204,8 +207,8 @@
     sub: 'A breath, in one secret rhythm, with the power to change your reality.',
     cta: 'Uncover the secret', why: 'Want to understand why?',
     terms: ['Fourteen days', 'three times a day', 'no sign-up', 'no cost'],
-    s1tag: 'Where you are', s1h: 'At a leaf kept a long time.',
-    s1p: ['In an old book of Kabbalah a simple secret was hidden: the breath has a measure.', 'Whoever breathes in that measure — something in them settles, and something in their world moves.', 'The measure is named in one word. One breath, and it shows itself.'],
+    s1tag: 'The root', s1h: 'How is your breath right now?',
+    s1p: ['Stress is the father of illness.', 'Maimonides wrote of it eight hundred years ago, and the research of today confirms it.', 'So we have a secret. A simple remedy, which for us works like magic.', 'And I want to do you a kindness, and give it to you as a gift.'],
     s2tag: 'Why it works', s2h: 'Three witnesses.', s2sub: 'Three worlds that do not know one another say the same thing.',
     pillars: [
       { tag: 'Kabbalah', h: 'The breath repairs.', q: 'כִּי עִקַּר תִּקּוּן הַשֵּׂכֶל הוּא עַל־יְדֵי הַנְּשִׁימָה', c: 'Rabbi Nachman of Breslov · Likutey Moharan, Lesson 60',
@@ -222,7 +225,7 @@
     s4p: 'Someone did you a kindness. If it does you good, your turn will come: to pass the leaf to one person. That is how the secret travels, hand to hand.',
     s5a: 'Do not believe.', s5b: 'Try.', cta2: 'To the first breath',
     fine: 'Slowly and at ease. A body that asks to stop, stops.',
-    spine: ['The secret', 'Where you are', 'Three witnesses', 'The challenge', 'Kindness', 'First breath']
+    spine: ['The secret', 'The root', 'Three witnesses', 'The challenge', 'Kindness', 'First breath']
   };
 // The sources page, as the founder frames it: the rhythm is the secret, noted in an old book
   // of Kabbalah, and it comes first; everything after it explains why breath changes reality.
@@ -255,4 +258,12 @@
       if (it.url.indexOf('Sefer_Yetzirah.1.7') >= 0) it.body = it.body.replace('השורה שמעל השער.', 'השורה הכתובה סביב הגלגל.').replace('The line over the gate:', 'The line written around the wheel:');
     });
   });
+  // The pitch names Maimonides and "the research of today". These two entries say what each
+  // actually says, so that the opening can speak boldly and the Sources page stays exact.
+  he.src.splice(1, 0,
+    { tag: 'text', ref: 'הרמב״ם, הנהגת הבריאות (1198)', body: 'הרמב״ם היה רופא חצר במצרים, ואת החיבור כתב לסולטאן אל־אפדל, בנו של צלאח א־דין. נאמר בו שיש להשגיח תמיד על תנועות הנפש ולאזן אותן, בבריאות ובחולי, ושאין להקדים להן שום הנהגה אחרת. הדברים מובאים כאן בתמצית, לפי תרגום אקדמי לאנגלית, ולא בלשון המקור.', url: 'https://www.posenlibrary.com/entry/regimen-health' },
+    { tag: 'science', ref: 'לחץ נפשי ומחלה · Cohen, Janicki-Deverts, Miller · JAMA, 2007', body: 'סקירה בכתב העת של ההסתדרות הרפואית האמריקאית: לחץ מתמשך קשור לדיכאון ולמחלות לב וכלי דם, והראיות לגבי מחלות אחרות חלקיות. לחץ מעלה את הסיכון, ואינו מבטיח מחלה. הלחץ קשור אפוא לתחלואים רבים, ולא לכולם.', url: 'https://doi.org/10.1001/jama.298.14.1685' });
+  en.src.splice(1, 0,
+    { tag: 'text', ref: 'Maimonides, On the Regimen of Health (1198)', body: 'Maimonides was a court physician in Egypt and wrote the work for the sultan al-Afdal, son of Saladin. It says that care should always be given to the movements of the soul, that they should be kept in balance in health and in illness, and that no other regimen should come before this. Given here in summary, from an academic English translation, not in the original wording.', url: 'https://www.posenlibrary.com/entry/regimen-health' },
+    { tag: 'science', ref: 'Psychological Stress and Disease · Cohen, Janicki-Deverts, Miller · JAMA, 2007', body: 'A review in the Journal of the American Medical Association: lasting stress is linked to depression and to cardiovascular disease, and the evidence for other diseases is partial. Stress raises the risk; it does not guarantee illness. So stress is tied to many ailments, not to all of them.', url: 'https://doi.org/10.1001/jama.298.14.1685' });
 })();
