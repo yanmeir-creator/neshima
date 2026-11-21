@@ -1338,6 +1338,9 @@
     enter: function () {
       B.sound.unlock();
       if (OLD_GATES) { gateStep = 0; gateAuto = true; go('/gate'); return; }   // the four gates, kept for comparison
+      // A link with ?open shows the opening on arrival only. Once the person walks on from it,
+      // "/" is the board again, so "to the breathing board" leads to the board.
+      SHOW_OPENING = false;
       walk = true; go('/begin');
     },
     gateSound: function () { state.settings.gateSound = !state.settings.gateSound; save(); if (state.settings.gateSound) B.sound.unlock(); render(true); },
