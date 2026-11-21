@@ -1,6 +1,6 @@
 /* Offline shell. Network first, so a newer version always wins when there is a connection;
    the cached copy is used only when there is none. Nothing is fetched from anywhere else. */
-var CACHE = 'neshima-shell-29';
+var CACHE = 'neshima-shell-mwqfu2dm';
 var SHELL = ['./', 'index.html', 'styles.css', 'landing.css', 'app.css', 'icon.svg', 'icon-192.png', 'icon-512.png', 'manifest.webmanifest',
   'fonts/fonts.css', 'fonts/FrankRuhlLibre-hebrew.woff2', 'fonts/FrankRuhlLibre-latin.woff2', 'fonts/NotoRashiHebrew-hebrew.woff2', 'fonts/NotoRashiHebrew-latin.woff2',
   'js/config.js', 'js/strings.js', 'js/brand.js', 'js/path.js', 'js/rite.js', 'js/leaves.js', 'js/final.js', 'js/breath.js', 'js/app.js', 'js/pwa.js'];
@@ -11,6 +11,7 @@ self.addEventListener('activate', function (e) {
 self.addEventListener('fetch', function (e) {
   var u = new URL(e.request.url);
   if (e.request.method !== 'GET' || u.origin !== location.origin) return;
+  if (/\/version\.txt$/.test(u.pathname)) return;   // the build mark: asked for fresh each time, never kept
   // Always ask the server whether the file changed. The host lets browsers keep a copy for ten
   // minutes, and without this a visitor could get a new script beside an old one after an update.
   e.respondWith(fetch(e.request.url, { cache: 'no-cache' }).then(function (r) {

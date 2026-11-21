@@ -102,7 +102,7 @@
     // The founder's pitch (21 November 2026). Before it, this section read: "אל דף שנשמר הרבה זמן." /
     // "בספר קבלה ישן הוסתר סוד פשוט: לנשימה יש מידה." / "מי שנושם במידה הזאת — משהו בו מתיישב,
     // ומשהו בעולמו זז." / "המידה נקראת במילה אחת. נשימה אחת, והיא מתגלה."
-    introK: 'נשימה', introGo: 'לקבל את המתנה', introA: 'איך הנשימה שלך', introB: 'עכשיו?',
+    openLink: 'עמוד הפתיחה', introK: 'נשימה', introGo: 'לקבל את המתנה', introA: 'איך הנשימה שלך', introB: 'עכשיו?',
     s1tag: 'הסוד', s1h: 'יש סוד מוסתר. כאן הוא מתגלה לך.',
     // The version before this one, in the founder's first wording: "הסטרס, הלחץ, הוא אבי אבות
     // החולאים." / "הרמב״ם כתב על כך כבר לפני שמונה מאות שנה, והמחקר של היום מאשר." / "לכן יש
@@ -215,7 +215,7 @@
     src3: 'Many sources, from different worlds, agree on this: Kabbalah, medicine and quantum physics.', more: 'Read more',
     cta: 'Uncover the secret', cta3: 'Begin the challenge', why: 'Want to understand why?',
     terms: ['Fourteen days', 'three times a day', 'no sign-up', 'no cost'],
-    introK: 'Neshima', introGo: 'Receive the gift', introA: 'How is your breath', introB: 'right now?',
+    openLink: 'The opening page', introK: 'Neshima', introGo: 'Receive the gift', introA: 'How is your breath', introB: 'right now?',
     s1tag: 'The secret', s1h: 'There is a hidden secret. Here it is shown to you.',
     intro: ['Short? That is stress.',
       'It goes down to the heart, to sleep, to the gut. A great source of illness, wrote Maimonides eight hundred years ago. The research agrees.',

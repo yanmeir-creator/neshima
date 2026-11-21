@@ -152,8 +152,12 @@
     h.dataset.large = state.settings.large ? '1' : '0';
     document.getElementById('skip').textContent = s.skip;
   }
+  // Whoever has begun the fourteen days lands on the board. The address ?open shows the opening
+  // page all the same, so that it can still be looked at.
+  var SHOW_OPENING = /[?&]open\b/.test(location.search);
+  function opening() { return !state.challenge || SHOW_OPENING; }
   function renderTop(route) {
-    var s = t(), inSession = route === '/practice' || route === '/moment' || route === '/gate' || route === '/hesed' || route === '/invite' || route === '/measure' || route === '/length' || route === '/challenge' || route === '/ready' || route === '/first' || (route === '/' && !state.challenge);
+    var s = t(), inSession = route === '/practice' || route === '/moment' || route === '/gate' || route === '/hesed' || route === '/invite' || route === '/measure' || route === '/length' || route === '/challenge' || route === '/ready' || route === '/first' || (route === '/' && opening());
     top.hidden = inSession;
     top.innerHTML =
       '<a class="brand" href="#/" aria-label="NESHIMA — ' + esc(s.home) + '"><span class="brand-he" lang="he" dir="rtl">נשימה</span><span class="brand-en">NESHIMA</span></a>' +
@@ -163,11 +167,12 @@
 
   /* ---------- Views ---------- */
   var views = {};
-  views['/'] = function () { return state.challenge ? homeView() : landingView(); };
+  views['/'] = function () { return opening() ? landingView() : homeView(); };
 
   function footLinks() {
     var s = t();
     return '<nav class="foot" aria-label="' + esc(s.home) + '">' +
+      (state.challenge ? '<a href="./?open">' + esc(s.land.openLink) + '</a>' : '') +
       '<button type="button" class="linkish" data-act="enter">' + esc(s.pathLink) + '</button>' +
       '<a href="#/sources">' + esc(s.sourcesLink) + '</a>' +
       '<a href="#/share">' + esc(s.shareLink) + '</a>' +
@@ -356,7 +361,7 @@
         '<p class="final-h rv"><span>' + esc(L.s5a) + '</span> <span class="red">' + esc(L.s5b) + '</span></p>' +
         '<div class="rv">' + cta(L.cta2, 'big') + '</div>' + terms +
         '<p class="fine2">' + esc(L.fine) + '</p>' +
-        '<nav class="land-links"><a href="#/sources">' + esc(s.srcTitle) + '</a><button type="button" class="linkish" data-act="skipGate">' + esc(s.thSkip) + '</button><button type="button" class="linkish" data-act="lang" lang="' + s.switchLang + '">' + esc(s.switchTo) + '</button></nav></div>' +
+        '<nav class="land-links">' + (state.challenge ? '<a href="./">' + esc(s.sosHome) + '</a>' : '') + '<a href="#/sources">' + esc(s.srcTitle) + '</a><button type="button" class="linkish" data-act="skipGate">' + esc(s.thSkip) + '</button><button type="button" class="linkish" data-act="lang" lang="' + s.switchLang + '">' + esc(s.switchTo) + '</button></nav></div>' +
       '<div class="stick" id="stick">' + cta(L.cta) + '</div></section>';
   }
   function startLanding() {
