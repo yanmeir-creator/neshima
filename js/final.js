@@ -95,11 +95,11 @@
   // The opening already says that the secret is a breath; the gates lead to its measure.
   he.gates[3] = { label: 'סוד', gloss: 'שער רביעי', items: [['line', 'וכך כתוב בספר ישן:'], ['verse', 'וְהָאֲנָחָה הוּא אֲרִיכַת הַנְּשִׁימָה', 'ליקוטי מוהר״ן, תורה ח'], ['line', 'לאריכות הזאת יש מידה.'], ['line', 'והמידה — מילה אחת.']] };
   he.land = {
-    kicker: 'סוד ישן · הוסתר בספר קבלה',
+    kicker: 'סוד עתיק · מספר קבלה',
     h1a: 'יש סוד מוסתר.', h1b: 'כאן הוא מתגלה לך.',
     // Before 21 November 2026: 'נשימה, במקצב סודי אחד, שבכוחה לשנות את המציאות שלך.'
-    sub: 'הנשימה היא המפתח, ולי יש את הקוד הסודי לתת לך: מקצב אחד, שבכוחו לשנות את המציאות שלך.',
-    src3: 'מקורות רבים, מעולמות שונים, מסכימים על כך: הקבלה, הרפואה ופיזיקת הקוונטים.', more: 'לקרוא עוד',
+    sub: 'הנשימה היא המפתח, ולי יש את הקוד הסודי לתת לך: מקצב אחד, מיוחד מאוד, מתוך ספר קבלה עתיק. בכוחו לשנות את המציאות שלך.',
+    src3: 'שהנשימה היא המפתח, על כך מסכימים מקורות רבים מעולמות שונים: הקבלה, הרפואה ופיזיקת הקוונטים.', more: 'לקרוא עוד',
     cta: 'לגלות את הסוד', cta3: 'להתחיל את האתגר', why: 'רוצה להבין למה?',
     terms: ['ארבעה־עשר ימים', 'שלוש פעמים ביום', 'בלי רישום', 'בלי עלות'],
     // The founder's pitch (21 November 2026). Before it, this section read: "אל דף שנשמר הרבה זמן." /
@@ -115,13 +115,13 @@
       'מדיטציה, יוגה, חופשה. לא תמיד יש זמן.',
       'יש לי מתנה בשבילך: סוד קסום, שהולך איתך לכל מקום ועוזר לך. חסד. קח אותו.'],
     s1p: ['נשימה, במקצב סודי אחד, שבכוחה לשנות את המציאות שלך.', 'בספר קבלה ישן הוסתר סוד פשוט: לנשימה יש מידה.', 'נשימה אחת, והיא מתגלה.'],
-    s2tag: 'למה זה עובד', s2h: 'שלושה עולמות. אותו סוד.', s2sub: 'הם לא מכירים זה את זה, ומסכימים על דבר אחד: הנשימה היא המפתח.',
+    s2tag: 'למה זה עובד', s2h: 'שלושה עולמות. מפתח אחד.', s2sub: 'הסוד הוא המקצב. ושנשימה מבוקרת היא המפתח, על זה מסכימים שלושה עולמות שאינם מכירים זה את זה.',
     pillars: [
       { tag: 'הקבלה', h: '״עיקר תיקון השכל הוא על ידי הנשימה.״', p: 'ועוד אמר: מי שמאריך את נשימתו עושה את עצמו בריה חדשה.', c: 'רבי נחמן מברסלב, לפני מאתיים שנה · ליקוטי מוהר״ן, תורה ס' },
       { tag: 'הרפואה', h: 'הלב נרגע.', p: 'הקצב הסודי מאט את הנשימה לכחמש נשימות בדקה. בקצב כזה הלב נרגע דרך עצב הוואגוס, וזה נמדד במעבדות שוב ושוב.', c: 'מחקרים על נשימה איטית וקצב הלב' },
-      { tag: 'פיזיקת הקוונטים', h: 'משנים תדר, משנים מציאות.', p: 'בעומקו, החומר הוא תנודה, והמתבונן משפיע על מה שהוא רואה.', c: 'פיזיקת הקוונטים · תורת התדר של דולורס קנון' }
+      { tag: 'פיזיקת הקוונטים', h: 'משנים תדר, משנים מציאות.', p: 'בעומקו, החומר הוא תנודה, והמתבונן משפיע על מה שהוא רואה. גם הנשימה היא תנודה: מקצב.', c: 'פיזיקת הקוונטים · תורת התדר של דולורס קנון' }
     ],
-    s2foot: 'שלוש שפות, דבר אחד.', s2more: 'כל המקורות',
+    s2foot: 'שלוש שפות, מפתח אחד.', s2more: 'כל המקורות',
     s3tag: 'האתגר', s3h: 'אני מזמין אותך לארבעה־עשר ימים.', s3sub: 'שלוש פעמים ביום, כמה דקות בכל פעם. זה כל מה שמתבקש ממך.',
     steps: [['נושמים שלוש פעמים ביום', 'שלוש וחצי, שש או שתים־עשרה דקות, לבחירתך. עם אוזניות, בעיניים עצומות.'], ['בכל יום נפתח דף', 'ארבעה־עשר דפים מן הספר. אחד ליום.'], ['ביום הארבעה־עשר כותבים', 'מה השתנה. במילים שלך.']],
     s4tag: 'חסד', s4h: 'זה ניתן לך בלי תמורה.',
@@ -215,10 +215,10 @@
   en.testBody = 'One sentence, in your own words: what changed. It is written on a leaf, and the leaf goes on — to one who has not yet uncovered the secret.';
   en.gates[3] = { label: 'Sod', gloss: 'the fourth gate · the secret', items: [['line', 'And so it is written in an old book:'], ['verse', 'וְהָאֲנָחָה הוּא אֲרִיכַת הַנְּשִׁימָה', '“The sigh is the lengthening of the breath.” Likutey Moharan, Lesson 8'], ['line', 'That lengthening has a measure.'], ['line', 'And the measure is one word.']] };
   en.land = {
-    kicker: 'An old secret · hidden in a book of Kabbalah',
+    kicker: 'An ancient secret · from a book of Kabbalah',
     h1a: 'There is a hidden secret.', h1b: 'Here it is shown to you.',
-    sub: 'The breath is the key, and I have the secret code to give you: one rhythm, with the power to change your reality.',
-    src3: 'Many sources, from different worlds, agree on this: Kabbalah, medicine and quantum physics.', more: 'Read more',
+    sub: 'The breath is the key, and I have the secret code to give you: one rhythm, a very special one, from an ancient book of Kabbalah. It has the power to change your reality.',
+    src3: 'That the breath is the key, many sources from different worlds agree: Kabbalah, medicine and quantum physics.', more: 'Read more',
     cta: 'Uncover the secret', cta3: 'Begin the challenge', why: 'Want to understand why?',
     terms: ['Fourteen days', 'three times a day', 'no sign-up', 'no cost'],
     openLink: 'The opening page', next3: 'Onward', introK: 'Neshima', introGo: 'Receive the gift', introA: 'How is your breath', introB: 'right now?',
@@ -228,13 +228,13 @@
       'Meditation, yoga, a holiday. There is not always time.',
       'I have a gift for you: a magical secret that goes with you everywhere and helps you. A kindness. Take it.'],
     s1p: ['A breath, in one secret rhythm, with the power to change your reality.', 'In an old book of Kabbalah a simple secret was hidden: the breath has a measure.', 'One breath, and it shows itself.'],
-    s2tag: 'Why it works', s2h: 'Three worlds. One secret.', s2sub: 'They do not know one another, and they agree on one thing: the breath is the key.',
+    s2tag: 'Why it works', s2h: 'Three worlds. One key.', s2sub: 'The secret is the rhythm. That controlled breathing is the key, three worlds that do not know one another agree.',
     pillars: [
       { tag: 'Kabbalah', h: '“The chief repair of the mind is through the breath.”', p: 'And he said also: whoever lengthens their breath makes themselves a new creature.', c: 'Rabbi Nachman of Breslov, two hundred years ago · Likutey Moharan, Lesson 60' },
       { tag: 'Medicine', h: 'The heart settles.', p: 'The secret rhythm slows the breath to about five breaths a minute. At that pace the heart settles through the vagus nerve, and this has been measured in laboratories again and again.', c: 'Studies of slow breathing and heart rate' },
-      { tag: 'Quantum physics', h: 'Change the frequency, change the reality.', p: 'In its depth, matter is vibration, and the one who observes affects what is seen.', c: 'Quantum physics · the frequency teaching of Dolores Cannon' }
+      { tag: 'Quantum physics', h: 'Change the frequency, change the reality.', p: 'In its depth, matter is vibration, and the one who observes affects what is seen. Breath too is a vibration: a rhythm.', c: 'Quantum physics · the frequency teaching of Dolores Cannon' }
     ],
-    s2foot: 'Three tongues. One thing.', s2more: 'All the sources',
+    s2foot: 'Three tongues. One key.', s2more: 'All the sources',
     s3tag: 'The challenge', s3h: 'I invite you to fourteen days.', s3sub: 'Three times a day, a few minutes each time. That is all that is asked of you.',
     steps: [['You breathe three times a day', 'Three and a half, six or twelve minutes, as you choose. Headphones on, eyes closed.'], ['Each day a leaf opens', 'Fourteen leaves of the book. One a day.'], ['On the fourteenth day you write', 'What changed. In your own words.']],
     s4tag: 'Kindness', s4h: 'It is given to you for nothing.',
