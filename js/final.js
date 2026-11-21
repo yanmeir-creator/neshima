@@ -95,8 +95,8 @@
     kicker: 'סוד ישן · הוסתר בספר קבלה',
     h1a: 'יש סוד מוסתר.', h1b: 'כאן הוא מתגלה לך.',
     // Before 21 November 2026: 'נשימה, במקצב סודי אחד, שבכוחה לשנות את המציאות שלך.'
-    sub: 'הנשימה היא מפתח, ולנו יש את הקוד הסודי שלה: מקצב אחד, שבכוחו לשנות את המציאות שלך.',
-    src3: 'יש לו מקורות בקבלה, ברפואה ובפיזיקת הקוונטים.', more: 'לקרוא עוד',
+    sub: 'הנשימה היא המפתח, ולי יש את הקוד הסודי לתת לך: מקצב אחד, שבכוחו לשנות את המציאות שלך.',
+    src3: 'מקורות רבים, מעולמות שונים, מסכימים על כך: הקבלה, הרפואה ופיזיקת הקוונטים.', more: 'לקרוא עוד',
     cta: 'לגלות את הסוד', cta3: 'להתחיל את האתגר', why: 'רוצה להבין למה?',
     terms: ['ארבעה־עשר ימים', 'שלוש פעמים ביום', 'בלי רישום', 'בלי עלות'],
     // The founder's pitch (21 November 2026). Before it, this section read: "אל דף שנשמר הרבה זמן." /
@@ -112,7 +112,7 @@
       'מדיטציה, יוגה, חופשה. לא תמיד יש זמן.',
       'יש לי מתנה בשבילך: סוד קסום, שהולך איתך לכל מקום ועוזר לך. חסד. קח אותו.'],
     s1p: ['נשימה, במקצב סודי אחד, שבכוחה לשנות את המציאות שלך.', 'בספר קבלה ישן הוסתר סוד פשוט: לנשימה יש מידה.', 'נשימה אחת, והיא מתגלה.'],
-    s2tag: 'למה זה עובד', s2h: 'שלושה עולמות. אותו סוד.', s2sub: 'הם לא מכירים זה את זה, ואומרים אותו דבר: הנשימה משנה.',
+    s2tag: 'למה זה עובד', s2h: 'שלושה עולמות. אותו סוד.', s2sub: 'הם לא מכירים זה את זה, ומסכימים על דבר אחד: הנשימה היא המפתח.',
     pillars: [
       { tag: 'הקבלה', h: '״עיקר תיקון השכל הוא על ידי הנשימה.״', p: 'ועוד אמר: מי שמאריך את נשימתו עושה את עצמו בריה חדשה.', c: 'רבי נחמן מברסלב, לפני מאתיים שנה · ליקוטי מוהר״ן, תורה ס' },
       { tag: 'הרפואה', h: 'הלב נרגע.', p: 'הקצב הסודי מאט את הנשימה לכחמש נשימות בדקה. בקצב כזה הלב נרגע דרך עצב הוואגוס, וזה נמדד במעבדות שוב ושוב.', c: 'מחקרים על נשימה איטית וקצב הלב' },
@@ -211,8 +211,8 @@
   en.land = {
     kicker: 'An old secret · hidden in a book of Kabbalah',
     h1a: 'There is a hidden secret.', h1b: 'Here it is shown to you.',
-    sub: 'The breath is a key, and we hold its secret code: one rhythm, with the power to change your reality.',
-    src3: 'It has sources in Kabbalah, in medicine and in quantum physics.', more: 'Read more',
+    sub: 'The breath is the key, and I have the secret code to give you: one rhythm, with the power to change your reality.',
+    src3: 'Many sources, from different worlds, agree on this: Kabbalah, medicine and quantum physics.', more: 'Read more',
     cta: 'Uncover the secret', cta3: 'Begin the challenge', why: 'Want to understand why?',
     terms: ['Fourteen days', 'three times a day', 'no sign-up', 'no cost'],
     introK: 'Neshima', introGo: 'Receive the gift', introA: 'How is your breath', introB: 'right now?',
@@ -222,7 +222,7 @@
       'Meditation, yoga, a holiday. There is not always time.',
       'I have a gift for you: a magical secret that goes with you everywhere and helps you. A kindness. Take it.'],
     s1p: ['A breath, in one secret rhythm, with the power to change your reality.', 'In an old book of Kabbalah a simple secret was hidden: the breath has a measure.', 'One breath, and it shows itself.'],
-    s2tag: 'Why it works', s2h: 'Three worlds. One secret.', s2sub: 'They do not know one another, and they say the same thing: the breath changes things.',
+    s2tag: 'Why it works', s2h: 'Three worlds. One secret.', s2sub: 'They do not know one another, and they agree on one thing: the breath is the key.',
     pillars: [
       { tag: 'Kabbalah', h: '“The chief repair of the mind is through the breath.”', p: 'And he said also: whoever lengthens their breath makes themselves a new creature.', c: 'Rabbi Nachman of Breslov, two hundred years ago · Likutey Moharan, Lesson 60' },
       { tag: 'Medicine', h: 'The heart settles.', p: 'The secret rhythm slows the breath to about five breaths a minute. At that pace the heart settles through the vagus nerve, and this has been measured in laboratories again and again.', c: 'Studies of slow breathing and heart rate' },
