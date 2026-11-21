@@ -323,16 +323,23 @@
     var terms = '<p class="terms2">' + L.terms.map(esc).join('<i aria-hidden="true">·</i>') + '</p>';
     return '<section class="land" id="land">' +
       '<nav class="spine" id="spine" aria-label="' + esc(s.home) + '">' + L.spine.map(function (n, i) { return '<button type="button" data-jump="l' + i + '" aria-label="' + esc(n) + '"><span>' + esc(n) + '</span></button>'; }).join('') + '</nav>' +
-      '<div class="lsec hero" id="l0"><div class="hero-wheel" aria-hidden="true">' + wheelSvg('hw', true) + '</div><div class="hero-txt">' +
+      // Screen one, the introduction: what this gives, said before anyone enters. A glimpse of the wheel.
+      '<div class="lsec hero intro" id="l0"><div class="hero-wheel" aria-hidden="true">' + wheelSvg('hw', true) + '</div><div class="hero-txt">' +
         (inv ? '<div class="hero-inv"><p>' + esc(s.invitedBy(invitedBy, state.chain)) + '</p>' + (invitedWord ? '<blockquote>' + esc('״' + invitedWord + '״') + '</blockquote>' : '') + '</div>' : '') +
-        '<p class="kicker2">' + esc(L.kicker) + '</p>' +
+        '<p class="kicker2">' + esc(L.introK) + '</p>' +
         '<h1 class="hero-h q" tabindex="-1"><span>' + esc(L.introA) + '</span><span class="gold">' + esc(L.introB) + '</span></h1>' +
         '<div class="hero-pitch">' + L.intro.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') + '</div>' +
-        '<div class="hero-act">' + cta(L.cta) + '<button type="button" class="why" data-jump="l1">' + esc(L.why) + ' <i aria-hidden="true">↓</i></button></div>' + terms +
+        '<div class="hero-act"><button type="button" class="cta" data-jump="l1"><span>' + esc(L.introGo) + '</span><i aria-hidden="true">↓</i></button></div>' +
         '<button type="button" class="sos-link" data-act="sos"><span>' + esc(s.sosLand(sosLen())) + '</span> <i aria-hidden="true">' + (rtl ? '←' : '→') + '</i></button>' +
       '</div></div>' +
-      '<div class="lsec about" id="l1"><p class="sec-num" aria-hidden="true">' + marks[0] + '</p><div class="sec-head"><p class="sec-tag rv">' + esc(L.s1tag) + '</p><h2 class="sec-h rv">' + esc(L.h1a) + ' <span class="gold">' + esc(L.h1b) + '</span></h2></div>' + '<div class="about-p">' + L.s1p.map(function (p) { return '<p class="rv">' + esc(p) + '</p>'; }).join('') + '<div class="rv pitch-cta">' + cta(L.cta) + '</div></div></div>' +
-      '<div class="lsec why-sec" id="l2">' + head(marks[1], L.s2tag, L.s2h) + '<p class="sec-sub rv">' + esc(L.s2sub) + '</p>' +
+      // Screen two, the gate: the page that used to open the site, whole. This is where one enters.
+      '<div class="lsec hero" id="l1"><div class="hero-wheel" aria-hidden="true">' + wheelSvg('gw', true) + '</div><div class="hero-txt">' +
+        '<p class="kicker2">' + esc(L.kicker) + '</p>' +
+        '<h2 class="hero-h"><span>' + esc(L.h1a) + '</span><span class="gold">' + esc(L.h1b) + '</span></h2>' +
+        '<p class="hero-sub">' + esc(L.sub) + '</p>' +
+        '<div class="hero-act">' + cta(L.cta) + '<button type="button" class="why" data-jump="l2">' + esc(L.why) + ' <i aria-hidden="true">↓</i></button></div>' + terms +
+      '</div></div>' +
+      '<div class="lsec why-sec" id="l2">' + head(marks[0], L.s2tag, L.s2h) + '<p class="sec-sub rv">' + esc(L.s2sub) + '</p>' +
         '<div class="pillars">' + L.pillars.map(function (P, i) {
           return '<article class="pillar rv">' + icoSvg(i) + '<p class="p-tag">' + esc(P.tag) + '</p><h3>' + esc(P.h) + '</h3>' +
             (P.q ? '<blockquote lang="he" dir="rtl">' + esc(P.q) + '</blockquote>' : '') +
@@ -340,9 +347,9 @@
             '<p class="p-body">' + esc(P.p) + '</p><p class="p-cite">' + esc(P.c) + '</p></article>';
         }).join('') + '</div>' +
         '<p class="sec-foot rv"><b>' + esc(L.s2foot) + '</b><a href="#/sources">' + esc(L.s2more) + '</a></p><div class="mid-cta rv">' + cta(L.cta) + '</div></div>' +
-      '<div class="lsec chal-sec" id="l3">' + head(marks[2], L.s3tag, L.s3h) + '<p class="sec-sub rv">' + esc(L.s3sub) + '</p>' +
+      '<div class="lsec chal-sec" id="l3">' + head(marks[1], L.s3tag, L.s3h) + '<p class="sec-sub rv">' + esc(L.s3sub) + '</p>' +
         '<ol class="steps">' + L.steps.map(function (st, i) { return '<li class="rv"><b aria-hidden="true">' + (rtl ? marks[i] : i + 1) + '</b><h3>' + esc(st[0]) + '</h3><p>' + esc(st[1]) + '</p></li>'; }).join('') + '</ol></div>' +
-      '<div class="lsec hesed-sec" id="l4">' + head(marks[3], L.s4tag, L.s4h) + '<p class="sec-sub wide rv">' + esc(L.s4p) + '</p>' +
+      '<div class="lsec hesed-sec" id="l4">' + head(marks[2], L.s4tag, L.s4h) + '<p class="sec-sub wide rv">' + esc(L.s4p) + '</p>' +
         '<p class="vavline rv" lang="he" dir="rtl" aria-hidden="true"><i>ו</i><i>ו</i><i>ו</i><i>ו</i><i class="me">ו</i></p></div>' +
       '<div class="lsec final" id="l5"><div class="final-wheel" aria-hidden="true">' + wheelSvg('fw', false) + '</div>' +
         '<p class="final-h rv"><span>' + esc(L.s5a) + '</span> <span class="red">' + esc(L.s5b) + '</span></p>' +
@@ -363,7 +370,7 @@
       var mid = window.innerHeight * 0.5, cur = 0, k;
       for (k = 0; k < secs.length; k++) if (secs[k].getBoundingClientRect().top <= mid) cur = k;
       for (k = 0; k < spine.length; k++) spine[k].classList.toggle('on', k === cur);
-      stick.classList.toggle('on', window.scrollY > window.innerHeight * 0.7 && cur < secs.length - 1);
+      stick.classList.toggle('on', cur >= 2 && cur < secs.length - 1);
     }
     land.addEventListener('click', function (e) {
       var j = e.target.closest('[data-jump]'); if (!j) return;

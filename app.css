@@ -248,7 +248,12 @@ html:has(main[data-view="/first"]) .backdrop { display: none; }
 @media (max-width: 899px) { .land .hero-h.q { font-size: clamp(2.3rem, 11vw, 3.4rem); } }
 @media (max-width: 899px) {
   /* the eye of the wheel sits above the question, and the text gets a dark ground to stand on */
-  .land .lsec > .hero-wheel { top: -38vw; }
-  .land .hero-txt::before { content: ""; position: absolute; z-index: -1; inset: -3rem -1.4rem -2.6rem; pointer-events: none;
+  .land .intro > .hero-wheel { top: -38vw; }
+  .land .intro .hero-txt::before { content: ""; position: absolute; z-index: -1; inset: -3rem -1.4rem -2.6rem; pointer-events: none;
     background: linear-gradient(180deg, rgba(10, 7, 5, 0), rgba(10, 7, 5, .7) 4.5rem, rgba(10, 7, 5, .9) 9rem); }
 }
+
+/* ---------- the introduction gives a glimpse of the wheel; the gate shows it whole ---------- */
+@keyframes wglimpse { from { opacity: 0; } to { opacity: .42; } }
+@media (min-width: 900px) { .land .intro > .hero-wheel { animation-name: wglimpse; } }
+@media (max-width: 899px) { .land .intro .hero-act { width: 100%; } }

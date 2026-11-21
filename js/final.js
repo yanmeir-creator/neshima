@@ -100,7 +100,7 @@
     // The founder's pitch (21 November 2026). Before it, this section read: "אל דף שנשמר הרבה זמן." /
     // "בספר קבלה ישן הוסתר סוד פשוט: לנשימה יש מידה." / "מי שנושם במידה הזאת — משהו בו מתיישב,
     // ומשהו בעולמו זז." / "המידה נקראת במילה אחת. נשימה אחת, והיא מתגלה."
-    introA: 'איך הנשימה שלך', introB: 'עכשיו?',
+    introK: 'נשימה', introGo: 'לקבל את המתנה', introA: 'איך הנשימה שלך', introB: 'עכשיו?',
     s1tag: 'הסוד', s1h: 'יש סוד מוסתר. כאן הוא מתגלה לך.',
     // The version before this one, in the founder's first wording: "הסטרס, הלחץ, הוא אבי אבות
     // החולאים." / "הרמב״ם כתב על כך כבר לפני שמונה מאות שנה, והמחקר של היום מאשר." / "לכן יש
@@ -126,7 +126,7 @@
     s4p: 'מישהו עשה איתך חסד. אם זה ייטיב איתך — יגיע תורך: להעביר את הדף לאדם אחד. כך הסוד עובר, מיד ליד.',
     s5a: 'אל תאמינו.', s5b: 'נסו.', cta2: 'לנשימה הראשונה',
     fine: 'לאט ובנחת. גוף שמבקש לעצור — עוצרים.',
-    spine: ['הקדמה', 'הסוד', 'שלושה עדים', 'האתגר', 'חסד', 'נשימה ראשונה']
+    spine: ['הקדמה', 'השער', 'שלושה עדים', 'האתגר', 'חסד', 'נשימה ראשונה']
   };
 
   Object.assign(en, {
@@ -215,7 +215,7 @@
     sub: 'A breath, in one secret rhythm, with the power to change your reality.',
     cta: 'Uncover the secret', why: 'Want to understand why?',
     terms: ['Fourteen days', 'three times a day', 'no sign-up', 'no cost'],
-    introA: 'How is your breath', introB: 'right now?',
+    introK: 'Neshima', introGo: 'Receive the gift', introA: 'How is your breath', introB: 'right now?',
     s1tag: 'The secret', s1h: 'There is a hidden secret. Here it is shown to you.',
     intro: ['Short? That is stress.',
       'It goes down to the heart, to sleep, to the gut. A great source of illness, wrote Maimonides eight hundred years ago. The research agrees.',
@@ -238,7 +238,7 @@
     s4p: 'Someone did you a kindness. If it does you good, your turn will come: to pass the leaf to one person. That is how the secret travels, hand to hand.',
     s5a: 'Do not believe.', s5b: 'Try.', cta2: 'To the first breath',
     fine: 'Slowly and at ease. A body that asks to stop, stops.',
-    spine: ['Introduction', 'The secret', 'Three witnesses', 'The challenge', 'Kindness', 'First breath']
+    spine: ['Introduction', 'The gate', 'Three witnesses', 'The challenge', 'Kindness', 'First breath']
   };
 // The sources page, as the founder frames it: the rhythm is the secret, noted in an old book
   // of Kabbalah, and it comes first; everything after it explains why breath changes reality.
