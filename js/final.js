@@ -107,7 +107,8 @@
     s1p: ['קצרה? זה הלחץ בגוף.',
       'הלחץ יורד אל הלב, אל השינה ואל הבטן. וזה מקור גדול לחולאים.',
       'הרמב״ם כתב על כך כבר לפני שמונה מאות שנה. המחקר של היום מאשר.',
-      'יש לנו סוד אחד, פשוט, שיכול לעזור לך מאוד. קיבלנו אותו במתנה, ובמתנה הוא ניתן לך. רק לנסות.'],
+      'אפשר מדיטציה, אפשר חופשה, אפשר יוגה. אבל זה לא מספיק: החיים שלנו עמוסים ולחוצים.',
+      'יש לנו פתרון, והוא הולך איתך לכל מקום. הוא ניתן לך במתנה, כחסד. ואם החסד הזה יעשה לך טוב, הוא עובר ממך הלאה.'],
     s2tag: 'למה זה עובד', s2h: 'שלושה עדים.', s2sub: 'שלושה עולמות שאינם מכירים זה את זה — אומרים אותו דבר.',
     pillars: [
       { tag: 'הקבלה', h: 'הנשימה מתקנת.', q: 'כִּי עִקַּר תִּקּוּן הַשֵּׂכֶל הוּא עַל־יְדֵי הַנְּשִׁימָה', c: 'רבי נחמן מברסלב · ליקוטי מוהר״ן, תורה ס',
@@ -217,7 +218,8 @@
     s1p: ['Short? That is stress in the body.',
       'Stress goes down to the heart, to sleep and to the gut. And that is a great source of illness.',
       'Maimonides wrote of it eight hundred years ago. The research of today confirms it.',
-      'We have one secret, a simple one, that can help you greatly. We received it as a gift, and as a gift it is given to you. Only try.'],
+      'There is meditation, there is a holiday, there is yoga. But it is not enough: our lives are crowded and pressed.',
+      'We have a solution, and it goes with you everywhere. It is given to you as a gift, as a kindness. And if this kindness does you good, it passes on from you.'],
     s2tag: 'Why it works', s2h: 'Three witnesses.', s2sub: 'Three worlds that do not know one another say the same thing.',
     pillars: [
       { tag: 'Kabbalah', h: 'The breath repairs.', q: 'כִּי עִקַּר תִּקּוּן הַשֵּׂכֶל הוּא עַל־יְדֵי הַנְּשִׁימָה', c: 'Rabbi Nachman of Breslov · Likutey Moharan, Lesson 60',

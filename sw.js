@@ -1,6 +1,6 @@
 /* Offline shell. Network first, so a newer version always wins when there is a connection;
    the cached copy is used only when there is none. Nothing is fetched from anywhere else. */
-var CACHE = 'neshima-shell-20';
+var CACHE = 'neshima-shell-21';
 var SHELL = ['./', 'index.html', 'styles.css', 'landing.css', 'app.css', 'icon.svg', 'icon-192.png', 'icon-512.png', 'manifest.webmanifest',
   'fonts/fonts.css', 'fonts/FrankRuhlLibre-hebrew.woff2', 'fonts/FrankRuhlLibre-latin.woff2', 'fonts/NotoRashiHebrew-hebrew.woff2', 'fonts/NotoRashiHebrew-latin.woff2',
   'js/config.js', 'js/strings.js', 'js/brand.js', 'js/path.js', 'js/rite.js', 'js/leaves.js', 'js/final.js', 'js/breath.js', 'js/app.js', 'js/pwa.js'];
