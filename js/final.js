@@ -94,7 +94,9 @@
   he.land = {
     kicker: 'סוד ישן · הוסתר בספר קבלה',
     h1a: 'יש סוד מוסתר.', h1b: 'כאן הוא מתגלה לך.',
-    sub: 'נשימה, במקצב סודי אחד, שבכוחה לשנות את המציאות שלך.',
+    // Before 21 November 2026: 'נשימה, במקצב סודי אחד, שבכוחה לשנות את המציאות שלך.'
+    sub: 'הנשימה היא מפתח, ולנו יש את הקוד הסודי שלה: מקצב אחד, שבכוחו לשנות את המציאות שלך.',
+    src3: 'יש לו מקורות בקבלה, ברפואה ובפיזיקת הקוונטים.', more: 'לקרוא עוד',
     cta: 'לגלות את הסוד', cta3: 'להתחיל את האתגר', why: 'רוצה להבין למה?',
     terms: ['ארבעה־עשר ימים', 'שלוש פעמים ביום', 'בלי רישום', 'בלי עלות'],
     // The founder's pitch (21 November 2026). Before it, this section read: "אל דף שנשמר הרבה זמן." /
@@ -110,23 +112,20 @@
       'מדיטציה, יוגה, חופשה. לא תמיד יש זמן.',
       'יש לי מתנה בשבילך: סוד קסום, שהולך איתך לכל מקום ועוזר לך. חסד. קח אותו.'],
     s1p: ['נשימה, במקצב סודי אחד, שבכוחה לשנות את המציאות שלך.', 'בספר קבלה ישן הוסתר סוד פשוט: לנשימה יש מידה.', 'נשימה אחת, והיא מתגלה.'],
-    s2tag: 'למה זה עובד', s2h: 'שלושה עדים.', s2sub: 'שלושה עולמות שאינם מכירים זה את זה — אומרים אותו דבר.',
+    s2tag: 'למה זה עובד', s2h: 'שלושה עולמות. אותו סוד.', s2sub: 'הם לא מכירים זה את זה, ואומרים אותו דבר: הנשימה משנה.',
     pillars: [
-      { tag: 'הקבלה', h: 'הנשימה מתקנת.', q: 'כִּי עִקַּר תִּקּוּן הַשֵּׂכֶל הוּא עַל־יְדֵי הַנְּשִׁימָה', c: 'רבי נחמן מברסלב · ליקוטי מוהר״ן, תורה ס',
-        p: 'ועוד כתב: מי שמאריך את נשימתו עושה את עצמו בריה חדשה. חמש מאות שנה לפניו כתב מקובל אחר: לפי כוח נשימתך.' },
-      { tag: 'המעבדה', h: 'הגוף נרגע.', stat: '6', statL: 'נשימות בדקה', c: 'מחקרים על נשימה איטית וקצב הלב',
-        p: 'כשהנשימה מאטה לקצב הזה, הלב מתחיל לנוע איתה. האות עובר בעצב התועה, הוואגוס — עצב המנוחה של הגוף. זה נמדד במעבדה שוב ושוב, ומתרגלים מדווחים על פחות לחץ ופחות חרדה.' },
-      { tag: 'התדר', h: 'משנים תדר — משנים מציאות.', c: 'דולורס קנון · תורת התדר',
-        p: 'דולורס קנון, שחקרה את עומק התודעה, לימדה שהמציאות שאדם חי בה תלויה בתדר שלו. הפיזיקה מתארת את החומר עצמו כתנודה של שדות. והנשימה היא הדרך הפשוטה ביותר לשנות תדר.' }
+      { tag: 'הקבלה', h: '״עיקר תיקון השכל הוא על ידי הנשימה.״', p: 'ועוד אמר: מי שמאריך את נשימתו עושה את עצמו בריה חדשה.', c: 'רבי נחמן מברסלב, לפני מאתיים שנה · ליקוטי מוהר״ן, תורה ס' },
+      { tag: 'הרפואה', h: 'הלב נרגע.', p: 'הקצב הסודי מאט את הנשימה לכחמש נשימות בדקה. בקצב כזה הלב נרגע דרך עצב הוואגוס, וזה נמדד במעבדות שוב ושוב.', c: 'מחקרים על נשימה איטית וקצב הלב' },
+      { tag: 'פיזיקת הקוונטים', h: 'משנים תדר, משנים מציאות.', p: 'בעומקו, החומר הוא תנודה, והמתבונן משפיע על מה שהוא רואה.', c: 'פיזיקת הקוונטים · תורת התדר של דולורס קנון' }
     ],
-    s2foot: 'שלוש שפות. דבר אחד.', s2more: 'כל המקורות',
+    s2foot: 'שלוש שפות, דבר אחד.', s2more: 'כל המקורות',
     s3tag: 'האתגר', s3h: 'ארבעה־עשר ימים.', s3sub: 'זה כל מה שמתבקש ממך.',
     steps: [['מודדים את הנשימה שלך', 'שאיפה אחת, והמקצב נבנה לפי המידה שלך.'], ['נושמים שלוש פעמים ביום', 'שלוש וחצי, שש או שתים־עשרה דקות, לבחירתך. עם אוזניות, בעיניים עצומות.'], ['בכל יום נפתח דף', 'ארבעה־עשר דפים מן הספר. אחד ליום.'], ['ביום הארבעה־עשר כותבים', 'מה השתנה. במילים שלך.']],
     s4tag: 'חסד', s4h: 'זה ניתן לך בלי תמורה.',
     s4p: 'מישהו עשה איתך חסד. אם זה ייטיב איתך — יגיע תורך: להעביר את הדף לאדם אחד. כך הסוד עובר, מיד ליד.',
     s5a: 'אל תאמינו.', s5b: 'נסו.', cta2: 'לנשימה הראשונה',
     fine: 'לאט ובנחת. גוף שמבקש לעצור — עוצרים.',
-    spine: ['הקדמה', 'השער', 'האתגר', 'שלושה עדים', 'חסד', 'נשימה ראשונה']
+    spine: ['הקדמה', 'השער', 'שלושה עולמות', 'האתגר', 'חסד', 'נשימה ראשונה']
   };
 
   Object.assign(en, {
@@ -212,7 +211,8 @@
   en.land = {
     kicker: 'An old secret · hidden in a book of Kabbalah',
     h1a: 'There is a hidden secret.', h1b: 'Here it is shown to you.',
-    sub: 'A breath, in one secret rhythm, with the power to change your reality.',
+    sub: 'The breath is a key, and we hold its secret code: one rhythm, with the power to change your reality.',
+    src3: 'It has sources in Kabbalah, in medicine and in quantum physics.', more: 'Read more',
     cta: 'Uncover the secret', cta3: 'Begin the challenge', why: 'Want to understand why?',
     terms: ['Fourteen days', 'three times a day', 'no sign-up', 'no cost'],
     introK: 'Neshima', introGo: 'Receive the gift', introA: 'How is your breath', introB: 'right now?',
@@ -222,14 +222,11 @@
       'Meditation, yoga, a holiday. There is not always time.',
       'I have a gift for you: a magical secret that goes with you everywhere and helps you. A kindness. Take it.'],
     s1p: ['A breath, in one secret rhythm, with the power to change your reality.', 'In an old book of Kabbalah a simple secret was hidden: the breath has a measure.', 'One breath, and it shows itself.'],
-    s2tag: 'Why it works', s2h: 'Three witnesses.', s2sub: 'Three worlds that do not know one another say the same thing.',
+    s2tag: 'Why it works', s2h: 'Three worlds. One secret.', s2sub: 'They do not know one another, and they say the same thing: the breath changes things.',
     pillars: [
-      { tag: 'Kabbalah', h: 'The breath repairs.', q: 'כִּי עִקַּר תִּקּוּן הַשֵּׂכֶל הוּא עַל־יְדֵי הַנְּשִׁימָה', c: 'Rabbi Nachman of Breslov · Likutey Moharan, Lesson 60',
-        p: '“For the essential repair of the mind is through the breath.” He also wrote: whoever lengthens their breath makes themselves a new creature. Five hundred years before him another Kabbalist wrote: by the strength of your breath.' },
-      { tag: 'The laboratory', h: 'The body settles.', stat: '6', statL: 'breaths a minute', c: 'Studies of slow breathing and heart rate',
-        p: 'When the breath slows to this pace, the heart begins to move with it. The signal travels in the wandering nerve, the vagus — the body’s nerve of rest. This has been measured in the laboratory again and again, and people who practise report less stress and less anxiety.' },
-      { tag: 'Frequency', h: 'Change the frequency — change the reality.', c: 'Dolores Cannon · the teaching of frequency',
-        p: 'Dolores Cannon, who searched the depths of the mind, taught that the reality a person lives in depends on their frequency. Physics describes matter itself as vibration of fields. And the breath is the simplest way to change a frequency.' }
+      { tag: 'Kabbalah', h: '“The chief repair of the mind is through the breath.”', p: 'And he said also: whoever lengthens their breath makes themselves a new creature.', c: 'Rabbi Nachman of Breslov, two hundred years ago · Likutey Moharan, Lesson 60' },
+      { tag: 'Medicine', h: 'The heart settles.', p: 'The secret rhythm slows the breath to about five breaths a minute. At that pace the heart settles through the vagus nerve, and this has been measured in laboratories again and again.', c: 'Studies of slow breathing and heart rate' },
+      { tag: 'Quantum physics', h: 'Change the frequency, change the reality.', p: 'In its depth, matter is vibration, and the one who observes affects what is seen.', c: 'Quantum physics · the frequency teaching of Dolores Cannon' }
     ],
     s2foot: 'Three tongues. One thing.', s2more: 'All the sources',
     s3tag: 'The challenge', s3h: 'Fourteen days.', s3sub: 'That is all that is asked of you.',
@@ -238,7 +235,7 @@
     s4p: 'Someone did you a kindness. If it does you good, your turn will come: to pass the leaf to one person. That is how the secret travels, hand to hand.',
     s5a: 'Do not believe.', s5b: 'Try.', cta2: 'To the first breath',
     fine: 'Slowly and at ease. A body that asks to stop, stops.',
-    spine: ['Introduction', 'The gate', 'The challenge', 'Three witnesses', 'Kindness', 'First breath']
+    spine: ['Introduction', 'The gate', 'Three worlds', 'The challenge', 'Kindness', 'First breath']
   };
 // The sources page, as the founder frames it: the rhythm is the secret, noted in an old book
   // of Kabbalah, and it comes first; everything after it explains why breath changes reality.

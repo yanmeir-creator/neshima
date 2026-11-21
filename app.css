@@ -256,4 +256,22 @@ html:has(main[data-view="/first"]) .backdrop { display: none; }
 /* ---------- the introduction gives a glimpse of the wheel; the gate shows it whole ---------- */
 @keyframes wglimpse { from { opacity: 0; } to { opacity: .42; } }
 @media (min-width: 900px) { .land .intro > .hero-wheel { animation-name: wglimpse; } }
-@media (max-width: 899px) { .land .intro .hero-act { width: 100%; } }
+@media (max-width: 899px) { .land .hero .hero-act { width: 100%; } }
+
+/* ---------- the gate names its sources; the three worlds fit one phone screen ---------- */
+.land .gate-src { margin: 0; max-width: 36ch; font: 500 clamp(1.02rem, 1.5vw, 1.2rem)/1.5 var(--display); color: #c9bb95; text-shadow: 0 1px 16px #0a0705; }
+.land .gate-src .more { background: none; border: 0; padding: .35rem 0 .1rem; cursor: pointer; white-space: nowrap; color: var(--bone); font: 700 1em/1.3 var(--display); border-bottom: 1px solid var(--gold); }
+.land .gate-src .more i { font-style: normal; color: var(--gold); }
+@media (max-width: 899px) {
+  .land .why-sec { padding-block: 3.4rem 2.4rem; }
+  .land .why-sec .sec-sub { margin-top: .8rem; }
+  .land .why-sec .pillars { margin-top: 1.3rem; gap: .7rem; }
+  .land .why-sec .pillar { padding: 1rem 1.15rem .9rem; gap: .35rem; }
+  .land .why-sec .pillar .ico { display: none; }
+  .land .why-sec .pillar h3 { font-size: 1.28rem; line-height: 1.3; }
+  .land .why-sec .p-body { font-size: .98rem; line-height: 1.5; }
+  .land .why-sec .p-cite { margin-top: .1rem; padding-top: .45rem; font-size: .82rem; }
+  .land .why-sec .sec-foot { margin-top: 1.2rem; }
+  .land .why-sec .sec-foot b { font-size: 1.3rem; }
+}
+@media (min-width: 900px) { .land #l1 .hero-sub, .land .gate-src { max-width: none; } }  /* so that the gate still fits one computer screen */
