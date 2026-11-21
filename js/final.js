@@ -186,4 +186,27 @@
     fine: 'Slowly and at ease. A body that asks to stop, stops.',
     spine: ['The secret', 'Where you are', 'Three witnesses', 'The challenge', 'Kindness', 'The gate']
   };
+// The sources page, as the founder frames it: the rhythm is the secret, noted in an old book
+  // of Kabbalah, and it comes first; everything after it explains why breath changes reality.
+  // This entry is the founder's own statement. It names no book and quotes no text, because
+  // none has been given; nothing here should be turned into a citation until one is.
+  function reframe(L, top, lead, tag, oldRef, reading, about) {
+    L.src = L.src.filter(function (it) { return it.tag !== 'method'; });
+    L.src.forEach(function (it) { if (it.tag === 'interp' && it.ref === oldRef) { it.ref = reading.ref; it.body = reading.body; } });
+    L.src.unshift(top); L.srcLead = lead; L.tagMethod = tag; L.aboutBody = about;
+  }
+  reframe(he,
+    { tag: 'method', ref: 'הקצב — סוד מספר קבלה ישן', body: 'בספר קבלה ישן צוין סוד: קצב של נשימה. שהנשימה משנה את המציאות — זה ידוע מכבר. הסוד הוא הנשימה בקצב המיוחד הזה: חדוה — שאיפה 8, השתהות 4, נשיפה 6, מנוחה 5. זה מה שניתן כאן.' },
+    'הקצב הוא הסוד, והוא עומד כאן ראשון. כל מה שאחריו מסביר למה נשימה משנה מציאות.',
+    'הסוד',
+    'איך התרגול הזה קורא אותם',
+    { ref: 'מה עולה מן המקורות', body: 'מן המקורות האלה עולה דרך להתייחס לנשימה: כמתנה, כתיקון, וכדבר שמשנה את האדם ואת עולמו. הם ההסבר למה נשימה משנה מציאות. הקצב עצמו הוא הסוד.' },
+    'אני מאמין שלנשימה יש עומק רוחני, ושמי שמשנה את התדר שלו משנה את המציאות שלו. את הקצב מצאתי בספר קבלה ישן, ואני נותן אותו כאן לכל אדם, בלי תמורה. זהו תרגול רוחני אישי, לא טיפול רפואי, ואין בו הבטחה לתוצאה ולא מסרים סמויים.');
+  reframe(en,
+    { tag: 'method', ref: 'The rhythm — a secret from an old book of Kabbalah', body: 'In an old book of Kabbalah a secret was noted: a rhythm of breath. That breath changes reality has long been known. The secret is the breath in this particular rhythm: Hadva — in 8, linger 4, out 6, rest 5. That is what is given here.' },
+    'The rhythm is the secret, and it stands here first. Everything after it explains why breath changes reality.',
+    'The secret',
+    'How this practice reads them',
+    { ref: 'What the sources come to', body: 'From these sources comes a way of regarding the breath: as a gift, as a repair, and as something that changes a person and their world. They are the explanation of why breath changes reality. The rhythm itself is the secret.' },
+    'I believe that breath has spiritual depth, and that whoever changes their frequency changes their reality. I found the rhythm in an old book of Kabbalah, and I give it here to everyone, for nothing. This is a personal spiritual practice, not medical treatment; it promises no result and contains no hidden messages.');
 })();
