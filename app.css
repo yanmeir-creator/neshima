@@ -235,7 +235,6 @@ html:has(main[data-view="/first"]) .backdrop { display: none; }
 @media (max-width: 480px) { .top { gap: .6rem; } .top .brand-en { display: none; } }
 
 /* ---------- the pitch on the opening ---------- */
-.land .about-p p:nth-last-of-type(2) { color: var(--bone); }
 .land .about-p p:last-of-type { color: #e9c987; font-weight: 700; }
 .land .about-p .pitch-cta { margin-top: .9rem; }
 @media (max-width: 899px) { .land .about-p .pitch-cta { display: none; } }  /* on a phone the fixed button at the bottom is already there */
