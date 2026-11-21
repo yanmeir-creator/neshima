@@ -1064,11 +1064,15 @@
   views['/challenge'] = function () {
     var s = t(), set = state.settings;
     if (!set.level) { set.level = 'ruach'; save(); }   // the middle length, unless the person chooses otherwise
+    // One page before the measure: the code itself, the length, and one button onward.
+    var labs = [s.actIn, s.actLinger, s.actOut, s.actRest];
     return '<section class="challengeleaf leaf"><div class="leafhead">' + folio(7) + '</div>' +
-      '<h1 tabindex="-1">' + esc(s.inviteQ) + '</h1>' +
-      '<p class="lead">' + esc(s.chalBody) + '</p>' +
+      '<h1 tabindex="-1">' + esc(s.chalTitle) + '</h1>' +
+      '<p class="lead">' + esc(s.chalBody2) + '</p>' +
+      '<div class="fword codeword" dir="rtl" role="img" aria-label="' + esc(s.firstDoneSr) + '">' + LETTERS.map(function (l, i) { return '<span class="fl on" aria-hidden="true"><b lang="he">' + l[0] + '</b><i>' + l[1] + '</i><em>' + esc(labs[i]) + '</em></span>'; }).join('') + '</div>' +
       '<h2 class="sect">' + esc(s.chalLen) + '</h2>' + levRows() +
-      '<button type="button" class="node" data-act="startChallenge">' + esc(s.chalGo) + '</button></section>';
+      '<button type="button" class="node" data-act="startChallenge">' + esc(s.chalGo) + '</button>' +
+      '<nav class="margin links"><button type="button" class="linkish" data-act="tryFirst">' + esc(s.codeTry) + '</button></nav></section>';
   };
   // The length: three stations, one for each name of the soul, measured in hesed (72).
   views['/length'] = function () {
@@ -1386,10 +1390,11 @@
       if (!state.challenge) state.challenge = { start: dateKey(new Date()), times: ['07:30', '13:00', '21:30'], on: [true, true, true] };
       if (!state.settings.level) state.settings.level = 'ruach';
       chDraft = null; save();
-      // The code is shown once, by one breath, before the person's own breath is measured.
-      if (walk || (!state.firstSeen && !state.sessions.some(countable))) { go('/first'); return; }
-      go(state.settings.measured && state.sessions.some(countable) ? '/' : state.settings.measured ? '/ready' : '/measure');
+      // Straight to the measure. On the walk in from the opening it is asked afresh.
+      if (walk || !state.settings.measured) { measFresh = walk && !!state.settings.measured; go('/measure'); return; }
+      go(state.sessions.some(countable) ? '/' : '/ready');
     },
+    tryFirst: function () { B.sound.unlock(); go('/first'); },   // optional: one guided breath that shows the code
     install: function () { if (installEvt) { installEvt.prompt(); installEvt = null; } },
     calDefault: function () { if (!state.challenge) return; download('neshima-reminders.ics', 'text/calendar;charset=utf-8', buildIcs()); toast(t().calDone); },
     copyMine: function () { var u = myUrl(); if (u && navigator.clipboard) navigator.clipboard.writeText(u).then(function () { toast(t().copied); }); },
