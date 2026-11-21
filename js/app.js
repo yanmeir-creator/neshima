@@ -28,6 +28,7 @@
       from: '',                 // the name it came from, if the link carried one
       fromWord: '',             // the sentence that person chose to send with it
       keepSeen: false,          // the "come back tomorrow" leaf has been shown
+      remSeen: false,           // the person has answered the reminders leaf (added them, or chose to remember alone)
       vavs: 0,                  // times this person passed it on from here
       testimony: '',            // one sentence the person chooses to put on the leaf they pass on
       lastSeen: null
@@ -935,7 +936,8 @@
       boardHtml(st.counts, todayIdx, s.sealLabel(st.total, day)) +
       '<div class="good"><h2>' + esc(s.goodT) + '</h2><p>' + esc(s.goodBody) + '</p><div class="actions">' +
         '<a class="btn" data-wa href="' + esc(waUrl()) + '" target="_blank" rel="noopener">' + esc(s.goodBtn) + '</a><a class="btn" href="#/share">' + esc(s.moreWays) + '</a></div></div>' +
-      '<a class="node" href="' + (state.keepSeen ? '#/' : '#/keep') + '">' + esc(s.next) + '</a>' +
+      // After the first session the reminders get a leaf of their own, before anything else.
+      '<a class="node" href="' + (state.challenge && !state.remSeen ? '#/setup' : state.keepSeen ? '#/' : '#/keep') + '">' + esc(s.next) + '</a>' +
       '<nav class="margin links"><a href="#/leaf">' + esc(s.leafToday) + '</a><a href="#/reflect">' + esc(s.leaveText) + '</a></nav></section>';
   };
   // "Ready?" — a beat to put the headphones on. The touch here is what starts the sound.
@@ -949,20 +951,17 @@
       '<button type="button" class="node" data-act="begin">' + esc(s.readyGo) + '</button>' +
       '<nav class="margin links"><a href="#/length">' + esc(s.manLen) + '</a></nav></section>';
   };
-  // Coming back tomorrow, with no account: an icon on the home screen, three reminders in the
-  // phone's calendar, and a personal link that carries the person's place.
+  // Coming back tomorrow, with no account: an icon on the home screen, and a personal link that
+  // carries the person's place. The reminders have their own leaf (/setup), shown just before.
   views['/keep'] = function () {
     var s = t(), ios = /iphone|ipad|ipod/i.test(navigator.userAgent), url = myUrl();
     var alone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone;
     if (!state.keepSeen) { state.keepSeen = true; save(); }
     if (!state.challenge) { setTimeout(function () { go('/'); }, 0); return ''; }
-    var times = state.challenge.times.filter(function (x, i) { return state.challenge.on[i]; }).join(' · ');
     return '<section class="keep leaf"><div class="leafhead"><p class="folio">' + esc(s.manKeep) + '</p></div>' +
       '<h1 tabindex="-1">' + esc(s.keepT) + '</h1><p class="lead">' + esc(s.keepLead) + '</p>' +
       (alone ? '' : '<div class="keep-card"><h2>' + esc(s.keepHomeT) + '</h2><p>' + esc(s.keepHomeB) + '</p>' +
         (installEvt ? '<div class="row"><button type="button" class="btn" data-act="install">' + esc(s.keepHomeBtn) + '</button></div>' : '<p class="how">' + esc(ios ? s.keepHomeIos : s.keepHomeOther) + '</p>') + '</div>') +
-      '<div class="keep-card"><h2>' + esc(s.keepRemT) + '</h2><p>' + esc(s.keepRemB) + ' <bdi dir="ltr">' + esc(times) + '</bdi></p>' +
-        '<div class="row"><button type="button" class="btn" data-act="calDefault">' + esc(s.keepRemBtn) + '</button><a class="btn" href="#/setup">' + esc(s.keepRemEdit) + '</a></div></div>' +
       (url ? '<div class="keep-card"><h2>' + esc(s.keepLinkT) + '</h2><p>' + esc(s.keepLinkB) + '</p>' +
         '<div class="row"><a class="btn" href="' + esc('https://wa.me/?text=' + encodeURIComponent(s.keepLinkMsg(url))) + '" target="_blank" rel="noopener">' + esc(s.keepLinkWa) + '</a><button type="button" class="btn" data-act="copyMine">' + esc(s.keepLinkCopy) + '</button></div></div>' : '') +
       '<a class="node" href="#/">' + esc(s.keepGo) + '</a></section>';
@@ -1387,8 +1386,9 @@
       }
       btn.setAttribute('aria-pressed', String(!wasOn)); btn.textContent = wasOn ? s.soundOff : s.soundOn;
     },
-    cal: function () { readSetup(); download('hadva-reminders.ics', 'text/calendar;charset=utf-8', buildIcs()); toast(t().calDone); go('/'); },
-    noCal: function () { readSetup(); go('/'); },
+    // Either answer settles the reminders. The first time, "come back tomorrow" follows; later, the board.
+    cal: function () { state.remSeen = true; readSetup(); download('neshima-reminders.ics', 'text/calendar;charset=utf-8', buildIcs()); toast(t().calDone); go(state.keepSeen ? '/' : '/keep'); },
+    noCal: function () { state.remSeen = true; readSetup(); go(state.keepSeen ? '/' : '/keep'); },
     startChallenge: function () {
       // Nothing delays the start: the fourteen days begin now, and reminders are offered later.
       if (!state.challenge) state.challenge = { start: dateKey(new Date()), times: ['07:30', '13:00', '21:30'], on: [true, true, true] };
