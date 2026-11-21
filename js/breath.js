@@ -254,7 +254,7 @@
       var p = guideEl.play(); if (p && p.catch) p.catch(function () { /* not allowed yet */ });
     } catch (e) { /* no audio element */ }
   }
-  function guide(phases, breaths, title) {
+  function guide(phases, breaths, title, withCue) {
     var OAC = window.OfflineAudioContext || window.webkitOfflineAudioContext;
     if (!OAC || !phases.length) return Promise.reject(new Error('no offline audio'));
     if (!guideEl) { guideEl = new Audio(); guideEl.preload = 'auto'; }
@@ -288,12 +288,20 @@
       g.gain.exponentialRampToValueAtTime(0.0001, at + 2.6);
       o.connect(g); g.connect(oc.destination); o.start(at); o.stop(at + 2.7);
     }
+    // The soft tone at each turn of the breath: rising as it comes in, falling as it goes out.
+    function tone(at, s, up) {
+      var dur = Math.max(1.2, Math.min(s, 6)), o = oc.createOscillator(), g = oc.createGain();
+      o.type = 'sine'; o.frequency.setValueAtTime(up ? 196 : 261.6, at); o.frequency.linearRampToValueAtTime(up ? 261.6 : 196, at + dur);
+      g.gain.setValueAtTime(0.0001, at); g.gain.linearRampToValueAtTime(0.07, at + dur * 0.35); g.gain.linearRampToValueAtTime(0.0001, at + dur);
+      o.connect(g); g.connect(oc.destination); o.start(at); o.stop(at + dur + 0.05);
+    }
     var t = LEAD, padNow = 0.08;
     pad.gain.setValueAtTime(0, 0); pad.gain.linearRampToValueAtTime(padNow, LEAD);
     for (var b = 0; b < breaths; b++) {
       for (var p = 0; p < phases.length; p++) {
         var ph = phases[p], s = ph.seconds;
         pad.gain.setValueAtTime(padNow, t);
+        if (withCue && (ph.key === 'in' || ph.key === 'out')) tone(t, s, ph.key === 'in');
         if (ph.key === 'in') {
           gi.gain.setValueAtTime(0.0001, t); gi.gain.linearRampToValueAtTime(0.17, t + s * 0.6); gi.gain.linearRampToValueAtTime(0.0001, t + s);
           bi.frequency.setValueAtTime(900, t); bi.frequency.linearRampToValueAtTime(2000, t + s);

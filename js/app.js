@@ -18,7 +18,7 @@
     return {
       v: 1,
       lang: (navigator.language || 'en').toLowerCase().indexOf('he') === 0 ? 'he' : 'en',
-      settings: { sound: 'guide', cue: false, motion: 'system', large: false, rhythm: CFG.offerHadvaRhythm === false ? 'inout' : 'hadva', unit: 0.5, breaths: 7, gateSound: true, level: '', measured: 0, snd2: true },
+      settings: { sound: 'guide', cue: true, cue2: true, motion: 'system', large: false, rhythm: CFG.offerHadvaRhythm === false ? 'inout' : 'hadva', unit: 0.5, breaths: 7, gateSound: true, level: '', measured: 0, snd2: true },
       challenge: null,          // { start: 'YYYY-MM-DD', times: ['07:30', ...], on: [true, ...] }
       sessions: [],             // { d, t, kind: 'full'|'moment', secs, feel? }
       reflection: '',           // private; never leaves the device unless the person exports it
@@ -40,9 +40,10 @@
       if (!raw) return fresh();
       var s = JSON.parse(raw), f = fresh();
       for (var k in f) if (!(k in s)) s[k] = f[k];
-      var old = !('snd2' in s.settings);
+      var old = !('snd2' in s.settings), oldCue = !('cue2' in s.settings);
       for (var j in f.settings) if (!(j in s.settings)) s.settings[j] = f.settings[j];
       if (old) s.settings.gateSound = true;
+      if (oldCue) s.settings.cue = true;   // the soft tone became the default; applied once to states saved before that
       if (CFG.offerHadvaRhythm === false && s.settings.rhythm === 'hadva') s.settings.rhythm = 'inout';
       return s;
     } catch (e) { return fresh(); }
@@ -746,7 +747,7 @@
         root.dataset.phase = key;
         var lts = mini.children;
         for (var i = 0; i < lts.length; i++) lts[i].classList.toggle('on', lts[i].dataset.k === key);
-        if (set.cue && !muted) B.sound.cue(key, seconds);
+        if (set.cue && !muted && !guide) B.sound.cue(key, seconds);   // with the guided track the tone is already in the track
       },
       onFrame: function (f) {
         if (!session) return;
@@ -778,7 +779,7 @@
     B.keepAwake(true);
     if (guide) {
       var mine = session; phaseEl.textContent = '…';
-      B.sound.guide(phases, target, s.calTitle).then(function (a) {
+      B.sound.guide(phases, target, s.calTitle, set.cue).then(function (a) {
         if (session !== mine) { a.stop(); return; }
         gAudio = a; mine.audio = a;
         a.el.onended = function () { if (session === mine) finishSession(cyc * target, true); };
