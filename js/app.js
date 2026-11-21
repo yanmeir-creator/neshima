@@ -343,7 +343,7 @@
         '<h2 class="hero-h"><span>' + esc(L.h1a) + '</span><span class="gold">' + esc(L.h1b) + '</span></h2>' +
         '<p class="hero-sub">' + esc(L.sub) + '</p>' +
         '<p class="gate-src">' + esc(L.src3) + ' <button type="button" class="more" data-jump="l2">' + esc(L.more) + ' <i aria-hidden="true">↓</i></button></p>' +
-        '<div class="hero-act">' + cta(L.cta) + '</div>' + terms +
+        '<div class="hero-act"><button type="button" class="cta" data-jump="l2"><span>' + esc(L.cta) + '</span><i aria-hidden="true">↓</i></button></div>' + terms +
       '</div></div>' +
       '<div class="lsec why-sec" id="l2">' + head(marks[0], L.s2tag, L.s2h) + '<p class="sec-sub rv">' + esc(L.s2sub) + '</p>' +
         '<div class="pillars">' + L.pillars.map(function (P, i) {
@@ -352,7 +352,8 @@
             (P.stat ? '<p class="p-stat"><b>' + esc(P.stat) + '</b><span>' + esc(P.statL) + '</span></p>' : '') +
             '<p class="p-body">' + esc(P.p) + '</p><p class="p-cite">' + esc(P.c) + '</p></article>';
         }).join('') + '</div>' +
-        '<p class="sec-foot rv"><b>' + esc(L.s2foot) + '</b><a href="#/sources">' + esc(L.s2more) + '</a></p></div>' +
+        '<p class="sec-foot rv"><b>' + esc(L.s2foot) + '</b><a href="#/sources">' + esc(L.s2more) + '</a></p>' +
+        '<div class="mid-cta"><button type="button" class="cta" data-jump="l3"><span>' + esc(L.next3) + '</span><i aria-hidden="true">↓</i></button></div></div>' +
       '<div class="lsec chal-sec" id="l3">' + head(marks[1], L.s3tag, L.s3h) + '<p class="sec-sub rv">' + esc(L.s3sub) + '</p>' +
         '<ol class="steps">' + L.steps.map(function (st, i) { return '<li class="rv"><b aria-hidden="true">' + (rtl ? marks[i] : i + 1) + '</b><h3>' + esc(st[0]) + '</h3><p>' + esc(st[1]) + '</p></li>'; }).join('') + '</ol><div class="mid-cta rv">' + cta(L.cta3) + '</div></div>' +
       '<div class="lsec hesed-sec" id="l4">' + head(marks[2], L.s4tag, L.s4h) + '<p class="sec-sub wide rv">' + esc(L.s4p) + '</p>' +
@@ -724,6 +725,7 @@
       var e = (now - t0) / 1000;
       if (e >= ALL) {
         for (var k = 0; k < cells.length; k++) cells[k].classList.add('on');   // the word is whole, even if frames were missed
+        state.firstSeen = true; save();
         sec.classList.remove('running'); sec.classList.add('revealed'); phaseEl.textContent = '';
         document.getElementById('fName').focus({ preventScroll: true }); window.scrollTo(0, 0);
         return;
@@ -1323,7 +1325,7 @@
     enter: function () {
       B.sound.unlock();
       if (OLD_GATES) { gateStep = 0; gateAuto = true; go('/gate'); return; }   // the four gates, kept for comparison
-      go('/first');
+      go(state.challenge ? '/first' : '/challenge');
     },
     gateSound: function () { state.settings.gateSound = !state.settings.gateSound; save(); if (state.settings.gateSound) B.sound.unlock(); render(true); },
     deeper: function () { gateStep = Math.min(gateStep + 1, t().gates.length - 1); render(); },
@@ -1377,6 +1379,8 @@
       if (!state.challenge) state.challenge = { start: dateKey(new Date()), times: ['07:30', '13:00', '21:30'], on: [true, true, true] };
       if (!state.settings.level) state.settings.level = 'ruach';
       chDraft = null; save();
+      // The code is shown once, by one breath, before the person's own breath is measured.
+      if (!state.firstSeen && !state.sessions.some(countable)) { go('/first'); return; }
       go(state.settings.measured && state.sessions.some(countable) ? '/' : state.settings.measured ? '/ready' : '/measure');
     },
     install: function () { if (installEvt) { installEvt.prompt(); installEvt = null; } },

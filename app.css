@@ -275,3 +275,14 @@ html:has(main[data-view="/first"]) .backdrop { display: none; }
   .land .why-sec .sec-foot b { font-size: 1.3rem; }
 }
 @media (min-width: 900px) { .land #l1 .hero-sub, .land .gate-src { max-width: none; } }  /* so that the gate still fits one computer screen */
+/* on a phone the three worlds are a little taller than the screen: their button stays in view */
+.land .why-sec .mid-cta { position: sticky; bottom: .9rem; z-index: 3; margin-top: 1.4rem; }
+@media (max-width: 899px) { .land .why-sec .mid-cta .cta { width: 100%; } }
+/* the first breath on a short phone: everything, the button included, on one screen */
+@media (max-height: 720px) and (max-width: 899px) {
+  #main > section.first { gap: .45rem; padding-block: .5rem .5rem; }
+  #main .first .stage { width: min(100%, 13rem, 24dvh); }
+  #main .fl b { width: 3.2rem; height: 3.2rem; font-size: 1.8rem; }
+  #main .fl { width: 3.6rem; }
+  #main .first .node { margin-top: .4rem; }
+}
