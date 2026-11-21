@@ -345,7 +345,6 @@
         '<p class="kicker2">' + esc(L.kicker) + '</p>' +
         '<h2 class="hero-h"><span>' + esc(L.h1a) + '</span><span class="gold">' + esc(L.h1b) + '</span></h2>' +
         '<p class="hero-sub">' + esc(L.sub) + '</p>' +
-        '<p class="gate-src">' + esc(L.src3) + ' <button type="button" class="more" data-jump="l2">' + esc(L.more) + ' <i aria-hidden="true">↓</i></button></p>' +
         '<div class="hero-act"><button type="button" class="cta" data-jump="l2"><span>' + esc(L.cta) + '</span><i aria-hidden="true">↓</i></button></div>' + terms +
       '</div></div>' +
       '<div class="lsec why-sec" id="l2">' + head(marks[0], L.s2tag, L.s2h) + '<p class="sec-sub rv">' + esc(L.s2sub) + '</p>' +
@@ -355,7 +354,7 @@
             (P.stat ? '<p class="p-stat"><b>' + esc(P.stat) + '</b><span>' + esc(P.statL) + '</span></p>' : '') +
             '<p class="p-body">' + esc(P.p) + '</p><p class="p-cite">' + esc(P.c) + '</p></article>';
         }).join('') + '</div>' +
-        '<p class="sec-foot rv"><b>' + esc(L.s2foot) + '</b><a href="#/sources">' + esc(L.s2more) + '</a></p>' +
+        '<p class="sec-foot rv"><a href="#/sources">' + esc(L.s2more) + '</a></p>' +
         '<div class="mid-cta"><button type="button" class="cta" data-jump="l3"><span>' + esc(L.next3) + '</span><i aria-hidden="true">↓</i></button></div></div>' +
       '<div class="lsec chal-sec" id="l3">' + head(marks[1], L.s3tag, L.s3h) + '<p class="sec-sub rv">' + esc(L.s3sub) + '</p>' +
         '<ol class="steps">' + L.steps.map(function (st, i) { return '<li class="rv"><b aria-hidden="true">' + (rtl ? marks[i] : i + 1) + '</b><h3>' + esc(st[0]) + '</h3><p>' + esc(st[1]) + '</p></li>'; }).join('') + '</ol><div class="mid-cta">' + cta(L.cta3) + '</div></div>' +
