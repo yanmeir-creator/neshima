@@ -161,7 +161,7 @@
   var measFresh = false;   // on the walk in, the measure page asks anew even if a breath was measured before
   function opening() { return !state.challenge || SHOW_OPENING; }
   function renderTop(route) {
-    var s = t(), inSession = route === '/practice' || route === '/moment' || route === '/gate' || route === '/hesed' || route === '/invite' || route === '/measure' || route === '/length' || route === '/challenge' || route === '/ready' || route === '/first' || (route === '/' && opening());
+    var s = t(), inSession = route === '/practice' || route === '/moment' || route === '/gate' || route === '/hesed' || route === '/invite' || route === '/measure' || route === '/length' || route === '/challenge' || route === '/ready' || route === '/first' || route === '/begin' || (route === '/' && opening());
     top.hidden = inSession;
     top.innerHTML =
       '<a class="brand" href="#/" aria-label="NESHIMA — ' + esc(s.home) + '"><span class="brand-he" lang="he" dir="rtl">נשימה</span><span class="brand-en">NESHIMA</span></a>' +
@@ -357,7 +357,7 @@
         '<p class="sec-foot rv"><b>' + esc(L.s2foot) + '</b><a href="#/sources">' + esc(L.s2more) + '</a></p>' +
         '<div class="mid-cta"><button type="button" class="cta" data-jump="l3"><span>' + esc(L.next3) + '</span><i aria-hidden="true">↓</i></button></div></div>' +
       '<div class="lsec chal-sec" id="l3">' + head(marks[1], L.s3tag, L.s3h) + '<p class="sec-sub rv">' + esc(L.s3sub) + '</p>' +
-        '<ol class="steps">' + L.steps.map(function (st, i) { return '<li class="rv"><b aria-hidden="true">' + (rtl ? marks[i] : i + 1) + '</b><h3>' + esc(st[0]) + '</h3><p>' + esc(st[1]) + '</p></li>'; }).join('') + '</ol><div class="mid-cta rv">' + cta(L.cta3) + '</div></div>' +
+        '<ol class="steps">' + L.steps.map(function (st, i) { return '<li class="rv"><b aria-hidden="true">' + (rtl ? marks[i] : i + 1) + '</b><h3>' + esc(st[0]) + '</h3><p>' + esc(st[1]) + '</p></li>'; }).join('') + '</ol><div class="mid-cta">' + cta(L.cta3) + '</div></div>' +
       '<div class="lsec hesed-sec" id="l4">' + head(marks[2], L.s4tag, L.s4h) + '<p class="sec-sub wide rv">' + esc(L.s4p) + '</p>' +
         '<p class="vavline rv" lang="he" dir="rtl" aria-hidden="true"><i>ו</i><i>ו</i><i>ו</i><i>ו</i><i class="me">ו</i></p></div>' +
       '<div class="lsec final" id="l5"><div class="final-wheel" aria-hidden="true">' + wheelSvg('fw', false) + '</div>' +
@@ -1061,18 +1061,22 @@
     for (var i = 0; i < PER_DAY; i++) { g.times.push(document.getElementById('tm' + i).value || ['07:30', '13:00', '21:30'][i]); g.on.push(document.getElementById('on' + i).checked); }
     return g;
   }
+  // Before anything is asked of the person: what is about to happen, in three short steps.
+  views['/begin'] = function () {
+    var s = t(), marks = s.dir === 'rtl' ? ['א', 'ב', 'ג'] : ['1', '2', '3'];
+    return '<section class="beginleaf leaf"><div class="leafhead"><p class="folio">' + esc(s.beginK) + '</p></div>' +
+      '<h1 tabindex="-1">' + esc(s.beginT) + '</h1>' +
+      '<p class="lead">' + esc(s.beginLead) + '</p>' +
+      '<ol class="blist">' + s.beginSteps.map(function (x, i) { return '<li><b aria-hidden="true">' + marks[i] + '</b><span>' + esc(x) + '</span></li>'; }).join('') + '</ol>' +
+      '<a class="node" href="#/challenge">' + esc(s.beginGo) + '</a></section>';
+  };
   views['/challenge'] = function () {
     var s = t(), set = state.settings;
     if (!set.level) { set.level = 'ruach'; save(); }   // the middle length, unless the person chooses otherwise
-    // One page before the measure: the code itself, the length, and one button onward.
-    var labs = [s.actIn, s.actLinger, s.actOut, s.actRest];
     return '<section class="challengeleaf leaf"><div class="leafhead">' + folio(7) + '</div>' +
       '<h1 tabindex="-1">' + esc(s.chalTitle) + '</h1>' +
-      '<p class="lead">' + esc(s.chalBody2) + '</p>' +
-      '<div class="fword codeword" dir="rtl" role="img" aria-label="' + esc(s.firstDoneSr) + '">' + LETTERS.map(function (l, i) { return '<span class="fl on" aria-hidden="true"><b lang="he">' + l[0] + '</b><i>' + l[1] + '</i><em>' + esc(labs[i]) + '</em></span>'; }).join('') + '</div>' +
-      '<h2 class="sect">' + esc(s.chalLen) + '</h2>' + levRows() +
-      '<button type="button" class="node" data-act="startChallenge">' + esc(s.chalGo) + '</button>' +
-      '<nav class="margin links"><button type="button" class="linkish" data-act="tryFirst">' + esc(s.codeTry) + '</button></nav></section>';
+      '<p class="lead">' + esc(s.chalBody2) + '</p>' + levRows() +
+      '<button type="button" class="node" data-act="startChallenge">' + esc(s.chalGo2) + '</button></section>';
   };
   // The length: three stations, one for each name of the soul, measured in hesed (72).
   views['/length'] = function () {
@@ -1335,7 +1339,7 @@
     enter: function () {
       B.sound.unlock();
       if (OLD_GATES) { gateStep = 0; gateAuto = true; go('/gate'); return; }   // the four gates, kept for comparison
-      walk = true; go('/challenge');
+      walk = true; go('/begin');
     },
     gateSound: function () { state.settings.gateSound = !state.settings.gateSound; save(); if (state.settings.gateSound) B.sound.unlock(); render(true); },
     deeper: function () { gateStep = Math.min(gateStep + 1, t().gates.length - 1); render(); },

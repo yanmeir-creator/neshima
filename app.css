@@ -276,8 +276,8 @@ html:has(main[data-view="/first"]) .backdrop { display: none; }
 }
 @media (min-width: 900px) { .land #l1 .hero-sub, .land .gate-src { max-width: none; } }  /* so that the gate still fits one computer screen */
 /* on a phone the three worlds are a little taller than the screen: their button stays in view */
-.land .why-sec .mid-cta { position: sticky; bottom: .9rem; z-index: 3; margin-top: 1.4rem; }
-@media (max-width: 899px) { .land .why-sec .mid-cta .cta { width: 100%; } }
+.land .why-sec .mid-cta, .land .chal-sec .mid-cta { position: sticky; bottom: .9rem; z-index: 3; margin-top: 1.4rem; }
+@media (max-width: 899px) { .land .why-sec .mid-cta .cta, .land .chal-sec .mid-cta .cta { width: 100%; } }
 /* the first breath on a short phone: everything, the button included, on one screen */
 @media (max-height: 720px) and (max-width: 899px) {
   #main > section.first { gap: .45rem; padding-block: .5rem .5rem; }
@@ -294,3 +294,9 @@ html:has(main[data-view="/first"]) .backdrop { display: none; }
 /* ---------- the code on the page where the challenge is set ---------- */
 #main .codeword { justify-content: flex-start; margin: .2rem 0 .3rem; }
 #main .codeword .fl b { box-shadow: none; }
+
+/* ---------- "before the first breath": three short steps ---------- */
+#main .blist { list-style: none; margin: .3rem 0 .2rem; padding: 0; display: grid; gap: 1rem; }
+#main .blist li { display: grid; grid-template-columns: 2.7rem 1fr; gap: .9rem; align-items: start; }
+#main .blist b { width: 2.7rem; height: 2.7rem; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--gold); background: rgba(201, 163, 90, .08); font: 900 1.25rem/1 var(--display); color: var(--bone); }
+#main .blist span { padding-top: .35rem; font: 500 clamp(1.15rem, 1.8vw, 1.4rem)/1.5 var(--display); color: var(--bone); }
