@@ -104,11 +104,10 @@
     // The version before this one, in the founder's first wording: "הסטרס, הלחץ, הוא אבי אבות
     // החולאים." / "הרמב״ם כתב על כך כבר לפני שמונה מאות שנה, והמחקר של היום מאשר." / "לכן יש
     // לנו סוד. פתרון פשוט, שעובד אצלנו כמו קסם." / "ואני רוצה לעשות איתך חסד, ולתת לך אותו במתנה."
-    s1p: ['קצרה? זה הלחץ בגוף.',
-      'הלחץ יורד אל הלב, אל השינה ואל הבטן. וזה מקור גדול לחולאים.',
-      'הרמב״ם כתב על כך כבר לפני שמונה מאות שנה. המחקר של היום מאשר.',
-      'אפשר מדיטציה, אפשר חופשה, אפשר יוגה. אבל זה לא מספיק: החיים שלנו עמוסים ולחוצים.',
-      'יש לנו פתרון, והוא הולך איתך לכל מקום. הוא ניתן לך במתנה, כחסד. ואם החסד הזה יעשה לך טוב, הוא עובר ממך הלאה.'],
+    s1p: ['קצרה? זה הלחץ.',
+      'הוא יורד אל הלב, אל השינה, אל הבטן. מקור גדול לחולאים, כתב הרמב״ם לפני שמונה מאות שנה. המחקר מאשר.',
+      'מדיטציה, חופשה, יוגה: לא מספיק. החיים עמוסים מדי.',
+      'יש לנו פתרון שהולך איתך לכל מקום. מתנה. חסד, שעובר הלאה.'],
     s2tag: 'למה זה עובד', s2h: 'שלושה עדים.', s2sub: 'שלושה עולמות שאינם מכירים זה את זה — אומרים אותו דבר.',
     pillars: [
       { tag: 'הקבלה', h: 'הנשימה מתקנת.', q: 'כִּי עִקַּר תִּקּוּן הַשֵּׂכֶל הוּא עַל־יְדֵי הַנְּשִׁימָה', c: 'רבי נחמן מברסלב · ליקוטי מוהר״ן, תורה ס',
@@ -215,11 +214,10 @@
     cta: 'Uncover the secret', why: 'Want to understand why?',
     terms: ['Fourteen days', 'three times a day', 'no sign-up', 'no cost'],
     s1tag: 'The root', s1h: 'How is your breath right now?',
-    s1p: ['Short? That is stress in the body.',
-      'Stress goes down to the heart, to sleep and to the gut. And that is a great source of illness.',
-      'Maimonides wrote of it eight hundred years ago. The research of today confirms it.',
-      'There is meditation, there is a holiday, there is yoga. But it is not enough: our lives are crowded and pressed.',
-      'We have a solution, and it goes with you everywhere. It is given to you as a gift, as a kindness. And if this kindness does you good, it passes on from you.'],
+    s1p: ['Short? That is stress.',
+      'It goes down to the heart, to sleep, to the gut. A great source of illness, wrote Maimonides eight hundred years ago. The research agrees.',
+      'Meditation, a holiday, yoga: not enough. Life is too crowded.',
+      'We have a solution that goes with you everywhere. A gift. A kindness, to be passed on.'],
     s2tag: 'Why it works', s2h: 'Three witnesses.', s2sub: 'Three worlds that do not know one another say the same thing.',
     pillars: [
       { tag: 'Kabbalah', h: 'The breath repairs.', q: 'כִּי עִקַּר תִּקּוּן הַשֵּׂכֶל הוּא עַל־יְדֵי הַנְּשִׁימָה', c: 'Rabbi Nachman of Breslov · Likutey Moharan, Lesson 60',
@@ -277,6 +275,6 @@
   en.src.splice(1, 0,
     { tag: 'text', ref: 'Maimonides, On the Regimen of Health (1198)', body: 'Maimonides was a court physician in Egypt and wrote the work for the sultan al-Afdal, son of Saladin. It says that care should always be given to the movements of the soul, that they should be kept in balance in health and in illness, and that no other regimen should come before this. Given here in summary, from an academic English translation, not in the original wording.', url: 'https://www.posenlibrary.com/entry/regimen-health' },
     { tag: 'science', ref: 'Psychological Stress and Disease · Cohen, Janicki-Deverts, Miller · JAMA, 2007', body: 'A review in the Journal of the American Medical Association: lasting stress is linked to depression and to cardiovascular disease, and the evidence for other diseases is partial. Stress raises the risk; it does not guarantee illness. So stress is tied to many ailments, not to all of them.', url: 'https://doi.org/10.1001/jama.298.14.1685' });
-  he.src.splice(3, 0, { tag: 'science', ref: 'לחץ מתמשך והגוף · Mayo Clinic', body: 'לחץ מתמשך משאיר את הורמוני הלחץ פעילים זמן רב מדי. לפי Mayo Clinic זה עלול להביא לשינה גרועה, לבעיות עיכול ולמחלות לב, ובזמן לחץ הנשימה נעשית מהירה וקצרה. על זה נשען המשפט ״הלחץ יורד אל הלב, אל השינה ואל הבטן״ שבעמוד הפתיחה.', url: 'https://www.mayoclinic.org/healthy-lifestyle/stress-management/in-depth/stress/art-20046037' });
-  en.src.splice(3, 0, { tag: 'science', ref: 'Lasting stress and the body · Mayo Clinic', body: 'Lasting stress keeps the stress hormones active for too long. According to Mayo Clinic this can lead to poor sleep, digestive problems and heart disease, and under stress the breath becomes fast and short. This is what the line "to the heart, to sleep and to the gut" on the opening rests on.', url: 'https://www.mayoclinic.org/healthy-lifestyle/stress-management/in-depth/stress/art-20046037' });
+  he.src.splice(3, 0, { tag: 'science', ref: 'לחץ מתמשך והגוף · Mayo Clinic', body: 'לחץ מתמשך משאיר את הורמוני הלחץ פעילים זמן רב מדי. לפי Mayo Clinic זה עלול להביא לשינה גרועה, לבעיות עיכול ולמחלות לב, ובזמן לחץ הנשימה נעשית מהירה וקצרה. על זה נשען המשפט ״הוא יורד אל הלב, אל השינה, אל הבטן״ שבעמוד הפתיחה.', url: 'https://www.mayoclinic.org/healthy-lifestyle/stress-management/in-depth/stress/art-20046037' });
+  en.src.splice(3, 0, { tag: 'science', ref: 'Lasting stress and the body · Mayo Clinic', body: 'Lasting stress keeps the stress hormones active for too long. According to Mayo Clinic this can lead to poor sleep, digestive problems and heart disease, and under stress the breath becomes fast and short. This is what the line "to the heart, to sleep, to the gut" on the opening rests on.', url: 'https://www.mayoclinic.org/healthy-lifestyle/stress-management/in-depth/stress/art-20046037' });
 })();
