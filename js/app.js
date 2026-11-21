@@ -705,6 +705,7 @@
       if (!alive) return;
       var e = (now - t0) / 1000;
       if (e >= ALL) {
+        for (var k = 0; k < cells.length; k++) cells[k].classList.add('on');   // the word is whole, even if frames were missed
         sec.classList.remove('running'); sec.classList.add('revealed'); phaseEl.textContent = '';
         document.getElementById('fName').focus({ preventScroll: true }); window.scrollTo(0, 0);
         return;
@@ -713,7 +714,8 @@
       while (i < 3 && e >= acc + P[i][1] * U) { acc += P[i][1] * U; i++; }
       var p = (e - acc) / (P[i][1] * U);
       if (i !== cur) {
-        cur = i; phaseEl.textContent = P[i][2]; big.textContent = LETTERS[i][0]; cells[i].classList.add('on');
+        cur = i; phaseEl.textContent = P[i][2]; big.textContent = LETTERS[i][0];
+        for (var j = 0; j <= i; j++) cells[j].classList.add('on');   // every letter up to this one: a hidden tab or a slow phone can skip a part
         if (state.settings.cue) B.sound.cue(P[i][0], P[i][1] * U);
       }
       paint(i === 0 ? ease(p) : i === 1 ? 1 : i === 2 ? 1 - ease(p) : 0);
