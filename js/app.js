@@ -329,7 +329,7 @@
         '<h1 class="hero-h" tabindex="-1"><span>' + esc(L.h1a) + '</span><span class="gold">' + esc(L.h1b) + '</span></h1>' +
         '<p class="hero-sub">' + esc(L.sub) + '</p>' +
         '<div class="hero-act">' + cta(L.cta) + '<button type="button" class="why" data-jump="l1">' + esc(L.why) + ' <i aria-hidden="true">↓</i></button></div>' + terms +
-        '<button type="button" class="sos-link" data-act="sos"><span>' + esc(s.sosLand) + '</span> <i aria-hidden="true">' + (rtl ? '←' : '→') + '</i></button>' +
+        '<button type="button" class="sos-link" data-act="sos"><span>' + esc(s.sosLand(sosLen())) + '</span> <i aria-hidden="true">' + (rtl ? '←' : '→') + '</i></button>' +
       '</div></div>' +
       '<div class="lsec about" id="l1">' + head(marks[0], L.s1tag, L.s1h) + '<div class="about-p">' + L.s1p.map(function (p) { return '<p class="rv">' + esc(p) + '</p>'; }).join('') + '</div></div>' +
       '<div class="lsec why-sec" id="l2">' + head(marks[1], L.s2tag, L.s2h) + '<p class="sec-sub rv">' + esc(L.s2sub) + '</p>' +
@@ -589,7 +589,7 @@
       boardHtml(st.counts, todayIdx, s.sealLabel(st.total, day)) +
       (day >= DAYS ? '<a class="card-cta" href="#/reflect"><strong>' + esc(s.doneTitle) + '</strong><span>' + esc(s.doneCta) + '</span></a>' : '') +
       '<button type="button" class="node" data-act="breathe">' + esc(s.homeGo) + '</button>' +
-      '<button type="button" class="sosrow" data-act="sos"><b>' + esc(s.sosBtn) + '</b><span>' + esc(s.sosSub) + '</span></button>' +
+      '<button type="button" class="sosrow" data-act="sos"><b>' + esc(s.sosBtn) + '</b><span>' + esc(s.sosRow(sosLen())) + '</span></button>' +
       (day >= 3 && !state.vavs ? '<div class="turn"><h2>' + esc(s.turnT) + '</h2><p>' + esc(s.turnBody) + '</p>' +
         '<div class="actions"><a class="btn primary" data-wa href="' + esc(waUrl()) + '" target="_blank" rel="noopener">' + esc(s.waBtn) + '</a><a class="btn" href="#/share">' + esc(s.moreWays) + '</a></div></div>' : '') +
       '<div class="manage"><h2 class="sect">' + esc(s.manT) + '</h2>' +
@@ -605,11 +605,12 @@
   // Hesed is 72 in gematria. A whisper lasts three, five or ten times 72 seconds, and the three
   // lengths carry the three names of the soul, each of which also means breath.
   var LEVELS = { nefesh: 216, ruach: 360, neshama: 720 };
-  var HESED = 72;   // a hard moment lasts one hesed
+  var SOS_LEVEL = 'nefesh';   // a hard moment is the small session; 'ruach' would make it the middle one
+  function sosLen() { return mmss(LEVELS[SOS_LEVEL]); }
   // The length is kept exact: the count of breaths is rounded, and the pace is then adjusted by
   // a few percent so that whole breaths fill the time precisely.
   function plan(rhythm, unit, level) {
-    var per = B.cycleSeconds(B.phasesFor(rhythm, 1)), S = typeof level === 'number' ? level : LEVELS[level];
+    var per = B.cycleSeconds(B.phasesFor(rhythm, 1)), S = LEVELS[level];
     if (!S || !per) return null;
     var n = Math.max(1, Math.round(S / (per * unit)));
     return { breaths: n, unit: S / (per * n), seconds: S };
@@ -737,8 +738,8 @@
   function practiceView(kind) {
     var s = t(), moment = kind === 'moment';
     return '<section class="practice' + (moment ? ' is-moment' : '') + '" id="practice">' +
-      (moment ? '<p class="folio sosk">' + esc(s.sosSub) + '</p><p class="moment-lead">' + esc(s.momentLead) + '</p>' : '') +
-      (!moment && state.settings.sound === 'guide' ? '<p class="listen"><svg viewBox="0 0 24 26" aria-hidden="true"><path d="M2 16 V12 a10 10 0 0 1 20 0 V16"/><rect x="0.8" y="15" width="5" height="9" rx="2"/><rect x="18.2" y="15" width="5" height="9" rx="2"/></svg>' + esc(s.listenHint) + '</p>' : '') +
+      (moment ? '<p class="folio sosk">' + esc(s.sosSub(sosLen())) + '</p><p class="moment-lead">' + esc(s.momentLead) + '</p>' : '') +
+      (state.settings.sound === 'guide' ? '<p class="listen"><svg viewBox="0 0 24 26" aria-hidden="true"><path d="M2 16 V12 a10 10 0 0 1 20 0 V16"/><rect x="0.8" y="15" width="5" height="9" rx="2"/><rect x="18.2" y="15" width="5" height="9" rx="2"/></svg>' + esc(s.listenHint) + '</p>' : '') +
       '<div class="stage" id="stage" aria-hidden="true" lang="he"><div class="stage-rings">' + ringsSvg('') + '</div>' +
         '<svg class="sessring" viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="48.5"/><circle class="done" id="sessProg" cx="50" cy="50" r="48.5" pathLength="100" stroke-dasharray="0 100"/></svg>' +
         '<div class="ember" id="ember"></div><span class="big ghost" id="bigGhost"></span><span class="big fill" id="bigFill"></span></div>' +
@@ -762,9 +763,9 @@
 
   function startSession(kind) {
     var s = t(), set = state.settings, moment = kind === 'moment';
-    // A hard moment is one hesed (72 seconds) of the same breath, at the person's own pace. It
-    // starts at once: nothing is rendered ahead, so there is nothing to wait for.
-    var pl = moment ? plan('hadva', set.unit, HESED) : (!pendingBreaths ? plan(set.rhythm, set.unit, set.level) : null);
+    // A hard moment is the small session of the same breath, at the person's own pace, with the
+    // same guiding sound. It skips every page before it: one touch, and it begins.
+    var pl = moment ? plan('hadva', set.unit, SOS_LEVEL) : (!pendingBreaths ? plan(set.rhythm, set.unit, set.level) : null);
     var phases = B.phasesFor(moment ? 'hadva' : set.rhythm, pl ? pl.unit : set.unit);
     var target = moment ? pl.breaths : (pendingBreaths || (pl ? pl.breaths : set.breaths)), breath = 0;
     var labels = { in: s.pIn, linger: s.pLinger, out: s.pOut, rest: s.pRest };
@@ -776,7 +777,7 @@
     var reduced = reducedMotion(), lastCount = '', lastLeft = '';
     muted = false;
     // Listening mode: the session follows a rendered track, so it carries on with the screen off.
-    var guide = set.sound === 'guide' && phases.length > 0 && !moment, gAudio = null, cyc = B.cycleSeconds(phases);
+    var guide = set.sound === 'guide' && phases.length > 0, gAudio = null, cyc = B.cycleSeconds(phases);
     var cdEl = document.getElementById('cdown'), lastRem = '';
     var ember = document.getElementById('ember'), sessProg = document.getElementById('sessProg'), syncAt = null, syncBase = 0;
     root.dataset.rhythm = phases.length ? 'paced' : 'own';
@@ -903,8 +904,8 @@
     var s = t(), d = lastDone;
     if (!d) { setTimeout(function () { go('/'); }, 0); return ''; }
     if (d.kind === 'moment') {
-      return '<section class="after leaf sosdone"><div class="leafhead"><p class="folio">' + esc(s.sosSub) + '</p></div>' +
-        '<h1 tabindex="-1">' + esc(s.momentAfter) + '</h1><p class="lead">' + esc(d.natural ? s.sosAfterLead : s.sosAfterShort) + '</p>' +
+      return '<section class="after leaf sosdone"><div class="leafhead"><p class="folio">' + esc(s.sosSub(sosLen())) + '</p></div>' +
+        '<h1 tabindex="-1">' + esc(s.momentAfter) + '</h1><p class="lead">' + esc(d.natural ? s.sosAfterLead(sosLen()) : s.sosAfterShort) + '</p>' +
         (state.challenge ? '<a class="node" href="#/">' + esc(s.sosHome) + '</a>'
           : '<p class="line">' + esc(s.sosPitch) + '</p><a class="node" href="#/">' + esc(s.sosPitchGo) + '</a>') +
         '<nav class="margin links"><button type="button" class="linkish" data-act="sos">' + esc(s.sosAgain) + '</button></nav>' +
@@ -1315,7 +1316,7 @@
     },
     gateSound: function () { state.settings.gateSound = !state.settings.gateSound; save(); if (state.settings.gateSound) B.sound.unlock(); render(true); },
     deeper: function () { gateStep = Math.min(gateStep + 1, t().gates.length - 1); render(); },
-    sos: function () { B.sound.unlock(); go('/moment'); },   // the tap itself wakes the sound
+    sos: function () { B.sound.unlock(); B.sound.prime(); go('/moment'); },   // the tap itself wakes the sound
     skipGate: function () { if (OLD_GATES) { gateStep = t().gates.length - 1; go('/gate'); return; } go('/challenge'); },
     spell: function () {
       // First the person's own breath is measured and a length chosen; then the whisper.
@@ -1438,6 +1439,9 @@
   });
   document.addEventListener('visibilitychange', function () {
     if (!session) return;
+    // A session led by the rendered track carries on while the screen is dark: the sound is the
+    // clock, and the picture catches up with it when the screen comes back.
+    if (session.audio) { if (!document.hidden) B.keepAwake(true); return; }
     if (document.hidden) { if (session.engine.isRunning() && session.kind !== 'moment') acts.pause(); else if (session.kind === 'moment') session.engine.pause(); }
     else { B.keepAwake(true); if (session.kind === 'moment') session.engine.resume(); }
   });
