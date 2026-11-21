@@ -155,6 +155,10 @@
   // Whoever has begun the fourteen days lands on the board. The address ?open shows the opening
   // page all the same, so that it can still be looked at.
   var SHOW_OPENING = /[?&]open\b/.test(location.search);
+  // True from the moment someone enters from the opening until their session starts or they
+  // reach the board: while it is true no step of the first path is skipped.
+  var walk = false;
+  var measFresh = false;   // on the walk in, the measure page asks anew even if a breath was measured before
   function opening() { return !state.challenge || SHOW_OPENING; }
   function renderTop(route) {
     var s = t(), inSession = route === '/practice' || route === '/moment' || route === '/gate' || route === '/hesed' || route === '/invite' || route === '/measure' || route === '/length' || route === '/challenge' || route === '/ready' || route === '/first' || (route === '/' && opening());
@@ -172,10 +176,8 @@
   function footLinks() {
     var s = t();
     return '<nav class="foot" aria-label="' + esc(s.home) + '">' +
-      (state.challenge ? '<a href="./?open">' + esc(s.land.openLink) + '</a>' : '') +
-      '<button type="button" class="linkish" data-act="enter">' + esc(s.pathLink) + '</button>' +
+      (state.challenge ? '<a href="./?open">' + esc(s.land.openLink) + '</a>' : '<button type="button" class="linkish" data-act="enter">' + esc(s.pathLink) + '</button>') +
       '<a href="#/sources">' + esc(s.sourcesLink) + '</a>' +
-      '<a href="#/share">' + esc(s.shareLink) + '</a>' +
       '<a href="#/settings">' + esc(s.settingsLink) + '</a></nav>';
   }
   function startHref() { return state.sessions.some(countable) ? null : '#/intro'; } // first time goes through the safety note
@@ -1015,8 +1017,9 @@
       '<h1 tabindex="-1">' + esc(s.measT) + '</h1>' +
       '<p class="lead">' + esc(s.measBody) + '</p>' + chan() +
       '<button type="button" class="sealbtn meas" id="measBtn" aria-label="' + esc(s.measTap) + '">' + gateNode('m', '') + '</button>' +
-      '<p class="gate-hint" id="measOut" aria-live="polite">' + esc(set.measured ? s.measRes(set.measured.toFixed(1), (23 * set.unit).toFixed(1)) : s.measTap) + '</p>' +
-      (set.measured ? '<a class="node" href="' + (state.sessions.some(countable) ? '#/' : '#/ready') + '">' + esc(s.next) + '</a>' : '') + '</section>';
+      '<p class="gate-hint" id="measOut" aria-live="polite">' + esc(set.measured && !measFresh ? s.measRes(set.measured.toFixed(1), (23 * set.unit).toFixed(1)) : s.measTap) + '</p>' +
+      (set.measured && !measFresh ? '<a class="node" href="' + (state.sessions.some(countable) && !walk ? '#/' : '#/ready') + '">' + esc(s.next) + '</a>' : '') +
+      (measFresh ? '<nav class="margin links"><a href="#/ready">' + esc(s.measKeep(set.measured.toFixed(1))) + '</a></nav>' : '') + '</section>';
   };
   function startMeasure() {
     var s = t(), btn = document.getElementById('measBtn'), out = document.getElementById('measOut');
@@ -1034,13 +1037,14 @@
       var set = state.settings;
       set.unit = Math.round(Math.max(0.35, Math.min(0.8, sec / 8)) * 1000) / 1000; set.measured = Math.round(sec * 10) / 10;
       if (!set.level) set.level = 'ruach';
+      measFresh = false;
       save(); render(true);
     }
     btn.addEventListener('click', function () {
       if (t0) { stop(); return; }
       t0 = performance.now(); btn.classList.add('holding'); num.classList.remove('word'); out.textContent = s.measRun; raf = requestAnimationFrame(tick);
     });
-    if (state.settings.measured) draw(state.settings.measured); else { num.textContent = s.measIn; num.classList.add('word'); }
+    if (state.settings.measured && !measFresh) draw(state.settings.measured); else { num.textContent = s.measIn; num.classList.add('word'); }
     gateCtl = { stop: function () { alive = false; cancelAnimationFrame(raf); } };
   }
   function levRows() {
@@ -1287,6 +1291,8 @@
     main.dataset.view = r;
     var bd = document.getElementById('backdrop'); if (bd && !bd.firstChild) bd.innerHTML = wheelSvg('bd', true);
     if (r !== '/leaf') leafDay = -1;
+    if (r === '/') walk = false;
+    if (r !== '/measure') measFresh = false;
     if (gateCtl) { gateCtl.stop(); gateCtl = null; }
     // How much candlelight falls on the page: dim at the threshold, raised by the hand inside a gate.
     var onDoor = r === '/' && !state.challenge && !state.sessions.some(countable);
@@ -1325,7 +1331,7 @@
     enter: function () {
       B.sound.unlock();
       if (OLD_GATES) { gateStep = 0; gateAuto = true; go('/gate'); return; }   // the four gates, kept for comparison
-      go(state.challenge ? '/first' : '/challenge');
+      walk = true; go('/challenge');
     },
     gateSound: function () { state.settings.gateSound = !state.settings.gateSound; save(); if (state.settings.gateSound) B.sound.unlock(); render(true); },
     deeper: function () { gateStep = Math.min(gateStep + 1, t().gates.length - 1); render(); },
@@ -1334,7 +1340,8 @@
     spell: function () {
       // First the person's own breath is measured and a length chosen; then the whisper.
       if (!state.challenge) { go('/challenge'); return; }
-      go(state.settings.measured ? '/ready' : '/measure');
+      measFresh = walk && !!state.settings.measured;
+      go(walk || !state.settings.measured ? '/measure' : '/ready');
     },
     breathe: function () {
       if (!state.settings.measured) { go('/measure'); return; }           // the breath is measured before the first time
@@ -1344,7 +1351,7 @@
     breatheLong: function () { beginNow(21); },
     quicker: function () { stepUnit(-1); },
     slower: function () { stepUnit(1); },
-    begin: function () { B.sound.prime(); pendingKind = 'full'; go('/practice'); },
+    begin: function () { walk = false; B.sound.prime(); pendingKind = 'full'; go('/practice'); },
     pause: function () {
       if (!session) return; var s = t(), btn = document.getElementById('pauseBtn'), root = document.getElementById('practice');
       if (session.engine.isRunning()) {
@@ -1380,7 +1387,7 @@
       if (!state.settings.level) state.settings.level = 'ruach';
       chDraft = null; save();
       // The code is shown once, by one breath, before the person's own breath is measured.
-      if (!state.firstSeen && !state.sessions.some(countable)) { go('/first'); return; }
+      if (walk || (!state.firstSeen && !state.sessions.some(countable))) { go('/first'); return; }
       go(state.settings.measured && state.sessions.some(countable) ? '/' : state.settings.measured ? '/ready' : '/measure');
     },
     install: function () { if (installEvt) { installEvt.prompt(); installEvt = null; } },
